@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cs496_week4">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cs496_week4">
         <activity
-            android:name=".MainActivity"
+            android:name=".Main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CheckSchedule.CheckScheduleActivity" />
+        <activity android:name=".CheckTimeTable.CheckTimeTableActivity" />
+        <activity android:name=".NewTimeTable.NewTimeTableActivity" />
+        <activity android:name=".NewMeetingPlace.NewMeetingPlaceActivity" />
+        <activity android:name=".NewSchedule.NewScheduleActivity" />
     </application>
 
 </manifest>
