@@ -24,6 +24,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
+        getSupportActionBar().setTitle("Check Schedule");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

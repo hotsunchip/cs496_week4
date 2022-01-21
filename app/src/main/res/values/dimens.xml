@@ -14,6 +14,7 @@
     <dimen name="textMidSize">16dp</dimen>
     <dimen name="textMidSmallSize">14dp</dimen>
     <dimen name="textSmallSize">12dp</dimen>
+    <dimen name="textSmallTinySize">10dp</dimen>
     <dimen name="textTinySize">8dp</dimen>
     <dimen name="cardCornerRadius">16dp</dimen>
     <dimen name="cardElevation">12dp</dimen>
