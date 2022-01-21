@@ -1,26 +1,23 @@
-package com.example.cs496_week4.CheckSchedule;
+package com.example.cs496_week4.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.R;
 
-public class CheckScheduleActivity extends AppCompatActivity {
+public class CodeActivity extends AppCompatActivity {
     // fields
-    boolean onEditMode = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkschedule);
+        setContentView(R.layout.activity_checktimetable);
 
 
         Intent intent = getIntent();
@@ -28,7 +25,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-        getSupportActionBar().setTitle("Check Schedule");
+        getSupportActionBar().setTitle("Check Time Table");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -38,24 +35,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 break;
-            case R.id.menu_edit:
-                if (onEditMode) {
-                    item.setIcon(R.drawable.ic_edit_24);
-                    onEditMode = false;
-                } else {
-                    item.setIcon(R.drawable.ic_check_24);
-                    onEditMode = true;
-                }
-                break;
         }
         return true;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu) ;
-
-        return true ;
-    }
-
 }
