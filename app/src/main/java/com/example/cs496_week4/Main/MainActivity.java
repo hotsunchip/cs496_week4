@@ -4,6 +4,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,17 +23,20 @@ import com.example.cs496_week4.NewSchedule.NewScheduleActivity;
 import com.example.cs496_week4.NewTimeTable.NewTimeTableActivity;
 import com.example.cs496_week4.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+    public static MainActivity mContext;
     private static FloatingActionButton mainFab;
     private static FloatingActionButton newScheduleFab;
     private static FloatingActionButton newGroupScheduleFab;
     private static FloatingActionButton newTimeTableFab;
-    private static LinearLayout mainFabLayout;
     private static LinearLayout newScheduleFabLayout;
     private static LinearLayout newGroupScheduleFabLayout;
     private static LinearLayout newTimeTableFabLayout;
-    ImageButton profileBtn;
+
+    private static TabLayout tabLayout;
+    private static ImageButton profileBtn;
 
     private static Animation rotateOpen;
     private static Animation rotateClose;
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
 
         // fields
         //    public String serverAddress = "192.0.0.0";
@@ -54,7 +61,36 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(tb);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
+        // tab
+        tabLayout = findViewById(R.id.tab_layout);
+        Fragment1WeekCalender frag1 = new Fragment1WeekCalender();
+        Fragment2Map frag2 = new Fragment2Map();
+        tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
+        tabLayout.addTab(tabLayout.newTab().setText("공간"));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition())
+                {
+                    case 0 :
+                        replaceFragment(frag1);
+                        break;
+                    case 1 :
+                        replaceFragment(frag2);
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+        tabLayout.getTabAt(0).select();
 
+
+        // fab
         mainFab = findViewById(R.id.mainFab);
         mainFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +161,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); */
 
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame_layout, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     private void onFabClicked() {
