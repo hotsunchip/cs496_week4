@@ -24,6 +24,7 @@ public class CheckTimeTableActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
+        getSupportActionBar().setTitle("Check Time Table");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

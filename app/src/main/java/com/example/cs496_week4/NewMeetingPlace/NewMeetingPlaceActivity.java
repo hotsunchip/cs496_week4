@@ -24,6 +24,7 @@ public class NewMeetingPlaceActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
+        getSupportActionBar().setTitle("Where To Meet");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -3,12 +3,17 @@ package com.example.cs496_week4.Main;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.cs496_week4.NewMeetingPlace.NewMeetingPlaceActivity;
 import com.example.cs496_week4.NewSchedule.NewScheduleActivity;
@@ -19,8 +24,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
     private static FloatingActionButton mainFab;
     private static FloatingActionButton newScheduleFab;
+    private static FloatingActionButton newGroupScheduleFab;
     private static FloatingActionButton newTimeTableFab;
-    private static FloatingActionButton newMeetingPlaceFab;
+    private static LinearLayout mainFabLayout;
+    private static LinearLayout newScheduleFabLayout;
+    private static LinearLayout newGroupScheduleFabLayout;
+    private static LinearLayout newTimeTableFabLayout;
+    ImageButton profileBtn;
 
     private static Animation rotateOpen;
     private static Animation rotateClose;
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         // variables for fab
         newScheduleFab = findViewById(R.id.newScheduleFab);
+        newScheduleFabLayout = findViewById(R.id.newScheduleFabLayout);
         newScheduleFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,16 +74,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        newTimeTableFab = findViewById(R.id.newTimeTableFab);
-        newTimeTableFab.setOnClickListener(new View.OnClickListener() {
+        newGroupScheduleFab = findViewById(R.id.newGroupScheduleFab);
+        newGroupScheduleFabLayout = findViewById(R.id.newGroupScheduleFabLayout);
+        newGroupScheduleFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewTimeTableActivity.class);
                 startActivity(intent);
             }
         });
-        newMeetingPlaceFab = findViewById(R.id.newMeetingPlaceFab);
-        newMeetingPlaceFab.setOnClickListener(new View.OnClickListener() {
+        newTimeTableFab = findViewById(R.id.newTimeTableFab);
+        newTimeTableFabLayout = findViewById(R.id.newTimeTableFabLayout);
+        newTimeTableFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewMeetingPlaceActivity.class);
@@ -84,6 +97,20 @@ public class MainActivity extends AppCompatActivity {
         rotateClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_close_menu_anim);
         fromBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
+
+
+        // drawer
+        profileBtn = findViewById(R.id.main_profile) ;
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("helloworld", "");
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mainDrawer) ;
+                if (!drawer.isDrawerOpen(Gravity.RIGHT)) {
+                    drawer.openDrawer(Gravity.RIGHT);
+                }
+            }
+        });
 
         // test for socket
         /* dataInput = findViewById(R.id.dataInput);
@@ -97,29 +124,30 @@ public class MainActivity extends AppCompatActivity {
                 thread.start();
             }
         }); */
+
     }
 
     private void onFabClicked() {
         if (mClicked) {
             // set visibility
-            newScheduleFab.setVisibility(View.VISIBLE);
-            newTimeTableFab.setVisibility(View.VISIBLE);
-            newMeetingPlaceFab.setVisibility(View.VISIBLE);
+            newScheduleFabLayout.setVisibility(View.VISIBLE);
+            newGroupScheduleFabLayout.setVisibility(View.VISIBLE);
+            newTimeTableFabLayout.setVisibility(View.VISIBLE);
             // set animation
-            newScheduleFab.startAnimation(fromBottom);
-            newTimeTableFab.startAnimation(fromBottom);
-            newMeetingPlaceFab.startAnimation(fromBottom);
+            newScheduleFabLayout.startAnimation(fromBottom);
+            newGroupScheduleFabLayout.startAnimation(fromBottom);
+            newTimeTableFabLayout.startAnimation(fromBottom);
             mainFab.startAnimation(rotateOpen);
 
         } else {
             // set visibility
-            newScheduleFab.setVisibility(View.INVISIBLE);
-            newTimeTableFab.setVisibility(View.INVISIBLE);
-            newMeetingPlaceFab.setVisibility(View.INVISIBLE);
+            newScheduleFabLayout.setVisibility(View.GONE);
+            newGroupScheduleFabLayout.setVisibility(View.GONE);
+            newTimeTableFabLayout.setVisibility(View.GONE);
             // set animation
-            newScheduleFab.startAnimation(toBottom);
-            newTimeTableFab.startAnimation(toBottom);
-            newMeetingPlaceFab.startAnimation(toBottom);
+            newScheduleFabLayout.startAnimation(toBottom);
+            newGroupScheduleFabLayout.startAnimation(toBottom);
+            newTimeTableFabLayout.startAnimation(toBottom);
             mainFab.startAnimation(rotateClose);
 
         }

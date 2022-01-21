@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".Main.MainActivity">
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/mainDrawer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="right"
+        >
+
+        <!-- main content -->
+
+        <!-- navigation drawer-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/mainNavRoot"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/drawer">
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <!--socket server connection test-->
 <!--    <LinearLayout-->
@@ -64,7 +91,21 @@
                 android:layout_height="?attr/actionBarSize"
                 android:title="app"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <ImageButton
+                    android:id="@+id/main_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:title="profile"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_person_24"
+                    android:background="@color/transparent"
+                    android:layout_gravity="end"
+                    android:focusable="true" />
+
+            </androidx.appcompat.widget.Toolbar>
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -84,72 +125,183 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+        </androidx.viewpager.widget.ViewPager>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- tab -->
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+<!--        app:tabIndicator="@color/transparent">-->
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:clickable="false"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시간"/>
+
+        <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:clickable="false"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:clickable="false"/>
+        <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:clickable="false"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공간" />
+
+        <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:clickable="false"/>
+    </com.google.android.material.tabs.TabLayout>
+
     <!--fab-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newScheduleFab"
+    <LinearLayout
+        android:id="@+id/newScheduleFabLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:orientation="vertical"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:src="@android:drawable/ic_menu_my_calendar"
-        app:backgroundTint="@color/beige_500"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/mainFab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/off_white"
-        android:contentDescription="newSchedule" />
+        app:layout_constraintEnd_toStartOf="@id/mainFab"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="개인 일정 추가"
+            android:textSize="@dimen/textSmallTinySize"
+            android:layout_marginBottom="@dimen/fragment_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
+            app:layout_constraintStart_toStartOf="@id/newScheduleFab"
+            app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newScheduleFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            app:elevation="0dp"
+            app:backgroundTint="@color/beige_500"
+            app:tint="@color/off_white"
+            android:contentDescription="newSchedule" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newTimeTableFab"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/newGroupScheduleFabLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:src="@android:drawable/ic_menu_today"
-        app:backgroundTint="@color/beige_500"
-        app:layout_constraintBottom_toTopOf="@+id/newScheduleFab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/off_white"
-        android:contentDescription="newTimeTable" />
+        android:orientation="vertical"
+        android:layout_marginBottom="28dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/mainFab"
+        app:layout_constraintEnd_toEndOf="@+id/mainFab"
+        app:layout_constraintStart_toStartOf="@+id/mainFab"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="그룹 일정 추가"
+            android:textSize="@dimen/textSmallTinySize"
+            android:layout_marginBottom="@dimen/fragment_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
+            app:layout_constraintStart_toStartOf="@id/newScheduleFab"
+            app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newGroupScheduleFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@android:drawable/ic_menu_today"
+            app:elevation="0dp"
+            app:backgroundTint="@color/beige_500"
+            app:tint="@color/off_white"
+            android:contentDescription="newSchedule" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newMeetingPlaceFab"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/newTimeTableFabLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:src="@android:drawable/ic_menu_mapmode"
-        app:backgroundTint="@color/beige_500"
-        app:layout_constraintBottom_toTopOf="@+id/newTimeTableFab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/off_white"
-        android:contentDescription="newMeetingPlace" />
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/mainFab"
+        app:layout_constraintStart_toEndOf="@id/mainFab"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="새 웬투밋 생성"
+            android:textSize="@dimen/textSmallTinySize"
+            android:layout_marginBottom="@dimen/fragment_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
+            app:layout_constraintStart_toStartOf="@id/newScheduleFab"
+            app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newTimeTableFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            app:elevation="0dp"
+            app:backgroundTint="@color/beige_500"
+            app:tint="@color/off_white"
+            android:contentDescription="newSchedule" />
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mainFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/fab_margin"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/blue_500"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/off_white"
         android:contentDescription="menu" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
