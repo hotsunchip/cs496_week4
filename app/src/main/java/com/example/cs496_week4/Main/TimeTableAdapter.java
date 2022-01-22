@@ -58,7 +58,6 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
     public void onBindViewHolder(TimeTableAdapter.ViewHolder holder, int position) {
         holder.getLinearLayout().setLayoutParams(mData.get(position).getLayoutParams());
         holder.getLinearLayout().setBackgroundColor(Color.RED);
-        if(position > 0) return;
 
         int num_block = mData.get(position).getChildCount();
         for (int i = 0; i < num_block; ++i) {

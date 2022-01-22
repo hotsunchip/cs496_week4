@@ -64,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         Fragment1WeekCalender frag1 = new Fragment1WeekCalender();
         Fragment2Map frag2 = new Fragment2Map();
+        Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable();
         tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
         tabLayout.addTab(tabLayout.newTab().setText("공간"));
+        tabLayout.addTab(tabLayout.newTab().setText("임시"));
         replaceFragment(frag1);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -79,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                     case 1 :
                         if (mClicked) closeFab();
                         replaceFragment(frag2);
+                        break;
+                    case 2 :
+                        if (mClicked) closeFab();
+                        replaceFragment(frag3);
                         break;
                 }
             }
