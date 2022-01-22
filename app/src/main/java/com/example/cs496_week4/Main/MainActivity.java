@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 closeFab();
                 Intent intent = new Intent(MainActivity.this, NewScheduleActivity.class);
+                intent.putExtra("isGroup", false);
                 startActivity(intent);
             }
         });

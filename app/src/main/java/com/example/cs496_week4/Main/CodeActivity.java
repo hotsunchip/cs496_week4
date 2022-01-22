@@ -47,6 +47,7 @@ public class CodeActivity extends AppCompatActivity {
                     intent = new Intent(CodeActivity.this, NewTimeTableActivity.class);
                 } else {
                     intent = new Intent(CodeActivity.this, NewScheduleActivity.class);
+                    intent.putExtra("isGroup", true);
                 }
                 startActivity(intent);
                 finish();

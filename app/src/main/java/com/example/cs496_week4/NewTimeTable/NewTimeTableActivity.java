@@ -25,7 +25,7 @@ public class NewTimeTableActivity extends AppCompatActivity {
 
     // fields
     public ArrayList<Fragment> fragments;
-    public static int fragPos = 0;
+    public static int fragPos;
     private Button btn_ntt_prev;
     private Button btn_ntt_next;
     private FragmentManager fragmentManager;
@@ -48,6 +48,7 @@ public class NewTimeTableActivity extends AppCompatActivity {
         }
 
         // set fragments for ntt
+        fragPos = 0;
         initializeFragment();
 
         // set prev & next btn

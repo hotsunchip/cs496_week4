@@ -22,13 +22,11 @@ import java.util.ArrayList;
 public class Fragment3TempTimeTable extends Fragment {
     // fields
     private RecyclerView time_table;
-    private Button scroll_left;
-    private Button scroll_right;
     private int height = -1;
     private int width = -1;
-    private int num_day = 4;
+    private int num_day = 7;
     private int time_start = 0;
-    private int time_end = 24;
+    private int time_end = 20;
     private boolean[][] time_table_state = new boolean[48][100];
     private int num_block = (time_end - time_start)*2; // if (time_end < time_start) time_end += 24
     private int block_height = 40;
@@ -62,9 +60,9 @@ public class Fragment3TempTimeTable extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_3, container, false);
-        time_table = view.findViewById(R.id.time_table);
-        scroll_left = view.findViewById(R.id.scroll_left);
-        scroll_right = view.findViewById(R.id.scroll_right);
+        time_table = view.findViewById(R.id.recycler_view_table);
+//        scroll_left = view.findViewById(R.id.scroll_left);
+//        scroll_right = view.findViewById(R.id.scroll_right);
 
         mTimeBtns = new ArrayList<View>();
         for (int k = 0; k < num_block * num_day; k ++) mTimeBtns.add(new View(getContext()));
@@ -85,7 +83,7 @@ public class Fragment3TempTimeTable extends Fragment {
         }
 
         // 리사이클러뷰에 GridLayoutManager 객체 지정.
-        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_day));
+        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_block, GridLayoutManager.HORIZONTAL, false));
 
         // 리사이클러Fragment1WeekCalender뷰에 SimpleTextAdapter 객체 지정.
         TimeTableAdapter adapter = new TimeTableAdapter(getContext(), mTimeBtns);
@@ -95,7 +93,13 @@ public class Fragment3TempTimeTable extends Fragment {
             @Override
             public void onLongItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position) {
                 Log.e("ItemTouchListener", "onLongItemClicked");
-                mViewHolderTouched.btn.setBackgroundColor(Color.RED);
+                if (mViewHolderTouched.selected) {
+                    mViewHolderTouched.btn.setBackgroundColor(Color.YELLOW);
+                    mViewHolderTouched.selected = false;
+                } else {
+                    mViewHolderTouched.btn.setBackgroundColor(Color.RED);
+                    mViewHolderTouched.selected = true;
+                }
             }
 
             @Override
@@ -106,7 +110,13 @@ public class Fragment3TempTimeTable extends Fragment {
             @Override
             public void onViewHolderHovered(RecyclerView rv, TimeTableAdapter.ViewHolder viewHolder) {
                 Log.e("ItemTouchListener", "onViewHolderHovered");
-                viewHolder.btn.setBackgroundColor(Color.RED);
+                if (viewHolder.selected) {
+                    viewHolder.btn.setBackgroundColor(Color.YELLOW);
+                    viewHolder.selected = false;
+                } else {
+                    viewHolder.btn.setBackgroundColor(Color.RED);
+                    viewHolder.selected = true;
+                }
             }
 
             @Override

@@ -50,6 +50,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder{
         View btn;
+        boolean selected = false;
 
         public ViewHolder(View itemView) {
             super(itemView);
