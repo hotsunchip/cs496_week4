@@ -4,23 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.cs496_week4.Main.Fragment1WeekCalender;
+import com.applikeysolutions.cosmocalendar.view.CalendarView;
 import com.example.cs496_week4.R;
 
-public class Fragment1TimeTableCode extends Fragment {
+public class Fragment1TimeTableName extends Fragment {
     // fields
-    private TextView tv_new_timetable;
+    private CalendarView calendar;
+
     // Required empty public constructor
-    public Fragment1TimeTableCode() {
+    public Fragment1TimeTableName() {
 
     }
 
-    public static Fragment1TimeTableCode newInstance() {
-        Fragment1TimeTableCode fragment = new Fragment1TimeTableCode();
+    public static Fragment1TimeTableName newInstance() {
+        Fragment1TimeTableName fragment = new Fragment1TimeTableName();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -37,13 +37,6 @@ public class Fragment1TimeTableCode extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_tt_1, container, false);
-        tv_new_timetable = view.findViewById(R.id.tv_new_timetable);
-        tv_new_timetable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         return view;
     }

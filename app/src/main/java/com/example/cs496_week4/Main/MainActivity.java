@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 closeFab();
-                Intent intent = new Intent(MainActivity.this, NewTimeTableActivity.class);
+                Intent intent = new Intent(MainActivity.this, CodeActivity.class);
+                intent.putExtra("isTT", false);
                 startActivity(intent);
             }
         });
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 closeFab();
-                Intent intent = new Intent(MainActivity.this, NewMeetingPlaceActivity.class);
+                Intent intent = new Intent(MainActivity.this, CodeActivity.class);
+                intent.putExtra("isTT", true);
                 startActivity(intent);
             }
         });

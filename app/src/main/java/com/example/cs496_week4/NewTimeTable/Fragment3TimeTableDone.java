@@ -4,22 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.applikeysolutions.cosmocalendar.view.CalendarView;
 import com.example.cs496_week4.R;
 
-public class Fragment2NewTimeTable extends Fragment {
+public class Fragment3TimeTableDone extends Fragment {
     // fields
+    private CalendarView calendar;
 
     // Required empty public constructor
-    public Fragment2NewTimeTable() {
+    public Fragment3TimeTableDone() {
 
     }
 
-    public static Fragment2NewTimeTable newInstance() {
-        Fragment2NewTimeTable fragment = new Fragment2NewTimeTable();
+    public static Fragment3TimeTableDone newInstance() {
+        Fragment3TimeTableDone fragment = new Fragment3TimeTableDone();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -35,7 +36,7 @@ public class Fragment2NewTimeTable extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_new_tt_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_tt_3, container, false);
 
         return view;
     }
