@@ -1,13 +1,23 @@
 package com.example.cs496_week4.Main;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs496_week4.R;
+
+import java.util.ArrayList;
 
 public class Fragment1WeekCalender extends Fragment {
     // fields

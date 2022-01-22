@@ -40,6 +40,10 @@ dependencies {
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.12.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    //Retrofit - default
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    //Retrofit - gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // calendar
     implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 }

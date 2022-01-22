@@ -18,6 +18,9 @@ import com.example.cs496_week4.NewMeetingPlace.NewMeetingPlaceActivity;
 import com.example.cs496_week4.NewSchedule.NewScheduleActivity;
 import com.example.cs496_week4.NewTimeTable.NewTimeTableActivity;
 import com.example.cs496_week4.R;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.Input__signUp;
+import com.example.cs496_week4.Retrofit.RetrofitClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -150,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+
+        CallRetrofit callRetrofit = new CallRetrofit();
+        callRetrofit.userNameExists("woojin");
+        callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
+        callRetrofit.signUp(new Input__signUp("aaa", "aaa@kaist.ac.kr", "1111"));
 
         // test for socket
         /* dataInput = findViewById(R.id.dataInput);
