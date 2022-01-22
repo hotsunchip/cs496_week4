@@ -1,17 +1,13 @@
 package com.example.cs496_week4.Main;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -67,15 +63,18 @@ public class MainActivity extends AppCompatActivity {
         Fragment2Map frag2 = new Fragment2Map();
         tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
         tabLayout.addTab(tabLayout.newTab().setText("공간"));
+        replaceFragment(frag1);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition())
                 {
                     case 0 :
+                        if (mClicked) closeFab();
                         replaceFragment(frag1);
                         break;
                     case 1 :
+                        if (mClicked) closeFab();
                         replaceFragment(frag2);
                         break;
                 }
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         mainFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClicked = !mClicked;
                 onFabClicked();
             }
         });
@@ -106,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         newScheduleFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeFab();
                 Intent intent = new Intent(MainActivity.this, NewScheduleActivity.class);
                 startActivity(intent);
             }
@@ -115,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
         newGroupScheduleFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewTimeTableActivity.class);
+                closeFab();
+                Intent intent = new Intent(MainActivity.this, CodeActivity.class);
+                intent.putExtra("isTT", false);
                 startActivity(intent);
             }
         });
@@ -124,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
         newTimeTableFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewMeetingPlaceActivity.class);
+                closeFab();
+                Intent intent = new Intent(MainActivity.this, CodeActivity.class);
+                intent.putExtra("isTT", true);
                 startActivity(intent);
             }
         });
@@ -136,17 +139,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         // drawer
-        profileBtn = findViewById(R.id.main_profile) ;
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("helloworld", "");
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mainDrawer) ;
-                if (!drawer.isDrawerOpen(Gravity.RIGHT)) {
-                    drawer.openDrawer(Gravity.RIGHT);
-                }
-            }
-        });
+//        profileBtn = findViewById(R.id.main_profile) ;
+//        profileBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("helloworld", "");
+//                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mainDrawer) ;
+//                if (!drawer.isDrawerOpen(Gravity.RIGHT)) {
+//                    drawer.openDrawer(Gravity.RIGHT);
+//                }
+//            }
+//        });
 
         // test for socket
         /* dataInput = findViewById(R.id.dataInput);
@@ -166,34 +169,40 @@ public class MainActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
+        ft.replace(R.id.frame_layout_main, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
     }
 
     private void onFabClicked() {
-        if (mClicked) {
-            // set visibility
-            newScheduleFabLayout.setVisibility(View.VISIBLE);
-            newGroupScheduleFabLayout.setVisibility(View.VISIBLE);
-            newTimeTableFabLayout.setVisibility(View.VISIBLE);
-            // set animation
-            newScheduleFabLayout.startAnimation(fromBottom);
-            newGroupScheduleFabLayout.startAnimation(fromBottom);
-            newTimeTableFabLayout.startAnimation(fromBottom);
-            mainFab.startAnimation(rotateOpen);
-
+        if (!mClicked) {
+            openFab();
         } else {
-            // set visibility
-            newScheduleFabLayout.setVisibility(View.GONE);
-            newGroupScheduleFabLayout.setVisibility(View.GONE);
-            newTimeTableFabLayout.setVisibility(View.GONE);
-            // set animation
-            newScheduleFabLayout.startAnimation(toBottom);
-            newGroupScheduleFabLayout.startAnimation(toBottom);
-            newTimeTableFabLayout.startAnimation(toBottom);
-            mainFab.startAnimation(rotateClose);
-
+            closeFab();
         }
+    }
+    private void openFab() {
+        // set visibility
+        newScheduleFabLayout.setVisibility(View.VISIBLE);
+        newGroupScheduleFabLayout.setVisibility(View.VISIBLE);
+        newTimeTableFabLayout.setVisibility(View.VISIBLE);
+        // set animation
+        newScheduleFabLayout.startAnimation(fromBottom);
+        newGroupScheduleFabLayout.startAnimation(fromBottom);
+        newTimeTableFabLayout.startAnimation(fromBottom);
+        mainFab.startAnimation(rotateOpen);
+        mClicked = !mClicked;
+    }
+    private void closeFab() {
+        // set visibility
+        newScheduleFabLayout.setVisibility(View.GONE);
+        newGroupScheduleFabLayout.setVisibility(View.GONE);
+        newTimeTableFabLayout.setVisibility(View.GONE);
+        // set animation
+        newScheduleFabLayout.startAnimation(toBottom);
+        newGroupScheduleFabLayout.startAnimation(toBottom);
+        newTimeTableFabLayout.startAnimation(toBottom);
+        mainFab.startAnimation(rotateClose);
+        mClicked = !mClicked;
     }
 }

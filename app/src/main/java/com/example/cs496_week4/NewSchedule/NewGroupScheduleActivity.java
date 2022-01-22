@@ -1,4 +1,4 @@
-package com.example.cs496_week4.CheckSchedule;
+package com.example.cs496_week4.NewSchedule;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,20 +7,19 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.R;
 
-public class CheckScheduleActivity extends AppCompatActivity {
+public class NewGroupScheduleActivity extends AppCompatActivity {
     // fields
-    boolean onEditMode = false;
+    boolean onEditMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkschedule);
+        setContentView(R.layout.activity_newschedule);
 
 
         Intent intent = getIntent();
@@ -28,7 +27,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-        getSupportActionBar().setTitle("Check Schedule");
+        getSupportActionBar().setTitle("New Schedule");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -46,7 +45,6 @@ public class CheckScheduleActivity extends AppCompatActivity {
                     item.setIcon(R.drawable.ic_check_24);
                     onEditMode = true;
                 }
-                break;
         }
         return true;
     }
@@ -57,5 +55,4 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
         return true ;
     }
-
 }

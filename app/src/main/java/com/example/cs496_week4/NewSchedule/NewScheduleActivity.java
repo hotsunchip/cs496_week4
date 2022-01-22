@@ -15,7 +15,6 @@ import com.example.cs496_week4.R;
 
 public class NewScheduleActivity extends AppCompatActivity {
     // fields
-    boolean onEditMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,22 +37,7 @@ public class NewScheduleActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 break;
-            case R.id.menu_edit:
-                if (onEditMode) {
-                    item.setIcon(R.drawable.ic_edit_24);
-                    onEditMode = false;
-                } else {
-                    item.setIcon(R.drawable.ic_check_24);
-                    onEditMode = true;
-                }
         }
         return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu) ;
-
-        return true ;
     }
 }
