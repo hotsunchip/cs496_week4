@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main.CodeActivity" />
         <activity android:name=".CheckSchedule.CheckScheduleActivity" />
         <activity android:name=".CheckTimeTable.CheckTimeTableActivity" />
         <activity android:name=".NewTimeTable.NewTimeTableActivity" />

@@ -43,3 +43,31 @@
     </LinearLayout>
 
 </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView_main"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2022년 1월 22일" />
+
+        <ListView
+            android:id="@+id/listView_schedule_day"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
