@@ -16,7 +16,7 @@ import com.example.cs496_week4.R;
 
 import java.util.ArrayList;
 
-public class Fragment1WeekCalender2 extends Fragment {
+public class Fragment3TempTimeTable extends Fragment {
     // fields
     private RecyclerView time_table;
     private Button scroll_left;
@@ -36,12 +36,12 @@ public class Fragment1WeekCalender2 extends Fragment {
     private int layout_width;
 
     // Required empty public constructor
-    public Fragment1WeekCalender2() {
+    public Fragment3TempTimeTable() {
 
     }
 
-    public static Fragment1WeekCalender2 newInstance() {
-        Fragment1WeekCalender2 fragment = new Fragment1WeekCalender2();
+    public static Fragment3TempTimeTable newInstance() {
+        Fragment3TempTimeTable fragment = new Fragment3TempTimeTable();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -57,7 +57,7 @@ public class Fragment1WeekCalender2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_3, container, false);
         time_table = view.findViewById(R.id.time_table);
         scroll_left = view.findViewById(R.id.scroll_left);
         scroll_right = view.findViewById(R.id.scroll_right);
