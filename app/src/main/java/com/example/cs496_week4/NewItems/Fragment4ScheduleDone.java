@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewSchedule;
+package com.example.cs496_week4.NewItems;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,18 +7,18 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.cs496_week4.Main.FragmentExample;
 import com.example.cs496_week4.R;
 
-public class Fragment1ScheduleName extends Fragment {
+public class Fragment4ScheduleDone extends Fragment {
     // fields
+
     // Required empty public constructor
-    public Fragment1ScheduleName() {
+    public Fragment4ScheduleDone() {
 
     }
 
-    public static Fragment1ScheduleName newInstance() {
-        Fragment1ScheduleName fragment = new Fragment1ScheduleName();
+    public static Fragment4ScheduleDone newInstance() {
+        Fragment4ScheduleDone fragment = new Fragment4ScheduleDone();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -34,7 +34,7 @@ public class Fragment1ScheduleName extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_tt_3, container, false);
 
         return view;
     }

@@ -26,9 +26,9 @@
         <activity android:name=".Main.CodeActivity" />
         <activity android:name=".CheckSchedule.CheckScheduleActivity" />
         <activity android:name=".CheckTimeTable.CheckTimeTableActivity" />
-        <activity android:name=".NewTimeTable.NewTimeTableActivity" />
-        <activity android:name=".NewMeetingPlace.NewMeetingPlaceActivity" />
-        <activity android:name=".NewSchedule.NewScheduleActivity" />
+        <activity android:name=".NewItems.NewTimeTableActivity" />
+        <activity android:name=".NewItems.NewMeetingPlaceActivity" />
+        <activity android:name=".NewItems.NewScheduleActivity" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="efuk59ps4r"/>

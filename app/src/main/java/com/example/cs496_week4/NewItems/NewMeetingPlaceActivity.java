@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewMeetingPlace;
+package com.example.cs496_week4.NewItems;
 
 import android.content.Intent;
 import android.os.Bundle;

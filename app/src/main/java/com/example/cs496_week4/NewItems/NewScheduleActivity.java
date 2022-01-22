@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewTimeTable;
+package com.example.cs496_week4.NewItems;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,56 +19,57 @@ import com.example.cs496_week4.R;
 
 import java.util.ArrayList;
 
-public class NewTimeTableActivity extends AppCompatActivity {
-    // constant
-    public static final int MAX_FRAG_NUM = 3;
-
+public class NewScheduleActivity extends AppCompatActivity {
     // fields
+    private boolean mIsGroup;
+    private int fragNum;
     public ArrayList<Fragment> fragments;
     public static int fragPos;
-    private Button btn_ntt_prev;
-    private Button btn_ntt_next;
+    private Button btn_nsd_prev;
+    private Button btn_nsd_next;
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newtimetable);
+        setContentView(R.layout.activity_newschedule);
 
 
         Intent intent = getIntent();
+        mIsGroup = intent.getBooleanExtra("isGroup", false);
 
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-        getSupportActionBar().setTitle("New Time Table");
+        getSupportActionBar().setTitle("New Schedule");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24);
         }
 
-        // set fragments for ntt
+        // set fragments for nsd
+
         fragPos = 0;
         initializeFragment();
 
         // set prev & next btn
-        btn_ntt_prev = findViewById(R.id.btn_ntt_prev);
-        btn_ntt_prev.setOnClickListener(new View.OnClickListener() {
+        btn_nsd_prev = findViewById(R.id.btn_nsd_prev);
+        btn_nsd_prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fragPos == MAX_FRAG_NUM - 1) btn_ntt_next.setVisibility(View.VISIBLE);
+                if (fragPos == fragNum - 1) btn_nsd_next.setVisibility(View.VISIBLE);
                 if (fragPos > 0) fragPos -= 1;
-                if (fragPos == 0) btn_ntt_prev.setVisibility(View.INVISIBLE);
+                if (fragPos == 0) btn_nsd_prev.setVisibility(View.INVISIBLE);
                 replaceFragment(fragPos, -1);
             }
         });
-        btn_ntt_next = findViewById(R.id.btn_ntt_next);
-        btn_ntt_next.setOnClickListener(new View.OnClickListener() {
+        btn_nsd_next = findViewById(R.id.btn_nsd_next);
+        btn_nsd_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fragPos == 0) btn_ntt_prev.setVisibility(View.VISIBLE);
-                if (fragPos < MAX_FRAG_NUM - 1) fragPos += 1;
-                if (fragPos == MAX_FRAG_NUM - 1)  btn_ntt_next.setVisibility(View.INVISIBLE);
+                if (fragPos == 0) btn_nsd_prev.setVisibility(View.VISIBLE);
+                if (fragPos < fragNum - 1) fragPos += 1;
+                if (fragPos == fragNum - 1)  btn_nsd_next.setVisibility(View.INVISIBLE);
                 replaceFragment(fragPos, 1);
             }
         });
@@ -78,8 +79,8 @@ public class NewTimeTableActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (fragPos == MAX_FRAG_NUM - 1) {
-                    Toast.makeText(NewTimeTableActivity.this,"내 타임테이블에서 확인 가능", Toast.LENGTH_LONG).show();
+                if (fragPos == fragNum - 1) {
+                    Toast.makeText(NewScheduleActivity.this,"일정 목록에서 확인 가능", Toast.LENGTH_LONG).show();
                 }
                 this.finish();
                 break;
@@ -104,17 +105,30 @@ public class NewTimeTableActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        Fragment1TimeTableName frag1 = new Fragment1TimeTableName();
-        Fragment2TimeTableDate frag2 = new Fragment2TimeTableDate();
-        Fragment3TimeTableDone frag3 = new Fragment3TimeTableDone();
-        fragments.add(frag1);
-        fragments.add(frag2);
-        fragments.add(frag3);
+        if (mIsGroup) {
+            fragNum = 4;
+            Fragment1_1ScheduleNameMem frag1 = new Fragment1_1ScheduleNameMem();
+            Fragment2ScheduleDate frag2 = new Fragment2ScheduleDate();
+            Fragment3SchedulePlace frag3 = new Fragment3SchedulePlace();
+            Fragment4ScheduleDone frag4 = new Fragment4ScheduleDone();
+            fragments.add(frag1);
+            fragments.add(frag2);
+            fragments.add(frag3);
+            fragments.add(frag4);
+        } else {
+            fragNum = 3;
+            Fragment1ScheduleName frag1 = new Fragment1ScheduleName();
+            Fragment2ScheduleDate frag2 = new Fragment2ScheduleDate();
+            Fragment3SchedulePlace frag3 = new Fragment3SchedulePlace();
+            fragments.add(frag1);
+            fragments.add(frag2);
+            fragments.add(frag3);
+        }
         for (Fragment frag : fragments) {
-            ft.add(R.id.frame_layout_ntt, frag);
+            ft.add(R.id.frame_layout_nsd, frag);
             ft.hide(frag);
         }
-        ft.show(frag1);
+        ft.show(fragments.get(0));
         ft.commit();
     }
 }

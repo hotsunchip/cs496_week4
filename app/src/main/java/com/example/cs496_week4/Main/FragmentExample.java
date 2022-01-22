@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.applikeysolutions.cosmocalendar.view.CalendarView;
-import com.example.cs496_week4.NewTimeTable.Fragment3TimeTableDone;
 import com.example.cs496_week4.R;
 
 public class FragmentExample extends Fragment {
