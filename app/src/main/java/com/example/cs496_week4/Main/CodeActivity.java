@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.cs496_week4.NewSchedule.NewScheduleActivity;
-import com.example.cs496_week4.NewTimeTable.NewTimeTableActivity;
+import com.example.cs496_week4.NewItems.NewScheduleActivity;
+import com.example.cs496_week4.NewItems.NewTimeTableActivity;
 import com.example.cs496_week4.R;
 
 public class CodeActivity extends AppCompatActivity {
@@ -47,6 +47,7 @@ public class CodeActivity extends AppCompatActivity {
                     intent = new Intent(CodeActivity.this, NewTimeTableActivity.class);
                 } else {
                     intent = new Intent(CodeActivity.this, NewScheduleActivity.class);
+                    intent.putExtra("isGroup", true);
                 }
                 startActivity(intent);
                 finish();

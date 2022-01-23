@@ -2,13 +2,16 @@ package com.example.cs496_week4.Main;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,21 +22,20 @@ import java.util.ArrayList;
 public class Fragment3TempTimeTable extends Fragment {
     // fields
     private RecyclerView time_table;
-    private Button scroll_left;
-    private Button scroll_right;
     private int height = -1;
     private int width = -1;
-    private int num_day = 4;
-    private int time_start = 9;
-    private int time_end = 15;
+    private int num_day = 7;
+    private int time_start = 0;
+    private int time_end = 20;
     private boolean[][] time_table_state = new boolean[48][100];
-    private int num_block;
-    private int block_height;
-    private int block_width;
-    private LinearLayout.LayoutParams block_params;
+    private int num_block = (time_end - time_start)*2; // if (time_end < time_start) time_end += 24
+    private int block_height = 40;
+    private int block_width = 160;
     private LinearLayout.LayoutParams layout_params;
     private int layout_height;
     private int layout_width;
+//    ArrayList<LinearLayout> mTimeList;
+    ArrayList<View> mTimeBtns;
 
     // Required empty public constructor
     public Fragment3TempTimeTable() {
@@ -58,10 +60,12 @@ public class Fragment3TempTimeTable extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_3, container, false);
-        time_table = view.findViewById(R.id.time_table);
-        scroll_left = view.findViewById(R.id.scroll_left);
-        scroll_right = view.findViewById(R.id.scroll_right);
+        time_table = view.findViewById(R.id.recycler_view_table);
+//        scroll_left = view.findViewById(R.id.scroll_left);
+//        scroll_right = view.findViewById(R.id.scroll_right);
 
+        mTimeBtns = new ArrayList<View>();
+        for (int k = 0; k < num_block * num_day; k ++) mTimeBtns.add(new View(getContext()));
         time_table.post(new Runnable() {
             @Override
             public void run() {
@@ -71,41 +75,55 @@ public class Fragment3TempTimeTable extends Fragment {
         });
 
         if (height != -1 && width != -1) {
-            num_block = time_end - time_start;
-            block_height = height / num_block;
-            block_width = width / 5;
-            block_params = new LinearLayout.LayoutParams(block_width, block_height);
-
-            layout_height = height;
+            layout_height = block_height;
             layout_width = block_width;
             layout_params = new LinearLayout.LayoutParams(layout_width, layout_height);
         } else {
-            return view;
+            layout_params = new LinearLayout.LayoutParams(block_width, block_height);
         }
 
-        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        ArrayList<LinearLayout> list = new ArrayList<>();
-        for (int i = 0; i < num_day; i++) {
-            LinearLayout layout = new LinearLayout(getActivity());
-            layout.setOrientation(LinearLayout.VERTICAL);
-            layout.setLayoutParams(layout_params);
-            layout.setBackgroundColor(Color.RED);
-
-            for (int j = time_start; j < time_end; ++j) {
-                LinearLayout block = new LinearLayout(getActivity());
-                block.setLayoutParams(block_params);
-                block.setBackgroundColor(Color.GREEN);
-                layout.addView(block);
-            }
-            list.add(layout);
-        }
-
-        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        time_table.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        // 리사이클러뷰에 GridLayoutManager 객체 지정.
+        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_block, GridLayoutManager.HORIZONTAL, false));
 
         // 리사이클러Fragment1WeekCalender뷰에 SimpleTextAdapter 객체 지정.
-        TimeTableAdapter adapter = new TimeTableAdapter(list);
+        TimeTableAdapter adapter = new TimeTableAdapter(getContext(), mTimeBtns);
         time_table.setAdapter(adapter);
+
+        time_table.addOnItemTouchListener(new DragSelectionItemTouchListener(getContext(), new LongPressItemTouchListener.OnItemInteractionListener() {
+            @Override
+            public void onLongItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position) {
+                Log.e("ItemTouchListener", "onLongItemClicked");
+                if (mViewHolderTouched.selected) {
+                    mViewHolderTouched.btn.setBackgroundColor(Color.YELLOW);
+                    mViewHolderTouched.selected = false;
+                } else {
+                    mViewHolderTouched.btn.setBackgroundColor(Color.RED);
+                    mViewHolderTouched.selected = true;
+                }
+            }
+
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position) {
+                Log.e("ItemTouchListener", "onItemClicked");
+            }
+
+            @Override
+            public void onViewHolderHovered(RecyclerView rv, TimeTableAdapter.ViewHolder viewHolder) {
+                Log.e("ItemTouchListener", "onViewHolderHovered");
+                if (viewHolder.selected) {
+                    viewHolder.btn.setBackgroundColor(Color.YELLOW);
+                    viewHolder.selected = false;
+                } else {
+                    viewHolder.btn.setBackgroundColor(Color.RED);
+                    viewHolder.selected = true;
+                }
+            }
+
+            @Override
+            public void onMultipleViewHoldersSelected(RecyclerView rv, ArrayList<TimeTableAdapter.ViewHolder> selection) {
+                Log.e("ItemTouchListener", "onMultipleViewHoldersSelected");
+            }
+        }));
 
         return view;
     }
