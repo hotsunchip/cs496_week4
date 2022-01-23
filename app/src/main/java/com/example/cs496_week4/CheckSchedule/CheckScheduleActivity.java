@@ -2,8 +2,10 @@ package com.example.cs496_week4.CheckSchedule;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +17,11 @@ import com.example.cs496_week4.R;
 
 public class CheckScheduleActivity extends AppCompatActivity {
     // fields
-    boolean onEditMode = false;
+    private String scheduleName;
+    private String scheduleDate;
+    private String scheduleTime;
+    private String schedulePlaceName;
+    private String shcedulePlaceAddr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,12 +30,19 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        scheduleName = intent.getStringExtra("scheduleName");
 
         // set toolbar
-        Toolbar tb = findViewById(R.id.toolbar);
-        setSupportActionBar(tb);
-        getSupportActionBar().setTitle("Check Schedule");
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView title = findViewById(R.id.toolbar_title);
+        title.setText(scheduleName);
+        Toolbar toolBar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolBar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -38,14 +51,8 @@ public class CheckScheduleActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 break;
-            case R.id.menu_edit:
-                if (onEditMode) {
-                    item.setIcon(R.drawable.ic_edit_24);
-                    onEditMode = false;
-                } else {
-                    item.setIcon(R.drawable.ic_check_24);
-                    onEditMode = true;
-                }
+            case R.id.menu_delete:
+                Log.e("Delete", "");
                 break;
         }
         return true;

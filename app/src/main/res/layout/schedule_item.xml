@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_schedule_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1월 20일"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_schedule_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:30 PM"
+                app:layout_constraintTop_toBottomOf="@id/tv_schedule_item_date"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_schedule_item_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KAIST 본원"
+                app:layout_constraintTop_toBottomOf="@id/tv_schedule_item_name"
+                app:layout_constraintStart_toEndOf="@id/tv_schedule_item_time" />
+
+            <TextView
+                android:id="@+id/tv_schedule_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약속 이름"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_schedule_item_date" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
