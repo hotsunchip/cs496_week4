@@ -1,18 +1,23 @@
 package com.example.cs496_week4.Retrofit;
 
-import com.example.cs496_week4.Retrofit.Data.Input__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.Input__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
 import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
 import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
-import com.example.cs496_week4.Retrofit.Data.Output__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.Output__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Output__signIn;
 import com.example.cs496_week4.Retrofit.Data.Output__signUp;
-import com.example.cs496_week4.Retrofit.Data.Output__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
 
 import java.io.IOException;
 
@@ -200,6 +205,131 @@ public class CallRetrofit {
         //Retrofit 호출
         Output__apptInvite[] output = new Output__apptInvite[1];
         Call<Output__apptInvite> call = RetrofitClient.getApiService().postApptInvite(token, input);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Model__wtmInfo wtmInfo(String token, int wtmId){
+
+        //Retrofit 호출
+        Model__wtmInfo[] output = new Model__wtmInfo[1];
+        Call<Model__wtmInfo> call = RetrofitClient.getApiService().getWtmInfo(token, wtmId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Model__apptAccept apptAccept(String token, int apptId){
+
+        //Retrofit 호출
+        Model__apptAccept[] output = new Model__apptAccept[1];
+        Call<Model__apptAccept> call = RetrofitClient.getApiService().postApptAccept(token, apptId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Model__apptReject apptReject(String token, int apptId){
+
+        //Retrofit 호출
+        Model__apptReject[] output = new Model__apptReject[1];
+        Call<Model__apptReject> call = RetrofitClient.getApiService().postApptReject(token, apptId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Model__apptInfo apptInfo(String token, int apptId){
+
+        //Retrofit 호출
+        Model__apptInfo[] output = new Model__apptInfo[1];
+        Call<Model__apptInfo> call = RetrofitClient.getApiService().getApptInfo(token, apptId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Model__apptDelete apptDelete(String token, int apptId){
+
+        //Retrofit 호출
+        Model__apptDelete[] output = new Model__apptDelete[1];
+        Call<Model__apptDelete> call = RetrofitClient.getApiService().deleteApptDelete(token, apptId);
         new Thread(new Runnable() {
             @Override
             public void run() {

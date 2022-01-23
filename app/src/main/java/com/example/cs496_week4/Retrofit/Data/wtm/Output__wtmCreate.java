@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.wtm;
 
 public class Output__wtmCreate {
 
