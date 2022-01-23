@@ -13,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.cs496_week4.R;
 
 public class CheckTimeTableActivity extends AppCompatActivity {
+    // fields
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

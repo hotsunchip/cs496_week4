@@ -1,10 +1,8 @@
-package com.example.cs496_week4.NewSchedule;
+package com.example.cs496_week4.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,13 +11,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.R;
 
-public class NewScheduleActivity extends AppCompatActivity {
+public class ActivityExample extends AppCompatActivity {
     // fields
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newschedule);
+        setContentView(R.layout.activity_main);
 
 
         Intent intent = getIntent();
@@ -27,7 +25,7 @@ public class NewScheduleActivity extends AppCompatActivity {
         // set toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-        getSupportActionBar().setTitle("New Schedule");
+        getSupportActionBar().setTitle("Check Time Table");
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

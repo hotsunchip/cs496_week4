@@ -15,9 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.cs496_week4.NewMeetingPlace.NewMeetingPlaceActivity;
-import com.example.cs496_week4.NewSchedule.NewScheduleActivity;
-import com.example.cs496_week4.NewTimeTable.NewTimeTableActivity;
+import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.Input__apptCreate;
@@ -120,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 closeFab();
                 Intent intent = new Intent(MainActivity.this, NewScheduleActivity.class);
+                intent.putExtra("isGroup", false);
                 startActivity(intent);
             }
         });
