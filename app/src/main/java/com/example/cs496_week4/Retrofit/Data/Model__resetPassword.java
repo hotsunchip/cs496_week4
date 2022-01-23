@@ -1,10 +1,10 @@
 package com.example.cs496_week4.Retrofit.Data;
 
-public class Model__userNameExists {
+public class Model__resetPassword {
 
     private boolean result;
 
-    public Model__userNameExists() {
+    public Model__resetPassword() {
         this.result = false;
     }
 
@@ -18,7 +18,7 @@ public class Model__userNameExists {
 
     @Override
     public String toString() {
-        return "RepoUserNameExists{" +
+        return "RepoResetPassword{" +
                 "result='" + result + '\'' +
                 '}';
     }
