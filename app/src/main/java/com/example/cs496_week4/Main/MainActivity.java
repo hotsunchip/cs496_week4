@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,7 +18,12 @@ import android.widget.LinearLayout;
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.Input__signUp;
+import com.example.cs496_week4.Retrofit.Data.Input__wtmCreate;
+import com.example.cs496_week4.Retrofit.RetrofitClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -159,9 +165,15 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         CallRetrofit callRetrofit = new CallRetrofit();
-        callRetrofit.userNameExists("woojin");
-        callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
-        callRetrofit.signUp(new Input__signUp("aaa", "aaa@kaist.ac.kr", "1111"));
+        //callRetrofit.userNameExists("woojin");
+        //callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
+        //callRetrofit.signUp(new Input__signUp("cc", "cc@kaist.ac.kr", "1111"));
+        String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
+        Log.d("token", token);
+        //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
+        //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
+        int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
+        Log.d("apptInvite", callRetrofit.apptInvite(token, new Input__apptInvite(apptId, new String[]{"bb"})).toString());
 
         // test for socket
         /* dataInput = findViewById(R.id.dataInput);
