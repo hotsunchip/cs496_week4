@@ -1,5 +1,6 @@
 package com.example.cs496_week4.Main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -18,14 +19,13 @@ import android.widget.LinearLayout;
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
-import com.example.cs496_week4.Retrofit.Data.Input__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.Input__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.Input__wtmCreate;
-import com.example.cs496_week4.Retrofit.RetrofitClient;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity mContext;
@@ -169,11 +169,35 @@ public class MainActivity extends AppCompatActivity {
         //callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
         //callRetrofit.signUp(new Input__signUp("cc", "cc@kaist.ac.kr", "1111"));
         String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
-        Log.d("token", token);
         //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
         //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
         int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
-        Log.d("apptInvite", callRetrofit.apptInvite(token, new Input__apptInvite(apptId, new String[]{"bb"})).toString());
+        Log.d("accept", callRetrofit.apptAccept(token, apptId).getError());
+        Log.d("reject", callRetrofit.apptReject(token, apptId).getError());
+        Log.d("apptInfo", callRetrofit.apptInfo(token, apptId).getOwner());
+        Log.d("delete", callRetrofit.apptDelete(token, apptId).getResult());
+        //Log.d("apptInvite", callRetrofit.apptInvite(token, new Input__apptInvite(apptId, new String[]{"bb"})).toString());
+        //Log.d("wtmInfo", callRetrofit.wtmInfo("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWMxMDExOGI3ZjQ2NDliNTBkNzhkYiIsImlhdCI6MTY0Mjg2MDU3MX0.CODW2bauOZDDPSDvyQeuwog_y9Vd4X6bZ6hegGdZdKo", 933).getOwner().get_id());
+
+        // Get Firebase Device Token
+        /*FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        //String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("token", token);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });*/
 
         // test for socket
         /* dataInput = findViewById(R.id.dataInput);
