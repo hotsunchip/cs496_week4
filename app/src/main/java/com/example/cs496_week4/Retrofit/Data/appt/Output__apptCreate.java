@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.appt;
 
 import androidx.annotation.NonNull;
 
@@ -36,8 +36,7 @@ public class Output__apptCreate {
     public String toString() {
         return "RepoOutputApptCreate{" +
                 "apptName='" + apptName + '\'' +
-                ", coordinates0='" + coordinates[0] + '\'' +
-                ", coordinates1='" + coordinates[1] + '\'' +
+                ", coordinates='" + coordinates + '\'' +
                 ", apptIdentifier='" + apptIdentifier + '\'' +
                 '}';
     }

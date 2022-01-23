@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.appt;
 
 public class Output__apptInvite {
 
@@ -26,7 +26,7 @@ public class Output__apptInvite {
     @Override
     public String toString() {
         return "RepoOutputApptInvite{" +
-                "names0='" + names[0] + '\'' +
+                "names='" + names + '\'' +
                 ", error='" + error + '\'' +
                 '}';
     }

@@ -1,21 +1,27 @@
 package com.example.cs496_week4.Retrofit;
 
-import com.example.cs496_week4.Retrofit.Data.Input__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.Input__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
 import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
 import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
 import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
-import com.example.cs496_week4.Retrofit.Data.Output__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.Output__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Output__signIn;
 import com.example.cs496_week4.Retrofit.Data.Output__signUp;
-import com.example.cs496_week4.Retrofit.Data.Output__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -49,6 +55,26 @@ public interface RetrofitAPI {
 
     @POST("appt/invite")
     Call<Output__apptInvite> postApptInvite(@Header("jwt") String token, @Body Input__apptInvite input);
+
+    @FormUrlEncoded
+    @POST("appt/accept")
+    Call<Model__apptAccept> postApptAccept(@Header("jwt") String token, @Field("apptId") int apptId);
+
+    @FormUrlEncoded
+    @POST("appt/reject")
+    Call<Model__apptReject> postApptReject(@Header("jwt") String token, @Field("apptId") int apptId);
+
+    //@GET("appt/members")
+    //Call<Model__apptMembers> getApptMembers(@Header("jwt") String token, @Query("apptId") int apptId);
+
+    @GET("appt/info")
+    Call<Model__apptInfo> getApptInfo(@Header("jwt") String token, @Query("apptId") int apptId);
+
+    @DELETE("appt/delete")
+    Call<Model__apptDelete> deleteApptDelete(@Header("jwt") String token, @Query("apptId") int apptId);
+
+    @GET("wtm/info")
+    Call<Model__wtmInfo> getWtmInfo(@Header("jwt") String token, @Query("wtmId") int wtmId);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
