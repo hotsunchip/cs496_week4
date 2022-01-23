@@ -17,6 +17,10 @@
     <color name="gray_200">#FFDADADA</color>
     <color name="gray_300">#FFC1C1C1</color>
     <color name="gray_400">#FFA5A5A5</color>
+    <color name="gray_500">#777777</color>
+    <color name="gray_700">#303030</color>
+    <color name="gray_800">#2C2C2C</color>
+    <color name="gray_900">#1B1B1B</color>
     <color name="beige_200">#FFE6D6C6</color>
     <color name="beige_500">#FFDFC7AF</color>
     <color name="transparent">#00000000</color>
