@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/off_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/textMidBigSize"
-            android:text="Title" />
+            android:text="Title"
+            android:textSize="@dimen/textMidBigSize" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -51,49 +51,122 @@
         android:paddingHorizontal="@dimen/activity_horizontal_margin"
         android:paddingVertical="@dimen/fragment_vertical_margin"
         android:background="@color/off_white"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_nsd_name">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="시작 시간"
-            android:textAlignment="center"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_ntt_start_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="11:00 AM"
-            android:textAlignment="center"
-            android:paddingVertical="@dimen/fragment_vertical_margin" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="시간 (필수)"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:text="~"
-            android:textAlignment="center"/>
+            <!--시간 된다면 종료일까지-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="종료 시간"
-            android:textAlignment="center"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_ntt_end_time"
+        <LinearLayout
+            android:id="@+id/linearLayout_nsd_time_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="5:30 PM"
-            android:textAlignment="center"
-            android:paddingVertical="@dimen/fragment_vertical_margin"/>
+            android:layout_marginTop="@dimen/fragment_vertical_margin"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            android:paddingVertical="@dimen/fragment_vertical_margin"
+            android:background="@color/off_white">
+
+            <TextView
+                android:id="@+id/tv_nsd_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2022년 10월 3일"
+                android:textAlignment="center"
+                android:paddingVertical="@dimen/fragment_vertical_margin" />
+
+            <TextView
+                android:id="@+id/tv_nsd_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="5:30 PM"
+                android:textAlignment="center"
+                android:paddingVertical="@dimen/fragment_vertical_margin"/>
+        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_nsd_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_vertical_margin"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:paddingVertical="@dimen/fragment_vertical_margin"
+        android:background="@color/off_white"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_nsd_time">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="장소 (선택)"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:text="내 출발 위치 불러오기"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_nsd_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="어디에서 만나나요?"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/fragment_vertical_margin"
+            android:background="@color/off_white"
+            android:imeOptions="actionSearch" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

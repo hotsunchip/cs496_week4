@@ -2,10 +2,12 @@ package com.example.cs496_week4.NewItems;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class NewScheduleActivity extends AppCompatActivity {
     private EditText sdName;
     private TextView sdStartDate;
     private TextView sdStartTime;
+    private EditText sdPlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +57,20 @@ public class NewScheduleActivity extends AppCompatActivity {
 
         // connect variables with layout items
         sdName = findViewById(R.id.et_nsd_name);
-
+        sdStartDate = findViewById(R.id.tv_nsd_start_date);
+        sdStartTime = findViewById(R.id.tv_nsd_start_time);
+        sdPlace =findViewById(R.id.et_nsd_place);
+        sdPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    findPlaceUsingKeyword();
+                    handled= true;
+                }
+                return handled;
+            }
+        });
     }
 
     @Override
@@ -75,6 +91,10 @@ public class NewScheduleActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void findPlaceUsingKeyword() {
+
     }
 
     private void checkValidity() {
