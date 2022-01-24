@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.user;
 
 public class Output__signUp {
 

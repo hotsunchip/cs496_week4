@@ -1,23 +1,13 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.user;
 
-public class Input__signUp {
+public class Input__signIn {
 
-    private String userName;
     private String userEmail;
     private String password;
 
-    public Input__signUp(String userName, String userEmail, String password) {
-        this.userName = userName;
+    public Input__signIn(String userEmail, String password) {
         this.userEmail = userEmail;
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getUserEmail() {
@@ -38,9 +28,8 @@ public class Input__signUp {
 
     @Override
     public String toString() {
-        return "RepoInputSignUp{" +
-                "userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
+        return "RepoInputSignIn{" +
+                "userEmail='" + userEmail + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

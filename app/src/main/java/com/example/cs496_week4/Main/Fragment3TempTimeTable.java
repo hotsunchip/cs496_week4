@@ -28,10 +28,10 @@ public class Fragment3TempTimeTable extends Fragment implements TimeTableAdapter
     private int width = -1;
     private int num_day = 7;
     private int time_start = 0;
-    private int time_end = 20;
+    private int time_end = 5;
     private boolean[][] time_table_state = new boolean[48][100];
     private int num_block = (time_end - time_start)*2; // if (time_end < time_start) time_end += 24
-    private int block_height = 40;
+    private int block_height = 100;
     private int block_width = 160;
     private LinearLayout.LayoutParams layout_params;
     private int layout_height;

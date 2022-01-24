@@ -2,22 +2,25 @@ package com.example.cs496_week4.Retrofit;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
-import com.example.cs496_week4.Retrofit.Data.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.Input__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
-import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
-import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
-import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
+import com.example.cs496_week4.Retrofit.Data.user.Model__resetPassword;
+import com.example.cs496_week4.Retrofit.Data.user.Model__userEmailExists;
+import com.example.cs496_week4.Retrofit.Data.user.Model__userNameExists;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
 import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
-import com.example.cs496_week4.Retrofit.Data.Output__signIn;
-import com.example.cs496_week4.Retrofit.Data.Output__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signUp;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmRespond;
 
@@ -80,6 +83,16 @@ public interface RetrofitAPI {
 
     @POST("wtm/respond")
     Call<Output__wtmRespond> postWtmRespond(@Header("jwt") String token, @Body Input__wtmRespond input);
+
+    @FormUrlEncoded
+    @POST("user/departure")
+    Call<POST__userDeparture> postUserDeparture(@Header("jwt") String token, @Field("departure") float[] departure);
+
+    @GET("user/departure")
+    Call<GET__userDeparture> getUserDeparture(@Header("jwt") String token, @Query("username") String username);
+
+    @GET("user/appts-date")
+    Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
