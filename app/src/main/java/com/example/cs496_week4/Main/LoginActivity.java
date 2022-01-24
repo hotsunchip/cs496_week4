@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
-import com.example.cs496_week4.Retrofit.Data.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.Output__signIn;
-import com.example.cs496_week4.Retrofit.Data.Output__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signUp;
 
 import org.json.JSONArray;
 import org.json.JSONException;

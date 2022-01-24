@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         Fragment1WeekCalender frag1 = new Fragment1WeekCalender();
         Fragment2Map frag2 = new Fragment2Map();
-        Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable();
+        Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable(3, "1500", "2230");
         tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
         tabLayout.addTab(tabLayout.newTab().setText("공간"));
         tabLayout.addTab(tabLayout.newTab().setText("임시"));
