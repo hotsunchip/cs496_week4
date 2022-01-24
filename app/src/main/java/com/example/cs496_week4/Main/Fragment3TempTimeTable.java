@@ -26,10 +26,10 @@ public class Fragment3TempTimeTable extends Fragment {
     private int width = -1;
     private int num_day = 7;
     private int time_start = 0;
-    private int time_end = 20;
+    private int time_end = 5;
     private boolean[][] time_table_state = new boolean[48][100];
     private int num_block = (time_end - time_start)*2; // if (time_end < time_start) time_end += 24
-    private int block_height = 40;
+    private int block_height = 100;
     private int block_width = 160;
     private LinearLayout.LayoutParams layout_params;
     private int layout_height;
@@ -83,7 +83,7 @@ public class Fragment3TempTimeTable extends Fragment {
         }
 
         // 리사이클러뷰에 GridLayoutManager 객체 지정.
-        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_block, GridLayoutManager.HORIZONTAL, false));
+        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_block, GridLayoutManager.VERTICAL, false));
 
         // 리사이클러Fragment1WeekCalender뷰에 SimpleTextAdapter 객체 지정.
         TimeTableAdapter adapter = new TimeTableAdapter(getContext(), mTimeBtns);

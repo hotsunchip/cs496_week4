@@ -1,8 +1,12 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.user;
 
-public class Model__userEmailExists {
+public class Model__resetPassword {
 
     private boolean result;
+
+    public Model__resetPassword() {
+        this.result = false;
+    }
 
     public boolean isResult() {
         return result;
@@ -14,7 +18,7 @@ public class Model__userEmailExists {
 
     @Override
     public String toString() {
-        return "RepoUserEmailExists{" +
+        return "RepoResetPassword{" +
                 "result='" + result + '\'' +
                 '}';
     }
