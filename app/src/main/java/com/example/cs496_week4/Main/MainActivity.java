@@ -3,6 +3,7 @@ package com.example.cs496_week4.Main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,6 +31,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity mContext;
+    public static String userToken;
     private static FloatingActionButton mainFab;
     private static FloatingActionButton newScheduleFab;
     private static FloatingActionButton newGroupScheduleFab;
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // drawer
-//        profileBtn = findViewById(R.id.main_profile) ;
+        profileBtn = findViewById(R.id.main_profile) ;
 //        profileBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -234,6 +237,9 @@ public class MainActivity extends AppCompatActivity {
         newScheduleFabLayout.setVisibility(View.VISIBLE);
         newGroupScheduleFabLayout.setVisibility(View.VISIBLE);
         newTimeTableFabLayout.setVisibility(View.VISIBLE);
+        newScheduleFab.setVisibility(View.VISIBLE);
+        newGroupScheduleFab.setVisibility(View.VISIBLE);
+        newTimeTableFab.setVisibility(View.VISIBLE);
         // set animation
         newScheduleFabLayout.startAnimation(fromBottom);
         newGroupScheduleFabLayout.startAnimation(fromBottom);
@@ -242,15 +248,18 @@ public class MainActivity extends AppCompatActivity {
         mClicked = !mClicked;
     }
     private void closeFab() {
-        // set visibility
-        newScheduleFabLayout.setVisibility(View.GONE);
-        newGroupScheduleFabLayout.setVisibility(View.GONE);
-        newTimeTableFabLayout.setVisibility(View.GONE);
         // set animation
         newScheduleFabLayout.startAnimation(toBottom);
         newGroupScheduleFabLayout.startAnimation(toBottom);
         newTimeTableFabLayout.startAnimation(toBottom);
         mainFab.startAnimation(rotateClose);
         mClicked = !mClicked;
+        // set visibility
+        newScheduleFabLayout.setVisibility(View.GONE);
+        newGroupScheduleFabLayout.setVisibility(View.GONE);
+        newTimeTableFabLayout.setVisibility(View.GONE);
+        newScheduleFab.setVisibility(View.GONE);
+        newGroupScheduleFab.setVisibility(View.GONE);
+        newTimeTableFab.setVisibility(View.GONE);
     }
 }
