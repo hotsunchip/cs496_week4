@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         setLoginJoinMode();
+        moveMain();
         if (bringPrevLogin()) moveMain();
     }
 
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // 이름의 유효성 검사
-        if (mEmail.isEmpty()) {
+        if (mName.isEmpty()) {
             mNameView.setError("이름을 입력해주세요.");
             focusView = mNameView;
             cancel = true;

@@ -1,5 +1,6 @@
 package com.example.cs496_week4.Main;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,7 @@ import com.example.cs496_week4.AdapterListener.DragSelectionItemTouchListener;
 import com.example.cs496_week4.AdapterListener.LongPressItemTouchListener;
 import com.example.cs496_week4.AdapterListener.TimeTableAdapter;
 
-public class Fragment3TempTimeTable extends Fragment {
+public class Fragment3TempTimeTable extends Fragment implements TimeTableAdapter.OnListItemSelectedInterface{
     // fields
     private RecyclerView time_table;
     private int height = -1;
@@ -35,8 +36,10 @@ public class Fragment3TempTimeTable extends Fragment {
     private LinearLayout.LayoutParams layout_params;
     private int layout_height;
     private int layout_width;
-//    ArrayList<LinearLayout> mTimeList;
     ArrayList<View> mTimeBtns;
+    ArrayList<Integer> mTimesAvailable;
+    ArrayList<Integer> mTimesSample;
+    private boolean blockSelected;
 
     // Required empty public constructor
     public Fragment3TempTimeTable() {
@@ -54,6 +57,13 @@ public class Fragment3TempTimeTable extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 변수 초기화
+        mTimesSample = new ArrayList<Integer>();
+        mTimesSample.add(5);
+        mTimesSample.add(15);
+        mTimesSample.add(35);
+        mTimesSample.add(75);
+        mTimesSample.add(95);
+        mTimesSample.add(115);
     }
 
     @Override
@@ -65,8 +75,9 @@ public class Fragment3TempTimeTable extends Fragment {
 //        scroll_left = view.findViewById(R.id.scroll_left);
 //        scroll_right = view.findViewById(R.id.scroll_right);
 
-        mTimeBtns = new ArrayList<View>();
-        for (int k = 0; k < num_block * num_day; k ++) mTimeBtns.add(new View(getContext()));
+        mTimesAvailable = new ArrayList<Integer>();
+//        mTimeBtns = new ArrayList<View>();
+//        for (int k = 0; k < num_block * num_day; k ++) mTimeBtns.add(new View(getContext()));
         time_table.post(new Runnable() {
             @Override
             public void run() {
@@ -84,22 +95,32 @@ public class Fragment3TempTimeTable extends Fragment {
         }
 
         // 리사이클러뷰에 GridLayoutManager 객체 지정.
-        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_block, GridLayoutManager.HORIZONTAL, false));
+        time_table.setLayoutManager(new GridLayoutManager(getActivity(), num_day, GridLayoutManager.VERTICAL, false));
 
         // 리사이클러Fragment1WeekCalender뷰에 SimpleTextAdapter 객체 지정.
-        TimeTableAdapter adapter = new TimeTableAdapter(getContext(), mTimeBtns);
+        TimeTableAdapter adapter = new TimeTableAdapter(getContext(), this::onItemSelected, num_block * num_day, mTimesSample);
         time_table.setAdapter(adapter);
 
         time_table.addOnItemTouchListener(new DragSelectionItemTouchListener(getContext(), new LongPressItemTouchListener.OnItemInteractionListener() {
+
             @Override
             public void onLongItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position) {
                 Log.e("ItemTouchListener", "onLongItemClicked");
+                Integer pos = position;
                 if (mViewHolderTouched.selected) {
-                    mViewHolderTouched.btn.setBackgroundColor(Color.YELLOW);
-                    mViewHolderTouched.selected = false;
+                    blockSelected = false;
+                    mViewHolderTouched.btn.setBackgroundColor(Color.parseColor("#FFDFC7AF"));
+                    mViewHolderTouched.selected = blockSelected;
+                    if (mTimesAvailable.contains(position)) {
+                        mTimesAvailable.remove(pos);
+                    }
+                    Log.e("REMOVED", mTimesAvailable.toString());
                 } else {
+                    blockSelected = true;
                     mViewHolderTouched.btn.setBackgroundColor(Color.RED);
-                    mViewHolderTouched.selected = true;
+                    mViewHolderTouched.selected = blockSelected;
+                    mTimesAvailable.add(pos);
+                    Log.e("ADDED", mTimesAvailable.toString());
                 }
             }
 
@@ -111,12 +132,19 @@ public class Fragment3TempTimeTable extends Fragment {
             @Override
             public void onViewHolderHovered(RecyclerView rv, TimeTableAdapter.ViewHolder viewHolder) {
                 Log.e("ItemTouchListener", "onViewHolderHovered");
-                if (viewHolder.selected) {
-                    viewHolder.btn.setBackgroundColor(Color.YELLOW);
-                    viewHolder.selected = false;
+                Integer position = viewHolder.getAdapterPosition();
+                if (!blockSelected) {
+                    viewHolder.btn.setBackgroundColor(Color.parseColor("#FFDFC7AF"));
+                    viewHolder.selected = blockSelected;
+                    if (mTimesAvailable.contains(position)) {
+                        mTimesAvailable.remove(position);
+                    }
+                    Log.e("REMOVED", mTimesAvailable.toString());
                 } else {
                     viewHolder.btn.setBackgroundColor(Color.RED);
-                    viewHolder.selected = true;
+                    viewHolder.selected = blockSelected;
+                    mTimesAvailable.add(position);
+                    Log.e("ADDED", mTimesAvailable.toString());
                 }
             }
 
@@ -127,5 +155,10 @@ public class Fragment3TempTimeTable extends Fragment {
         }));
 
         return view;
+    }
+
+    @Override
+    public void onItemSelected(View view, int position) {
+
     }
 }
