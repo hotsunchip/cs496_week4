@@ -2,22 +2,25 @@ package com.example.cs496_week4.Retrofit;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
-import com.example.cs496_week4.Retrofit.Data.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.Input__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
-import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
-import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
-import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
+import com.example.cs496_week4.Retrofit.Data.user.Model__resetPassword;
+import com.example.cs496_week4.Retrofit.Data.user.Model__userEmailExists;
+import com.example.cs496_week4.Retrofit.Data.user.Model__userNameExists;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
 import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
-import com.example.cs496_week4.Retrofit.Data.Output__signIn;
-import com.example.cs496_week4.Retrofit.Data.Output__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signUp;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmRespond;
 
@@ -357,6 +360,81 @@ public class CallRetrofit {
         //Retrofit 호출
         Output__wtmRespond[] output = new Output__wtmRespond[1];
         Call<Output__wtmRespond> call = RetrofitClient.getApiService().postWtmRespond(token, input);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public POST__userDeparture postUserDeparture(String token, float[] input){
+
+        //Retrofit 호출
+        POST__userDeparture[] output = new POST__userDeparture[1];
+        Call<POST__userDeparture> call = RetrofitClient.getApiService().postUserDeparture(token, input);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public GET__userDeparture getUserDeparture(String token, String username){
+
+        //Retrofit 호출
+        GET__userDeparture[] output = new GET__userDeparture[1];
+        Call<GET__userDeparture> call = RetrofitClient.getApiService().getUserDeparture(token, username);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__userApptsDate userApptsDate(String token){
+
+        //Retrofit 호출
+        Output__userApptsDate[] output = new Output__userApptsDate[1];
+        Call<Output__userApptsDate> call = RetrofitClient.getApiService().getUserApptsDate(token);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -1,12 +1,8 @@
-package com.example.cs496_week4.Retrofit.Data;
+package com.example.cs496_week4.Retrofit.Data.user;
 
-public class Model__userNameExists {
+public class Model__userEmailExists {
 
     private boolean result;
-
-    public Model__userNameExists() {
-        this.result = false;
-    }
 
     public boolean isResult() {
         return result;
@@ -18,7 +14,7 @@ public class Model__userNameExists {
 
     @Override
     public String toString() {
-        return "RepoUserNameExists{" +
+        return "RepoUserEmailExists{" +
                 "result='" + result + '\'' +
                 '}';
     }
