@@ -3,6 +3,9 @@ package com.example.cs496_week4.Retrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.apptInfo_members;
 import com.example.cs496_week4.Retrofit.Data.wtm.wtmInfo_personalResponses;
 import com.example.cs496_week4.Retrofit.Data.wtm.wtmInfo_personalResponses_times;
+import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
+import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_wtm;
+import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_wtm_times;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -26,6 +29,9 @@ public class RetrofitClient {
                 .registerTypeAdapter(wtmInfo_personalResponses.class, new wtmInfo_personalResponses_Deserializer())
                 .registerTypeAdapter(wtmInfo_personalResponses_times.class, new wtmInfo_personalResponses_times_Deserializer())
                 .registerTypeAdapter(apptInfo_members.class, new apptInfo_members_element_Deserializer())
+                .registerTypeAdapter(wtmRespond_times.class, new wtmRespond_times_Deserializer())
+                .registerTypeAdapter(wtmRespond_wtm.class, new wtmRespond_wtm_Deserializer())
+                .registerTypeAdapter(wtmRespond_wtm_times.class, new wtmRespond_wtm_times_Deserializer())
                 .create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -77,6 +83,54 @@ public class RetrofitClient {
             // Deserialize it. You use a new instance of Gson to avoid infinite recursion
             // to this deserializer
             return new Gson().fromJson(content, apptInfo_members.class);
+
+        }
+    }
+
+    private static class wtmRespond_times_Deserializer implements JsonDeserializer<wtmRespond_times>
+    {
+        @Override
+        public wtmRespond_times deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
+                throws JsonParseException
+        {
+            // Get the "content" element from the parsed JSON
+            JsonElement content = je.getAsJsonObject().get("times");
+
+            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
+            // to this deserializer
+            return new Gson().fromJson(content, wtmRespond_times.class);
+
+        }
+    }
+
+    private static class wtmRespond_wtm_Deserializer implements JsonDeserializer<wtmRespond_wtm>
+    {
+        @Override
+        public wtmRespond_wtm deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
+                throws JsonParseException
+        {
+            // Get the "content" element from the parsed JSON
+            JsonElement content = je.getAsJsonObject().get("wtm");
+
+            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
+            // to this deserializer
+            return new Gson().fromJson(content, wtmRespond_wtm.class);
+
+        }
+    }
+
+    private static class wtmRespond_wtm_times_Deserializer implements JsonDeserializer<wtmRespond_wtm_times>
+    {
+        @Override
+        public wtmRespond_wtm_times deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
+                throws JsonParseException
+        {
+            // Get the "content" element from the parsed JSON
+            JsonElement content = je.getAsJsonObject().get("times");
+
+            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
+            // to this deserializer
+            return new Gson().fromJson(content, wtmRespond_wtm_times.class);
 
         }
     }

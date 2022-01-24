@@ -12,12 +12,14 @@ import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
 import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
 import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
 import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Output__signIn;
 import com.example.cs496_week4.Retrofit.Data.Output__signUp;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmRespond;
 
 import java.io.IOException;
 
@@ -330,6 +332,31 @@ public class CallRetrofit {
         //Retrofit 호출
         Model__apptDelete[] output = new Model__apptDelete[1];
         Call<Model__apptDelete> call = RetrofitClient.getApiService().deleteApptDelete(token, apptId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__wtmRespond wtmRespond(String token, Input__wtmRespond input){
+
+        //Retrofit 호출
+        Output__wtmRespond[] output = new Output__wtmRespond[1];
+        Call<Output__wtmRespond> call = RetrofitClient.getApiService().postWtmRespond(token, input);
         new Thread(new Runnable() {
             @Override
             public void run() {

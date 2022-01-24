@@ -21,6 +21,9 @@ import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
+import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -171,13 +174,14 @@ public class MainActivity extends AppCompatActivity {
         String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
         //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
         //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
-        int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
+        /*int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
         Log.d("accept", callRetrofit.apptAccept(token, apptId).getError());
         Log.d("reject", callRetrofit.apptReject(token, apptId).getError());
         Log.d("apptInfo", callRetrofit.apptInfo(token, apptId).getOwner());
-        Log.d("delete", callRetrofit.apptDelete(token, apptId).getResult());
+        Log.d("delete", callRetrofit.apptDelete(token, apptId).getResult());*/
         //Log.d("apptInvite", callRetrofit.apptInvite(token, new Input__apptInvite(apptId, new String[]{"bb"})).toString());
-        //Log.d("wtmInfo", callRetrofit.wtmInfo("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWMxMDExOGI3ZjQ2NDliNTBkNzhkYiIsImlhdCI6MTY0Mjg2MDU3MX0.CODW2bauOZDDPSDvyQeuwog_y9Vd4X6bZ6hegGdZdKo", 933).getOwner().get_id());
+        int wtmId = callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", new String[]{})).getWtmId();
+        Log.d("wtmRespond", callRetrofit.wtmRespond(token, new Input__wtmRespond(933, new wtmRespond_times[]{new wtmRespond_times("2022-01-02", new String[]{"0800", "0900", "1000"})})).getWtm()[0].get_id());
 
         // Get Firebase Device Token
         /*FirebaseMessaging.getInstance().getToken()
