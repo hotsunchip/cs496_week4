@@ -12,12 +12,14 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
 import com.example.cs496_week4.Retrofit.Data.Model__resetPassword;
 import com.example.cs496_week4.Retrofit.Data.Model__userEmailExists;
 import com.example.cs496_week4.Retrofit.Data.Model__userNameExists;
+import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
 import com.example.cs496_week4.Retrofit.Data.wtm.Model__wtmInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.Output__signIn;
 import com.example.cs496_week4.Retrofit.Data.Output__signUp;
 import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmCreate;
+import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmRespond;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -75,6 +77,9 @@ public interface RetrofitAPI {
 
     @GET("wtm/info")
     Call<Model__wtmInfo> getWtmInfo(@Header("jwt") String token, @Query("wtmId") int wtmId);
+
+    @POST("wtm/respond")
+    Call<Output__wtmRespond> postWtmRespond(@Header("jwt") String token, @Body Input__wtmRespond input);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
