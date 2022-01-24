@@ -165,11 +165,11 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        //CallRetrofit callRetrofit = new CallRetrofit();
+//        CallRetrofit callRetrofit = new CallRetrofit();
         //callRetrofit.userNameExists("woojin");
         //callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
         //callRetrofit.signUp(new Input__signUp("cc", "cc@kaist.ac.kr", "1111"));
-        //String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
+//        String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
         //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
         //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
         /*int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
