@@ -13,14 +13,14 @@ public abstract class LongPressItemTouchListener extends RecyclerView.SimpleOnIt
 
     private final GestureDetector mGestureDetector;
     protected final OnItemInteractionListener mListener;
-    protected TimeTableAdapter.ViewHolder mViewHolderLongPressed;
-    public TimeTableAdapter.ViewHolder mViewHolderInFocus;
+    protected TimeTableBlockAdapter.ViewHolder mViewHolderLongPressed;
+    public TimeTableBlockAdapter.ViewHolder mViewHolderInFocus;
 
     public interface OnItemInteractionListener {
-        void onLongItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position);
-        void onItemClicked(RecyclerView recyclerView, TimeTableAdapter.ViewHolder mViewHolderTouched, int position);
-        void onViewHolderHovered(RecyclerView rv, TimeTableAdapter.ViewHolder viewHolder);
-        void onMultipleViewHoldersSelected(RecyclerView rv, ArrayList<TimeTableAdapter.ViewHolder> selection);
+        void onLongItemClicked(RecyclerView recyclerView, TimeTableBlockAdapter.ViewHolder mViewHolderTouched, int position);
+        void onItemClicked(RecyclerView recyclerView, TimeTableBlockAdapter.ViewHolder mViewHolderTouched, int position);
+        void onViewHolderHovered(RecyclerView rv, TimeTableBlockAdapter.ViewHolder viewHolder);
+        void onMultipleViewHoldersSelected(RecyclerView rv, ArrayList<TimeTableBlockAdapter.ViewHolder> selection);
     }
 
     public LongPressItemTouchListener(Context context, OnItemInteractionListener listener) {
@@ -38,7 +38,7 @@ public abstract class LongPressItemTouchListener extends RecyclerView.SimpleOnIt
         }
         View childViewUnder = rv.findChildViewUnder(e.getX(), e.getY());
         if (childViewUnder != null) {
-            mViewHolderInFocus = (TimeTableAdapter.ViewHolder) rv.findContainingViewHolder(childViewUnder);
+            mViewHolderInFocus = (TimeTableBlockAdapter.ViewHolder) rv.findContainingViewHolder(childViewUnder);
             if (mGestureDetector.onTouchEvent(e) && mListener != null) {
                 mListener.onItemClicked(rv, mViewHolderInFocus, rv.getChildAdapterPosition(childViewUnder));
             }

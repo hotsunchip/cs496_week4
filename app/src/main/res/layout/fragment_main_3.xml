@@ -9,16 +9,17 @@
         android:id="@+id/recycler_view_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/scroll_view_ntt"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <HorizontalScrollView
         android:id="@+id/scroll_view_ntt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/recycler_view_time"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@id/recycler_view_time"
+        app:layout_constraintTop_toTopOf="@id/recycler_view_time">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:id="@+id/recycler_view_table"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:nestedScrollingEnabled="false" />
         </LinearLayout>
 
     </HorizontalScrollView>

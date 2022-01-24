@@ -20,6 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.applikeysolutions.cosmocalendar.selection.MultipleSelectionManager;
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
+import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
+import com.example.cs496_week4.CheckItems.CheckTimeTableActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.TimePickerFragment;
 
@@ -115,6 +117,12 @@ public class NewTimeTableActivity extends AppCompatActivity {
             Toast.makeText(this, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "내 티티에 저장되었습니다", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(NewTimeTableActivity.this, CheckTimeTableActivity.class);
+            intent.putExtra("timeTableName", name);
+            intent.putExtra("timeTableStartTime", "2000");
+            intent.putExtra("timeTableEndTime", "0200");
+            intent.putExtra("timeTableDays", ttCalendar.getSelectedDays().size());
+            startActivity(intent);
             this.finish();
         }
     }

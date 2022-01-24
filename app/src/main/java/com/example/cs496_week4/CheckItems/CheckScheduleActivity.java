@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.R;
 
 public class CheckScheduleActivity extends AppCompatActivity {
@@ -20,8 +21,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
     private String scheduleName;
     private String scheduleDate;
     private String scheduleTime;
-    private String schedulePlaceName;
-    private String shcedulePlaceAddr;
+    private SchedulePlace schedulePlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

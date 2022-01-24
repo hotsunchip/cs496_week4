@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DragSelectionItemTouchListener extends LongPressItemTouchListener implements RecyclerView.OnItemTouchListener {
     private RecyclerView.ViewHolder mPreviousViewHolder;
     private Rect mHitRect = new Rect();
-    private ArrayList<TimeTableAdapter.ViewHolder> mRangeSelection = new ArrayList<>();
+    private ArrayList<TimeTableBlockAdapter.ViewHolder> mRangeSelection = new ArrayList<>();
 
 
     public DragSelectionItemTouchListener(Context context, OnItemInteractionListener listener) {
@@ -70,7 +70,7 @@ public class DragSelectionItemTouchListener extends LongPressItemTouchListener i
     private void dispatchOnViewHolderHovered(RecyclerView rv, RecyclerView.ViewHolder viewHolder) {
         if (!checkForSpanSelection(rv, viewHolder)) {
             if (mListener != null) {
-                mListener.onViewHolderHovered(rv, (TimeTableAdapter.ViewHolder) viewHolder);
+                mListener.onViewHolderHovered(rv, (TimeTableBlockAdapter.ViewHolder) viewHolder);
             }
         }
         mPreviousViewHolder = viewHolder;
@@ -94,7 +94,7 @@ public class DragSelectionItemTouchListener extends LongPressItemTouchListener i
             int start = Math.min(mPreviousViewHolder.getAdapterPosition() + 1, viewHolder.getAdapterPosition());
             int end = Math.max(mPreviousViewHolder.getAdapterPosition() + 1, viewHolder.getAdapterPosition());
             for (int i = start; i <= end; i++) {
-                mRangeSelection.add((TimeTableAdapter.ViewHolder) rv.findViewHolderForAdapterPosition(i));
+                mRangeSelection.add((TimeTableBlockAdapter.ViewHolder) rv.findViewHolderForAdapterPosition(i));
             }
             mListener.onMultipleViewHoldersSelected(rv, mRangeSelection);
         }

@@ -15,7 +15,7 @@ import com.example.cs496_week4.R;
 import java.util.ArrayList;
 
 
-public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.ViewHolder> {
+public class TimeTableBlockAdapter extends RecyclerView.Adapter<TimeTableBlockAdapter.ViewHolder> {
     // interface
     public interface OnListItemSelectedInterface {
         void onItemSelected(View view, int position);
@@ -27,7 +27,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
     private SearchRecyclerAdapter.OnListItemSelectedInterface mListener;
     private int mSize;
 
-    public TimeTableAdapter(Context context, SearchRecyclerAdapter.OnListItemSelectedInterface listener, int size, ArrayList<Integer> list) {
+    public TimeTableBlockAdapter(Context context, SearchRecyclerAdapter.OnListItemSelectedInterface listener, int size, ArrayList<Integer> list) {
         super();
 
         // 생성자에서 데이터 리스트 객체를 전달받음.
@@ -62,13 +62,11 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View btn;
-        public TextView tvPos;
         public boolean selected = false;
 
         public ViewHolder(View itemView) {
             super(itemView);
             btn = itemView.findViewById(R.id.layout_ntt_item);
-            tvPos = itemView.findViewById(R.id.ntt_position);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
