@@ -1,4 +1,4 @@
-package com.example.cs496_week4.CheckTimeTable;
+package com.example.cs496_week4.CheckItems;
 
 import android.content.Intent;
 import android.os.Bundle;

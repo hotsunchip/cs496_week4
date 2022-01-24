@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewItems;
+package com.example.cs496_week4.Data;
 
 public class SchedulePlace {
     private String placeName;

@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewItems;
+package com.example.cs496_week4.AdapterListener;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.R;
 
 import java.util.ArrayList;
@@ -22,10 +23,12 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     // fields
     private ArrayList<SchedulePlace> mSearchResult;
     private Context mContext;
+    private OnListItemSelectedInterface mListener;
 
 
-    public SearchRecyclerAdapter(Context context, ArrayList<SchedulePlace> result) {
+    public SearchRecyclerAdapter(Context context, OnListItemSelectedInterface listener, ArrayList<SchedulePlace> result) {
         this.mContext = context;
+        this.mListener = listener;
         this.mSearchResult = result;
     }
     @NonNull
@@ -54,6 +57,15 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
             super(itemView);
             tv_place_name = itemView.findViewById(R.id.tv_place_name);
             tv_place_address = itemView.findViewById(R.id.tv_place_address);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    mListener.onItemSelected(view, position);
+//                    Log.d("test", "position = " + position);
+                }
+            });
         }
     }
 }

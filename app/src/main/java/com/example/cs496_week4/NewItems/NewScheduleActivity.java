@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +20,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.applikeysolutions.cosmocalendar.view.CalendarView;
-import com.example.cs496_week4.CheckSchedule.CheckScheduleActivity;
-import com.example.cs496_week4.Main.MainActivity;
+import com.example.cs496_week4.AdapterListener.SearchRecyclerAdapter;
+import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
+import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.TimePickerFragment;
 
@@ -110,7 +106,7 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
                 return handled;
             }
         });
-        searchAdapter = new SearchRecyclerAdapter(this, placeList);
+        searchAdapter = new SearchRecyclerAdapter(this, this, placeList);
         sdPlaceList.setAdapter(searchAdapter);
     }
 
@@ -268,7 +264,11 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
 
     @Override
     public void onItemSelected(View view, int position) {
-
+        Log.e("hello", "");
+        placeList.clear();
+        refreshAdapter();
+        TextView tv_name = view.findViewById(R.id.tv_place_name);
+        sdPlace.setText(tv_name.getText());
     }
 
     //파라미터를 map으로 변환 메소드
