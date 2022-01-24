@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Main;
+package com.example.cs496_week4.AdapterListener;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DragSelectionItemTouchListener extends LongPressItemTouchListener implements RecyclerView.OnItemTouchListener {
     private RecyclerView.ViewHolder mPreviousViewHolder;

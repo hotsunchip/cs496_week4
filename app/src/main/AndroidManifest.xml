@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main.CodeActivity" />
-        <activity android:name=".CheckSchedule.CheckScheduleActivity" />
-        <activity android:name=".CheckTimeTable.CheckTimeTableActivity" />
+        <activity android:name=".CheckItems.CheckScheduleActivity" />
+        <activity android:name=".CheckItems.CheckTimeTableActivity" />
         <activity android:name=".NewItems.NewTimeTableActivity" />
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />

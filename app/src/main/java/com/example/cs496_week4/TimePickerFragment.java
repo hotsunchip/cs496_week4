@@ -25,13 +25,15 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private final int DEFAULT_INTERVAL = 30;
     private final int MINUTES_MIN = 0;
     private final int MINUTES_MAX = 60;
+    private int timeCode;
 
     // fields
     private final int hour;
     private final int min;
 
     public TimePickerFragment(int time) {
-        if (time > 5) {
+        this.timeCode = time;
+        if (timeCode > 5) {
             // current time
             Calendar mCalendar = Calendar.getInstance();
             hour = mCalendar.get(Calendar.HOUR_OF_DAY);
@@ -39,7 +41,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
             Log.e("time", String.valueOf(hour));
             Log.e("time", String.valueOf(min));
         } else {
-            if (time > 0) {
+            if (timeCode > 0) {
                 // start time
                 hour = 16;
                 min = 0;
@@ -68,9 +70,11 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
                 // Customize minute NumberPicker
                 NumberPicker minutePicker = (NumberPicker) layout.getChildAt(2);
-                minutePicker.setMinValue(0);
-                minutePicker.setMaxValue(1);
-                minutePicker.setDisplayedValues(new String[]{"00", "30"});
+                if (timeCode < 5) {
+                    minutePicker.setMinValue(0);
+                    minutePicker.setMaxValue(1);
+                    minutePicker.setDisplayedValues(new String[]{"00", "30"});
+                }
                 minutePicker.setOnValueChangedListener(null);
             }
         });

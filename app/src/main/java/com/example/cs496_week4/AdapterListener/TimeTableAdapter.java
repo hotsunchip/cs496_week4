@@ -1,13 +1,9 @@
-package com.example.cs496_week4.Main;
+package com.example.cs496_week4.AdapterListener;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,8 +45,8 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder{
-        View btn;
-        boolean selected = false;
+        public View btn;
+        public boolean selected = false;
 
         public ViewHolder(View itemView) {
             super(itemView);

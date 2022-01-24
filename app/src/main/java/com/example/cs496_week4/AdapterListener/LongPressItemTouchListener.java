@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Main;
+package com.example.cs496_week4.AdapterListener;
 
 import android.content.Context;
 import android.view.GestureDetector;
