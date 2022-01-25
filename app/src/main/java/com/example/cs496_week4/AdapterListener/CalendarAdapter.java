@@ -75,6 +75,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                 }
             } else {
                 if (mSelected == position) {
+                    holder.cd_date.setTextColor(R.color.gray_800);
+                    holder.cd_day.setTextColor(R.color.gray_800);
                     holder.cd_card.setBackgroundResource(R.drawable.background_white);
                 }
             }

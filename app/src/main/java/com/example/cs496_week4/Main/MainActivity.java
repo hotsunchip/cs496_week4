@@ -1,33 +1,28 @@
 package com.example.cs496_week4.Main;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
-import com.example.cs496_week4.Retrofit.CallRetrofit;
-import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
-import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
-import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
-import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity mContext;
@@ -40,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static LinearLayout newGroupScheduleFabLayout;
     private static LinearLayout newTimeTableFabLayout;
 
-    private static TabLayout tabLayout;
+//    private static TabLayout tabLayout;
     private static ImageButton profileBtn;
 
     private static Animation rotateOpen;
@@ -48,60 +43,68 @@ public class MainActivity extends AppCompatActivity {
     private static Animation fromBottom;
     private static Animation toBottom;
 
+
+    private TextView calendarMonthYear;
+    private DateTimeFormatter monthFormat;
+    private String localDate;
+
     private static boolean mClicked = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
 
+
+        monthFormat = DateTimeFormatter.ofPattern("yyyy년 MM월").withLocale(Locale.forLanguageTag("ko"));
+        localDate = LocalDateTime.now().format(monthFormat);
+
+        calendarMonthYear = findViewById(R.id.tv_cd_YearMonth);
+        calendarMonthYear.setText(localDate);
+
         // fields
         //    public String serverAddress = "192.0.0.0";
         //    EditText dataInput; //서버로 전송할 데이터 입력상자
         //    String str;
 
-        // set main toolbar
-        Toolbar tb = findViewById(R.id.toolbar);
-        setSupportActionBar(tb);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         // tab
-        tabLayout = findViewById(R.id.tab_layout);
-        Fragment1WeekCalender frag1 = new Fragment1WeekCalender();
-        Fragment2Map frag2 = new Fragment2Map();
-        Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable(3, "1500", "2230");
-        tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
-        tabLayout.addTab(tabLayout.newTab().setText("공간"));
-        tabLayout.addTab(tabLayout.newTab().setText("임시"));
+//        tabLayout = findViewById(R.id.tab_layout);
+        FragmentWeekCalendar frag1 = new FragmentWeekCalendar();
+//        Fragment2Map frag2 = new Fragment2Map();
+//        Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable(3, "1500", "2230");
+//        tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
+//        tabLayout.addTab(tabLayout.newTab().setText("공간"));
+//        tabLayout.addTab(tabLayout.newTab().setText("임시"));
         replaceFragment(frag1);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition())
-                {
-                    case 0 :
-                        if (mClicked) closeFab();
-                        replaceFragment(frag1);
-                        break;
-                    case 1 :
-                        if (mClicked) closeFab();
-                        replaceFragment(frag2);
-                        break;
-                    case 2 :
-                        if (mClicked) closeFab();
-                        replaceFragment(frag3);
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-        tabLayout.getTabAt(0).select();
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                switch (tab.getPosition())
+//                {
+//                    case 0 :
+//                        if (mClicked) closeFab();
+//                        replaceFragment(frag1);
+//                        break;
+//                    case 1 :
+//                        if (mClicked) closeFab();
+//                        replaceFragment(frag2);
+//                        break;
+//                    case 2 :
+//                        if (mClicked) closeFab();
+//                        replaceFragment(frag3);
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//            }
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//            }
+//        });
+//        tabLayout.getTabAt(0).select();
 
 
         // fab

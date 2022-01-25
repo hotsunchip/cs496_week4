@@ -18,9 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cs496_week4.Main.Fragment3TempTimeTable;
+import com.example.cs496_week4.NewItems.FragmentTimeTable;
 import com.example.cs496_week4.R;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -71,7 +70,7 @@ public class CheckTimeTableActivity extends AppCompatActivity {
         // connect time table name
         tt_Name.setText(timeTableName);
         // connect time table
-        Fragment3TempTimeTable frag1 = new Fragment3TempTimeTable(timeTableDays, timeTableStartTime, timeTableEndTime);
+        FragmentTimeTable frag1 = new FragmentTimeTable(timeTableDays, timeTableStartTime, timeTableEndTime);
         replaceFragment(frag1);
         tt_ChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
