@@ -6,12 +6,12 @@ public class Input__apptCreate {
 
     private String apptName;
     private String apptStartTime;
-    private float[] apptDest;
+    private String apptDest;
 
-    public Input__apptCreate(String apptName, String apptStartTime, @NonNull float[] apptDest) {
+    public Input__apptCreate(String apptName, String apptStartTime, String apptDest) {
         this.apptName = apptName;
         this.apptStartTime = apptStartTime;
-        this.apptDest = apptDest.clone();
+        this.apptDest = apptDest;
     }
 
     public String getApptName() {
@@ -30,11 +30,11 @@ public class Input__apptCreate {
         this.apptStartTime = apptStartTime;
     }
 
-    public float[] getApptDest() {
-        return apptDest.clone();
+    public String getApptDest() {
+        return apptDest;
     }
 
-    public void setApptDest(@NonNull float[] apptDest) {
-        this.apptDest = apptDest.clone();
+    public void setApptDest(String apptDest) {
+        this.apptDest = apptDest;
     }
 }

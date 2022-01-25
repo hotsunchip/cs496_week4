@@ -57,6 +57,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
                 Intent intent = new Intent(CheckScheduleActivity.this, CheckDestPosition.class);
                 intent.putExtra("scheduleName", scheduleName);
                 intent.putExtra("destName", destName);
+                Log.d("destName3", destName);
                 startActivity(intent);
             }
         });
