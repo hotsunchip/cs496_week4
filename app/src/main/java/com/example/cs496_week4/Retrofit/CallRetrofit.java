@@ -1,7 +1,11 @@
 package com.example.cs496_week4.Retrofit;
 
+import android.util.Log;
+
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
+import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
@@ -9,6 +13,7 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
+import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
@@ -97,7 +102,7 @@ public class CallRetrofit {
         }).start();
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(700);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -448,6 +453,81 @@ public class CallRetrofit {
 
         try {
             Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__setAlarm setAlarm(String token, Input__setAlarm input){
+
+        //Retrofit 호출
+        Output__setAlarm[] output = new Output__setAlarm[1];
+        Call<Output__setAlarm> call = RetrofitClient.getApiService().postSetAlarm(token, input);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__Coordinate convertAddressToCoordinate(String token, String address) {
+
+        Output__Coordinate[] output = new Output__Coordinate[1];
+        Call<Output__Coordinate> call = RetrofitClient.getApiService().getCoordinate(token, address);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                }
+                catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(1000);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Boolean updateAppt(String token, int apptId, Input__apptCreate apptInfo) {
+
+        Boolean[] output = new Boolean[1];
+        Call<Boolean> call = RetrofitClient.getApiService().putAppUpdate(token, apptId, apptInfo);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                }
+                catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(1000);
         } catch(Exception e) {
             e.printStackTrace();
         }

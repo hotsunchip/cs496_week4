@@ -30,7 +30,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
+import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.TimePickerFragment;
 
 import org.json.JSONArray;
@@ -264,9 +268,48 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
             sdName.setError("1자 이상의 이름을 입력해주세요");
             sdName.requestFocus();
         } else {
+            CallRetrofit callRetrofit = new CallRetrofit();
+            String token = MainActivity.userToken;
+            String apptName = sdName.getText().toString();
+            String apptDate = sdStartDate.getText().toString()
+                    .replace("년 ", "-")
+                    .replace("월 ", "-")
+                    .replace("일", "");
+            String[] splitted = apptDate.split("-");
+            String year = splitted[0];
+            String month = splitted[1];
+            String day = splitted[2];
+            if (month.length() < 2) {
+                month = "0" + month;
+            }
+            if (day.length() < 2) {
+                day = "0" + day;
+            }
+            apptDate = year + "-" + month + "-" + day + "T";
+
+            String apptTime = sdStartTime.getText().toString()
+                    .replace(" PM", "");
+            String[] timeSplitted = apptTime.split(":");
+            String hour = timeSplitted[0];
+            String minute = timeSplitted[1];
+            if(hour.length() < 2) {
+                hour = "0" + hour;
+            }
+            if(minute.length() < 2) {
+                minute = "0" + minute;
+            }
+            apptTime = hour + ":" + minute;
+
+            String apptStartTime = apptDate + apptTime;
+            String apptDest = sdPlace.getText().toString();
+
+            Input__apptCreate apptInfo = new Input__apptCreate(apptName, apptStartTime, apptDest);
+
+            Output__apptCreate createdAppt = callRetrofit.apptCreate(token, apptInfo);
+
             Toast.makeText(this, "내 일정에 추가되었습니다", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(NewScheduleActivity.this, CheckScheduleActivity.class);
-            intent.putExtra("scheduleName", name);
+            intent.putExtra("apptId", createdAppt.getApptIdentifier());
             startActivity(intent);
             this.finish();
         }

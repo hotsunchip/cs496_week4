@@ -2,10 +2,13 @@ package com.example.cs496_week4.Retrofit;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
+import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
@@ -32,6 +35,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
@@ -93,6 +97,16 @@ public interface RetrofitAPI {
 
     @GET("user/appts-date")
     Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token);
+
+    @POST("map/set-alarm")
+    Call<Output__setAlarm> postSetAlarm(@Header("jwt") String token, @Body Input__setAlarm input);
+
+    @GET("map/get-coordinate")
+    Call<Output__Coordinate> getCoordinate(@Header("jwt") String token, @Query("address") String address);
+
+    @FormUrlEncoded
+    @PUT("appt/edit")
+    Call<Boolean> putAppUpdate(@Header("jwt") String token, @Field("apptId") int apptId, Input__apptCreate input);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
