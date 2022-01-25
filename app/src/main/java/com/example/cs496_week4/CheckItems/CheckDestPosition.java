@@ -59,7 +59,6 @@ public class CheckDestPosition extends AppCompatActivity implements OnMapReadyCa
         mMap = googleMap;
 
         Output__Coordinate output = new CallRetrofit().convertAddressToCoordinate(MainActivity.userToken, destName);
-        Log.d("coordinate", Float.toString(output.getLatitude()) + ", " + Float.toString(output.getLongitutde()));
 
         LatLng SEOUL = new LatLng(output.getLatitude(), output.getLongitutde());
 
