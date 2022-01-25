@@ -8,6 +8,7 @@ import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
@@ -98,6 +99,9 @@ public interface RetrofitAPI {
 
     @POST("map/set-alarm")
     Call<Output__setAlarm> postSetAlarm(@Header("jwt") String token, @Body Input__setAlarm input);
+
+    @GET("map/get-coordinate")
+    Call<Output__Coordinate> getCoordinate(@Header("jwt") String token, @Query("address") String address);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
