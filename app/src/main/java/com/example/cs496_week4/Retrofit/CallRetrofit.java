@@ -102,7 +102,7 @@ public class CallRetrofit {
         }).start();
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(700);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +127,7 @@ public class CallRetrofit {
         }).start();
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(700);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -489,6 +489,31 @@ public class CallRetrofit {
 
         Output__Coordinate[] output = new Output__Coordinate[1];
         Call<Output__Coordinate> call = RetrofitClient.getApiService().getCoordinate(token, address);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                }
+                catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(1000);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Boolean updateAppt(String token, int apptId, Input__apptCreate apptInfo) {
+
+        Boolean[] output = new Boolean[1];
+        Call<Boolean> call = RetrofitClient.getApiService().putAppUpdate(token, apptId, apptInfo);
         new Thread(new Runnable() {
             @Override
             public void run() {

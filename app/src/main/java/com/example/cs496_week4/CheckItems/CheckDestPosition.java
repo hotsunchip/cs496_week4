@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class CheckDestPosition extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String destName;
+    private int apptId;
+    private Model__apptInfo apptInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,12 @@ public class CheckDestPosition extends AppCompatActivity implements OnMapReadyCa
         setContentView(R.layout.activity_checkdestposition);
 
         Intent intent = getIntent();
-        destName = intent.getStringExtra("destName");
+        apptId = intent.getIntExtra("apptId", -1);
+        apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
 
         // set toolbar
         TextView title = findViewById(R.id.cdp_toolbar_title);
-        title.setText(destName);
+        title.setText(apptInfo.getDestination());
         Toolbar toolBar = findViewById(R.id.cdp_toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -58,17 +62,16 @@ public class CheckDestPosition extends AppCompatActivity implements OnMapReadyCa
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
-        Output__Coordinate output = new CallRetrofit().convertAddressToCoordinate(MainActivity.userToken, destName);
-
-        LatLng SEOUL = new LatLng(output.getLatitude(), output.getLongitutde());
+        Output__Coordinate coordinate = new CallRetrofit().convertAddressToCoordinate(MainActivity.userToken, apptInfo.getDestination());
+        LatLng destCoor = new LatLng(coordinate.getLatitude(), coordinate.getLongitutde());
 
         MarkerOptions markerOptions = new MarkerOptions();         // 마커 생성
-        markerOptions.position(SEOUL);
+        markerOptions.position(destCoor);
         markerOptions.title("서울");                         // 마커 제목
         markerOptions.snippet("한국의 수도");         // 마커 설명
         mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));                 // 초기 위치
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(destCoor));                 // 초기 위치
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));                         // 줌의 정도
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);                           // 지도 유형 설정
 

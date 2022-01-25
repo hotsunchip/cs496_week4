@@ -8,7 +8,7 @@ public class Model__apptInfo {
     private String owner;
     private String startTime;
     private int identifier;
-    private float[] destination;
+    private String destination;
     private apptInfo_members members;
     private String error;
 
@@ -44,12 +44,12 @@ public class Model__apptInfo {
         this.identifier = identifier;
     }
 
-    public float[] getDestination() {
-        return destination.clone();
+    public String getDestination() {
+        return destination;
     }
 
-    public void setDestination(@NonNull float[] destination) {
-        this.destination = destination.clone();
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public apptInfo_members getMembers() {
