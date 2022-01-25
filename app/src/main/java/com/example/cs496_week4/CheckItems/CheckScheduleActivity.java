@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.Data.SchedulePlace;
+import com.example.cs496_week4.EditScheduleActivity;
 import com.example.cs496_week4.Main.CodeActivity;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
@@ -54,15 +55,25 @@ public class CheckScheduleActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         TextView csd_name = findViewById(R.id.tv_csd_name);
-        csd_name.setText(apptInfo.getName()+" ");
+        csd_name.setText(apptInfo.getName() + " ");
         TextView csd_date = findViewById(R.id.tv_csd_date);
-        csd_date.setText(date.substring(0, 4)+"년 "+date.substring(5, 7)+"월 "+date.substring(8, 10)+"일 ");
+        csd_date.setText(date.substring(0, 4) + "년 " + date.substring(5, 7) + "월 " + date.substring(8, 10) + "일 ");
         TextView schedule_time = findViewById(R.id.tv_schedule_time);
-        schedule_time.setText(time+":"+date.substring(14, 16));
+        schedule_time.setText(time + ":" + date.substring(14, 16));
         TextView schedule_place_name = findViewById(R.id.tv_schedule_place_name);
         schedule_place_name.setText(apptInfo.getDestination());
         TextView schedule_place_addr = findViewById(R.id.tv_schedule_place_addr);
         schedule_place_addr.setText("");
+
+        Button edit_info = findViewById(R.id.edit_appt_info);
+        edit_info.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CheckScheduleActivity.this, EditScheduleActivity.class);
+                intent.putExtra("apptId", apptId);
+                startActivity(intent);
+            }
+        });
 
         Button check_dest = findViewById(R.id.check_dest_position);
         check_dest.setOnClickListener(new Button.OnClickListener() {
@@ -90,8 +101,8 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu) ;
+        getMenuInflater().inflate(R.menu.menu, menu);
 
-        return true ;
+        return true;
     }
 }

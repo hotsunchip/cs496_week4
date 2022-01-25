@@ -2,6 +2,7 @@ package com.example.cs496_week4.Retrofit;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__editApptInfo;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
@@ -104,9 +105,8 @@ public interface RetrofitAPI {
     @GET("map/get-coordinate")
     Call<Output__Coordinate> getCoordinate(@Header("jwt") String token, @Query("address") String address);
 
-    @FormUrlEncoded
     @PUT("appt/edit")
-    Call<Boolean> putAppUpdate(@Header("jwt") String token, @Field("apptId") int apptId, Input__apptCreate input);
+    Call<Model__editApptInfo> putAppUpdate(@Header("jwt") String token, @Query("apptId") int apptId, @Body Input__apptCreate input);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")

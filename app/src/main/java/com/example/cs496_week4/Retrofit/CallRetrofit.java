@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__editApptInfo;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
@@ -510,10 +511,10 @@ public class CallRetrofit {
         return output[0];
     }
 
-    public Boolean updateAppt(String token, int apptId, Input__apptCreate apptInfo) {
+    public Model__editApptInfo updateAppt(String token, int apptId, Input__apptCreate apptInfo) {
 
-        Boolean[] output = new Boolean[1];
-        Call<Boolean> call = RetrofitClient.getApiService().putAppUpdate(token, apptId, apptInfo);
+        Model__editApptInfo[] output = new Model__editApptInfo[1];
+        Call<Model__editApptInfo> call = RetrofitClient.getApiService().putAppUpdate(token, apptId, apptInfo);
         new Thread(new Runnable() {
             @Override
             public void run() {

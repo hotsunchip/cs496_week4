@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewItems;
+package com.example.cs496_week4;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +29,7 @@ import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.TimePickerFragment;
 
@@ -51,7 +52,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements SearchRecyclerAdapter.OnListItemSelectedInterface {
+public class EditScheduleActivity extends AppCompatActivity implements SearchRecyclerAdapter.OnListItemSelectedInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
@@ -61,6 +62,7 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
     private static SearchRecyclerAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
+    private int apptId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,11 +71,14 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
 
 
         Intent intent = getIntent();
+        apptId = intent.getIntExtra("apptId", -1);
+        Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
+
         placeList = new ArrayList<>();
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("새 약속 만들기");
+        title.setText("약속 수정하기");
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -90,6 +95,9 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
         sdStartTime = findViewById(R.id.tv_nsd_start_time);
         sdPlace = findViewById(R.id.et_nsd_place);
         sdPlaceList = findViewById(R.id.recycler_view_place);
+
+        sdName.setText(apptInfo.getName());
+        sdPlace.setText(apptInfo.getDestination());
 
         // add additional works
         sdStartTime.setOnClickListener(new View.OnClickListener() {
@@ -295,13 +303,13 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
 
             Input__apptCreate apptInfo = new Input__apptCreate(apptName, apptStartTime, apptDest);
 
-            Output__apptCreate createdAppt = callRetrofit.apptCreate(token, apptInfo);
+            callRetrofit.updateAppt(MainActivity.userToken, apptId, apptInfo);
 
-            Toast.makeText(this, "내 일정에 추가되었습니다", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(NewScheduleActivity.this, CheckScheduleActivity.class);
-            intent.putExtra("apptId", createdAppt.getApptIdentifier());
+            Toast.makeText(this, "일정이 수정되었습니다", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EditScheduleActivity.this, CheckScheduleActivity.class);
+            intent.putExtra("apptId", apptId);
             startActivity(intent);
-            this.finish();
+            //this.finish();
         }
     }
 

@@ -71,32 +71,33 @@ public class MainActivity extends AppCompatActivity {
         Fragment1WeekCalender frag1 = new Fragment1WeekCalender();
         Fragment2Map frag2 = new Fragment2Map();
         Fragment3TempTimeTable frag3 = new Fragment3TempTimeTable(3, "1500", "2230");
-        tabLayout.addTab(tabLayout.newTab().setText("시간"),true);
+        tabLayout.addTab(tabLayout.newTab().setText("시간"), true);
         tabLayout.addTab(tabLayout.newTab().setText("공간"));
         tabLayout.addTab(tabLayout.newTab().setText("임시"));
         replaceFragment(frag1);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition())
-                {
-                    case 0 :
+                switch (tab.getPosition()) {
+                    case 0:
                         if (mClicked) closeFab();
                         replaceFragment(frag1);
                         break;
-                    case 1 :
+                    case 1:
                         if (mClicked) closeFab();
                         replaceFragment(frag2);
                         break;
-                    case 2 :
+                    case 2:
                         if (mClicked) closeFab();
                         replaceFragment(frag3);
                         break;
                 }
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // drawer
-        profileBtn = findViewById(R.id.main_profile) ;
+        profileBtn = findViewById(R.id.main_profile);
 //        profileBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -235,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             closeFab();
         }
     }
+
     private void openFab() {
         // set visibility
         newScheduleFabLayout.setVisibility(View.VISIBLE);
@@ -250,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
         mainFab.startAnimation(rotateOpen);
         mClicked = !mClicked;
     }
+
     private void closeFab() {
         // set animation
         newScheduleFabLayout.startAnimation(toBottom);
