@@ -1,5 +1,6 @@
 package com.example.cs496_week4.NewItems;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,12 +27,16 @@ import com.example.cs496_week4.CheckItems.CheckTimeTableActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.TimePickerFragment;
 
-public class NewTimeTableActivity extends AppCompatActivity {
+import java.text.DecimalFormat;
+
+public class NewTimeTableActivity extends AppCompatActivity implements TimePickerFragment.OnTimeSetInterface{
     // fields
     private CalendarView ttCalendar;
     private EditText ttName;
     private TextView ttStartTime;
     private TextView ttEndTime;
+    private String timeStartString = "0900";
+    private String timeEndString = "1600";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,14 +79,14 @@ public class NewTimeTableActivity extends AppCompatActivity {
         ttStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.START_TIME);
+                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.START_TIME, NewTimeTableActivity.this);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
             }
         });
         ttEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.END_TIME);
+                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.END_TIME, NewTimeTableActivity.this);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
             }
         });
@@ -119,11 +125,42 @@ public class NewTimeTableActivity extends AppCompatActivity {
             Toast.makeText(this, "내 티티에 저장되었습니다", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(NewTimeTableActivity.this, CheckTimeTableActivity.class);
             intent.putExtra("timeTableName", name);
-            intent.putExtra("timeTableStartTime", "2000");
-            intent.putExtra("timeTableEndTime", "0200");
+            intent.putExtra("timeTableStartTime", timeStartString);
+            intent.putExtra("timeTableEndTime", timeEndString);
             intent.putExtra("timeTableDays", ttCalendar.getSelectedDays().size());
             startActivity(intent);
             this.finish();
         }
+    }
+
+    @Override
+    public void onTimeSet(int selectedHour, int selectedMinute, int mode) {
+        String hour = String.format("%02d", selectedHour);
+        String minute;
+        if (selectedMinute == 0) {
+            minute = "00";
+        } else {
+            minute = "30";
+        }
+        String timeString = hour + minute;
+        if (mode == TimePickerFragment.START_TIME) {
+            timeStartString = timeString;
+            setTimeTextView(ttStartTime, timeString);
+        } else {
+            timeEndString = timeString;
+            setTimeTextView(ttEndTime, timeString);
+        }
+        return;
+    }
+
+    private void setTimeTextView(TextView tv, String time) {
+        String state = "AM";
+        int hour = Integer.parseInt(time.substring(0, 2));
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0) hour = 12;
+        tv.setText(String.format("%02d", hour) + ":" + time.substring(2) + " " + state);
     }
 }

@@ -48,7 +48,7 @@ public class TimeTableBlockAdapter extends RecyclerView.Adapter<TimeTableBlockAd
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item_block, parent, false);
         return new ViewHolder(view);
     }
 
