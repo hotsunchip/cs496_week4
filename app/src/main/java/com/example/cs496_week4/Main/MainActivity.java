@@ -1,7 +1,9 @@
 package com.example.cs496_week4.Main;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,6 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,16 +21,24 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cs496_week4.CheckItems.CheckAllSchedulesActivity;
+import com.example.cs496_week4.CheckItems.CheckAllTimeTablesActivity;
+import com.example.cs496_week4.CheckItems.CheckUserInfo;
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static MainActivity mContext;
+    public static String userName;
+    public static String userEmail;
     public static String userToken;
     private static FloatingActionButton mainFab;
     private static FloatingActionButton newScheduleFab;
@@ -34,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private static LinearLayout newScheduleFabLayout;
     private static LinearLayout newGroupScheduleFabLayout;
     private static LinearLayout newTimeTableFabLayout;
+    private DrawerLayout drawer;
+    private NavigationView navigation;
 
 //    private static TabLayout tabLayout;
     private static ImageButton profileBtn;
@@ -48,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
     private DateTimeFormatter monthFormat;
     private String localDate;
 
+    // fields
+    //    public String serverAddress = "192.0.0.0";
+    //    EditText dataInput; //서버로 전송할 데이터 입력상자
+    //    String str;
     private static boolean mClicked = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -57,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
 
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("userName");
+        userEmail = intent.getStringExtra("userEmail");
+        userToken = intent.getStringExtra("userToken");
 
         monthFormat = DateTimeFormatter.ofPattern("yyyy년 MM월").withLocale(Locale.forLanguageTag("ko"));
         localDate = LocalDateTime.now().format(monthFormat);
@@ -64,10 +87,14 @@ public class MainActivity extends AppCompatActivity {
         calendarMonthYear = findViewById(R.id.tv_cd_YearMonth);
         calendarMonthYear.setText(localDate);
 
-        // fields
-        //    public String serverAddress = "192.0.0.0";
-        //    EditText dataInput; //서버로 전송할 데이터 입력상자
-        //    String str;
+        // drawer
+        drawer = (DrawerLayout) findViewById(R.id.main_drawer) ;
+        navigation = (NavigationView) findViewById(R.id.mainNavRoot);
+        navigation.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+        TextView tv_name = navigation.getHeaderView(0).findViewById(R.id.user_name);
+        TextView tv_email = navigation.getHeaderView(0).findViewById(R.id.user_email);
+        tv_name.setText(userName);
+        tv_email.setText(userEmail);
 
         // tab
 //        tabLayout = findViewById(R.id.tab_layout);
@@ -159,16 +186,18 @@ public class MainActivity extends AppCompatActivity {
 
         // drawer
         profileBtn = findViewById(R.id.main_profile) ;
-//        profileBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("helloworld", "");
-//                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mainDrawer) ;
-//                if (!drawer.isDrawerOpen(Gravity.RIGHT)) {
-//                    drawer.openDrawer(Gravity.RIGHT);
-//                }
-//            }
-//        });
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("helloworld", "");
+                if (!drawer.isDrawerOpen(Gravity.RIGHT)) {
+                    if (mClicked) {
+                        closeFab();
+                    }
+                    drawer.openDrawer(Gravity.RIGHT);
+                }
+            }
+        });
 
         //CallRetrofit callRetrofit = new CallRetrofit();
         //callRetrofit.userNameExists("woojin");
@@ -267,5 +296,42 @@ public class MainActivity extends AppCompatActivity {
         newScheduleFab.setVisibility(View.GONE);
         newGroupScheduleFab.setVisibility(View.GONE);
         newTimeTableFab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(Gravity.RIGHT)){
+            drawer.closeDrawers();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.myInfo:
+                Log.e("DrawerClicked", "myInfo");
+                Intent userInfoIntent = new Intent(MainActivity.this, CheckUserInfo.class);
+                startActivity(userInfoIntent);
+                break;
+            case R.id.mySchedules:
+                Log.e("DrawerClicked", "mySchedules");
+                Intent allScheduleIntent = new Intent(MainActivity.this, CheckAllSchedulesActivity.class);
+                startActivity(allScheduleIntent);
+                break;
+            case R.id.myTimeTables:
+                Log.e("DrawerClicked", "myTimeTables");
+                Intent allTimeTableIntent = new Intent(MainActivity.this, CheckAllTimeTablesActivity.class);
+                startActivity(allTimeTableIntent);
+                break;
+            case R.id.myLogOut:
+                Intent logOutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(logOutIntent);
+                finish();
+                break;
+        }
+        drawer.closeDrawers();
+        return true;
     }
 }

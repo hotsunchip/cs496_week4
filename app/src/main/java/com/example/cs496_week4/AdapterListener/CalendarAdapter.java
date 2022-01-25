@@ -61,8 +61,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         holder.cd_card.setBackgroundResource(android.R.color.transparent);
         if (mSelected < 0) {
             if (today.equals(mList.get(position).getCd_date())) {
-                holder.cd_date.setTextColor(R.color.off_white);
-                holder.cd_day.setTextColor(R.color.off_white);
                 holder.cd_card.setBackgroundResource(R.drawable.background_blue);
             }
         } else {

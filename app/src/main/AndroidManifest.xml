@@ -25,13 +25,16 @@
         </activity>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Main.CodeActivity" />
+        <activity android:name=".CheckItems.CheckDestPosition" />
         <activity android:name=".CheckItems.CheckScheduleActivity" />
         <activity android:name=".CheckItems.CheckTimeTableActivity" />
+        <activity android:name=".CheckItems.CheckAllSchedulesActivity" />
+        <activity android:name=".CheckItems.CheckAllTimeTablesActivity" />
+        <activity android:name=".CheckItems.CheckUserInfo" />
         <activity android:name=".NewItems.NewTimeTableActivity" />
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />
         <activity android:name=".NewItems.NewMemberActivity" />
-        <activity android:name=".CheckItems.CheckDestPosition" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="efuk59ps4r"/>
