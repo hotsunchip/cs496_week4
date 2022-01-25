@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // drawer
-        profileBtn = findViewById(R.id.main_profile) ;
+        profileBtn = findViewById(R.id.main_profile);
 //        profileBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -238,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             closeFab();
         }
     }
+
     private void openFab() {
         // set visibility
         newScheduleFabLayout.setVisibility(View.VISIBLE);
@@ -253,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
         mainFab.startAnimation(rotateOpen);
         mClicked = !mClicked;
     }
+
     private void closeFab() {
         // set animation
         newScheduleFabLayout.startAnimation(toBottom);
