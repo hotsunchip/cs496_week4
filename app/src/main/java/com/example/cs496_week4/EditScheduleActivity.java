@@ -1,14 +1,11 @@
-package com.example.cs496_week4.NewItems;
+package com.example.cs496_week4;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,24 +13,23 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
+import com.example.cs496_week4.AdapterListener.SearchRecyclerAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.TimePickerFragment;
 
@@ -52,22 +48,21 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface{
+public class EditScheduleActivity extends AppCompatActivity implements SearchRecyclerAdapter.OnListItemSelectedInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
     private TextView sdStartTime;
     private EditText sdPlace;
     private RecyclerView sdPlaceList;
-    private static PlaceSearchAdapter searchAdapter;
+    private static SearchRecyclerAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
-    private String timeStartString;
+    private int apptId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,11 +71,14 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
 
         Intent intent = getIntent();
+        apptId = intent.getIntExtra("apptId", -1);
+        Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
+
         placeList = new ArrayList<>();
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("새 약속 만들기");
+        title.setText("약속 수정하기");
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -98,14 +96,14 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
         sdPlace = findViewById(R.id.et_nsd_place);
         sdPlaceList = findViewById(R.id.recycler_view_place);
 
+        sdName.setText(apptInfo.getName());
+        sdPlace.setText(apptInfo.getDestination());
+
         // add additional works
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
         sdStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME, NewScheduleActivity.this);
+                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
             }
         });
@@ -120,7 +118,7 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
                 return handled;
             }
         });
-        searchAdapter = new PlaceSearchAdapter(this, this, placeList);
+        searchAdapter = new SearchRecyclerAdapter(this, this, placeList);
         sdPlaceList.setAdapter(searchAdapter);
     }
 
@@ -305,13 +303,13 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
             Input__apptCreate apptInfo = new Input__apptCreate(apptName, apptStartTime, apptDest);
 
-            Output__apptCreate createdAppt = callRetrofit.apptCreate(token, apptInfo);
+            callRetrofit.updateAppt(MainActivity.userToken, apptId, apptInfo);
 
-            Toast.makeText(this, "내 일정에 추가되었습니다", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(NewScheduleActivity.this, CheckScheduleActivity.class);
-            intent.putExtra("apptId", createdAppt.getApptIdentifier());
+            Toast.makeText(this, "일정이 수정되었습니다", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EditScheduleActivity.this, CheckScheduleActivity.class);
+            intent.putExtra("apptId", apptId);
             startActivity(intent);
-            this.finish();
+            //this.finish();
         }
     }
 
@@ -347,22 +345,5 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
             arrayList.add(paramMap(json.getString(i)));
         }
         return arrayList;
-    }
-
-    @Override
-    public void onTimeSet(int selectedHour, int selectedMinute, int mode) {
-        String state = "AM";
-        String hour;
-        String minute;
-        if (selectedHour > 11) {
-            selectedHour -= 12;
-            state = "PM";
-        }
-        if (selectedHour == 0) selectedHour = 12;
-        hour = String.format("%02d", selectedHour);
-        minute = String.format("%02d", selectedMinute);
-        timeStartString = hour + minute;
-        sdStartTime.setText(hour + ":" + minute + " " + state);
-        return;
     }
 }
