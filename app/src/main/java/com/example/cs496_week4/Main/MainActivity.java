@@ -22,6 +22,7 @@ import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
 import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
@@ -166,11 +167,12 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        CallRetrofit callRetrofit = new CallRetrofit();
+        //CallRetrofit callRetrofit = new CallRetrofit();
         //callRetrofit.userNameExists("woojin");
         //callRetrofit.userEmailExists("wjl0209@kaist.ac.kr");
-        //callRetrofit.signUp(new Input__signUp("cc", "cc@kaist.ac.kr", "1111"));
-//        String token = callRetrofit.signIn(new Input__signIn("cc@kaist.ac.kr", "1111")).getToken();
+        //callRetrofit.signUp(new Input__signUp("qwe", "qwe@kaist.ac.kr", "1111"));
+        //String token = callRetrofit.signIn(new Input__signIn("qwe@kaist.ac.kr", "1111")).getToken();
+        //Log.d("token", token);
         //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
         //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
         /*int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
@@ -181,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         //Log.d("apptInvite", callRetrofit.apptInvite(token, new Input__apptInvite(apptId, new String[]{"bb"})).toString());
         //int wtmId = callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", new String[]{})).getWtmId();
         //Log.d("wtmRespond", callRetrofit.wtmRespond(token, new Input__wtmRespond(933, new wtmRespond_times[]{new wtmRespond_times("2022-01-02", new String[]{"0800", "0900", "1000"})})).getWtm()[0].get_id());
-        //Log.d("setAlarm", callRetrofit.setAlarm(token, new Input__setAlarm(new float[]{36.37377f, 127.35836f, 136.374232f, 127.365655f}, "dJwXjQv8S62Il2g-hBUT67:APA91bGI521s_mxPO0ZVzUwh4nPYqOQ10B77Viw6jnpA-2pAo8fvauXPCI8D3ejPWrnlgIiDOM44diubrQIfJkEMs8rxBlJrIbfAoXCCzy6WVxXxupxt0lGDn8uld_M9j8twZE52SVbV", "2022-01-25T13:00")).getTime());
+        //Log.d("setAlarm", "setAlarm: " + callRetrofit.setAlarm(token, new Input__setAlarm(new double[]{42.448139, -71.260108, 42.3793386, -71.0676069}, "dJwXjQv8S62Il2g-hBUT67:APA91bGI521s_mxPO0ZVzUwh4nPYqOQ10B77Viw6jnpA-2pAo8fvauXPCI8D3ejPWrnlgIiDOM44diubrQIfJkEMs8rxBlJrIbfAoXCCzy6WVxXxupxt0lGDn8uld_M9j8twZE52SVbV", "2022-01-25T17:00")).getTime());
 
         // Get Firebase Device Token
         /*FirebaseMessaging.getInstance().getToken()

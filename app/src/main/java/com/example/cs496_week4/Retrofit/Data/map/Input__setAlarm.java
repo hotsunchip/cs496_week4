@@ -4,30 +4,30 @@ import androidx.annotation.NonNull;
 
 public class Input__setAlarm {
 
-    private float[] location;
-    private String device;
+    private double[] location;
+    private String deviceToken;
     private String time;
 
-    public Input__setAlarm(float[] location, String device, String time) {
-        this.location = location;
-        this.device = device;
+    public Input__setAlarm(double[] location, String deviceToken, String time) {
+        this.location = location.clone();
+        this.deviceToken = deviceToken;
         this.time = time;
     }
 
-    public float[] getLocation() {
+    public double[] getLocation() {
         return location.clone();
     }
 
-    public void setLocation(@NonNull float[] location) {
+    public void setLocation(@NonNull double[] location) {
         this.location = location.clone();
     }
 
-    public String getDevice() {
-        return device;
+    public String getDeviceToken() {
+        return deviceToken;
     }
 
-    public void setDevice(String device) {
-        this.device = device;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public String getTime() {

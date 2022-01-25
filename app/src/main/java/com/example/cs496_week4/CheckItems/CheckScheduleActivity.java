@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.Data.SchedulePlace;
+import com.example.cs496_week4.Main.CodeActivity;
+import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
 
 public class CheckScheduleActivity extends AppCompatActivity {
@@ -22,6 +26,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
     private String scheduleDate;
     private String scheduleTime;
     private SchedulePlace schedulePlace;
+    private String destName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         scheduleName = intent.getStringExtra("scheduleName");
+        destName = intent.getStringExtra("destName");
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
@@ -43,6 +49,17 @@ public class CheckScheduleActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        Button check_dest = findViewById(R.id.check_dest_position);
+        check_dest.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CheckScheduleActivity.this, CheckDestPosition.class);
+                intent.putExtra("scheduleName", scheduleName);
+                intent.putExtra("destName", destName);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -64,5 +81,4 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
         return true ;
     }
-
 }

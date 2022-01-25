@@ -30,6 +30,7 @@
         <activity android:name=".NewItems.NewTimeTableActivity" />
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />
+        <activity android:name=".CheckItems.CheckDestPosition" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="efuk59ps4r"/>
@@ -45,6 +46,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC_znx2lHKb5sxF_Bm4Cx4rOejXR6bO-AA" />
     </application>
 
 </manifest>
