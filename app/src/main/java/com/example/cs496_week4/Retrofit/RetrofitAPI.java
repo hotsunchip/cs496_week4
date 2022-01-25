@@ -35,6 +35,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
@@ -102,6 +103,10 @@ public interface RetrofitAPI {
 
     @GET("map/get-coordinate")
     Call<Output__Coordinate> getCoordinate(@Header("jwt") String token, @Query("address") String address);
+
+    @FormUrlEncoded
+    @PUT("appt/edit")
+    Call<Boolean> putAppUpdate(@Header("jwt") String token, @Field("apptId") int apptId, Input__apptCreate input);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")

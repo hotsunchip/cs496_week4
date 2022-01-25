@@ -19,6 +19,8 @@ import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.Main.CodeActivity;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 
 public class CheckScheduleActivity extends AppCompatActivity {
     // fields
@@ -26,7 +28,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
     private String scheduleDate;
     private String scheduleTime;
     private SchedulePlace schedulePlace;
-    private String destName;
+    private int apptId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,12 +37,14 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        scheduleName = intent.getStringExtra("scheduleName");
-        destName = intent.getStringExtra("destName");
+        apptId = intent.getIntExtra("apptId", -1);
+        Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
+        String date = apptInfo.getStartTime();
+        String time = Integer.toString(Integer.parseInt(date.substring(11, 13)));
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText(scheduleName);
+        title.setText(apptInfo.getName());
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -49,15 +53,23 @@ public class CheckScheduleActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        TextView csd_name = findViewById(R.id.tv_csd_name);
+        csd_name.setText(apptInfo.getName()+" ");
+        TextView csd_date = findViewById(R.id.tv_csd_date);
+        csd_date.setText(date.substring(0, 4)+"년 "+date.substring(5, 7)+"월 "+date.substring(8, 10)+"일 ");
+        TextView schedule_time = findViewById(R.id.tv_schedule_time);
+        schedule_time.setText(time+":"+date.substring(14, 16));
+        TextView schedule_place_name = findViewById(R.id.tv_schedule_place_name);
+        schedule_place_name.setText(apptInfo.getDestination());
+        TextView schedule_place_addr = findViewById(R.id.tv_schedule_place_addr);
+        schedule_place_addr.setText("");
 
         Button check_dest = findViewById(R.id.check_dest_position);
         check_dest.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CheckScheduleActivity.this, CheckDestPosition.class);
-                intent.putExtra("scheduleName", scheduleName);
-                intent.putExtra("destName", destName);
-                Log.d("destName3", destName);
+                intent.putExtra("apptId", apptId);
                 startActivity(intent);
             }
         });
