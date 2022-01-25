@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cs496_week4.AdapterListener.SearchRecyclerAdapter;
+import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.Main.MainActivity;
@@ -52,14 +52,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class EditScheduleActivity extends AppCompatActivity implements SearchRecyclerAdapter.OnListItemSelectedInterface {
+public class EditScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
     private TextView sdStartTime;
     private EditText sdPlace;
     private RecyclerView sdPlaceList;
-    private static SearchRecyclerAdapter searchAdapter;
+    private static PlaceSearchAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
     private int apptId;
@@ -103,7 +103,7 @@ public class EditScheduleActivity extends AppCompatActivity implements SearchRec
         sdStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME);
+                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME, EditScheduleActivity.this);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
             }
         });
@@ -118,7 +118,7 @@ public class EditScheduleActivity extends AppCompatActivity implements SearchRec
                 return handled;
             }
         });
-        searchAdapter = new SearchRecyclerAdapter(this, this, placeList);
+        searchAdapter = new PlaceSearchAdapter(this, this, placeList);
         sdPlaceList.setAdapter(searchAdapter);
     }
 
@@ -345,5 +345,10 @@ public class EditScheduleActivity extends AppCompatActivity implements SearchRec
             arrayList.add(paramMap(json.getString(i)));
         }
         return arrayList;
+    }
+
+    @Override
+    public void onTimeSet(int selectedHour, int selectedMinute, int mode) {
+
     }
 }
