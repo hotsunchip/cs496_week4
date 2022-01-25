@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
-import com.example.cs496_week4.Retrofit.Data.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.Output__signIn;
-import com.example.cs496_week4.Retrofit.Data.Output__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signIn;
+import com.example.cs496_week4.Retrofit.Data.user.Output__signUp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         setLoginJoinMode();
+        moveMain();
         if (bringPrevLogin()) moveMain();
     }
 
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // 이름의 유효성 검사
-        if (mEmail.isEmpty()) {
+        if (mName.isEmpty()) {
             mNameView.setError("이름을 입력해주세요.");
             focusView = mNameView;
             cancel = true;
