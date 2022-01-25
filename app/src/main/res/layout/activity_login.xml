@@ -4,15 +4,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:fitsSystemWindows="true"
+            android:background="@drawable/gradient"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--            <androidx.appcompat.widget.AppCompatImageView-->
+            <!--                app:layout_collapseMode="parallax"-->
+            <!--                android:contentDescription="app"-->
+            <!--                android:scaleType="centerCrop"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="350dp" />-->
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:title="app"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/login_form"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
 
         <LinearLayout
             android:id="@+id/id_login_form"
@@ -32,8 +68,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
                     android:hint="이름"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:nextFocusDown="@id/in_email"
                     android:singleLine="true"
                     android:visibility="gone" />
 
@@ -43,8 +81,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
                     android:hint="아이디"
+                    android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:nextFocusDown="@id/in_password"
                     android:singleLine="true" />
 
                 <EditText
@@ -53,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
                     android:hint="비밀번호"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -60,28 +101,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/login_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:textSize="@dimen/textSmallSize"
                         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:paddingVertical="@dimen/fragment_vertical_margin"
-                        android:text="회원가입"/>
+                        android:text="회원가입"
+                        android:textSize="@dimen/textSmallSize" />
+
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageButton
                         android:id="@+id/btn_next"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_weight="1"
                         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
                         android:src="@drawable/ic_next" />
 
