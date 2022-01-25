@@ -1,12 +1,9 @@
 package com.example.cs496_week4.AdapterListener;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +33,7 @@ public class TimeTableDateAdapter extends RecyclerView.Adapter<TimeTableDateAdap
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item_block, parent, false);
         return new ViewHolder(view);
     }
 

@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs496_week4.R;
 
-import java.util.ArrayList;
-
 
 public class TimeTableTimeAdapter extends RecyclerView.Adapter<TimeTableTimeAdapter.ViewHolder> {
     // fields
@@ -32,14 +30,13 @@ public class TimeTableTimeAdapter extends RecyclerView.Adapter<TimeTableTimeAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Log.e("onbind", String.valueOf(position));
-        holder.btn.setBackgroundColor(Color.parseColor("#FEFEFE"));
-        holder.tvTime.setText(mList[position]);
+        setTimeTextView(holder.tvTime, mList[position]);
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.ntt_item_time, parent, false);
         return new ViewHolder(view);
     }
 
@@ -59,6 +56,17 @@ public class TimeTableTimeAdapter extends RecyclerView.Adapter<TimeTableTimeAdap
             btn = itemView.findViewById(R.id.layout_ntt_item);
             tvTime = itemView.findViewById(R.id.ntt_position);
         }
+    }
+
+    private void setTimeTextView(TextView tv, String time) {
+        String state = "AM";
+        int hour = Integer.parseInt(time.substring(0, 2));
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0) hour = 12;
+        tv.setText(String.format("%02d", hour) + ":" + time.substring(2) + " " + state);
     }
 
 }

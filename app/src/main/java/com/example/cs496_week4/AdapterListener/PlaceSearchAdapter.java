@@ -14,7 +14,7 @@ import com.example.cs496_week4.R;
 
 import java.util.ArrayList;
 
-public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.SearchResultViewHolder> {
+public class PlaceSearchAdapter extends RecyclerView.Adapter<PlaceSearchAdapter.SearchResultViewHolder> {
 
     public interface OnListItemSelectedInterface {
         void onItemSelected(View view, int position);
@@ -26,21 +26,21 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     private OnListItemSelectedInterface mListener;
 
 
-    public SearchRecyclerAdapter(Context context, OnListItemSelectedInterface listener, ArrayList<SchedulePlace> result) {
+    public PlaceSearchAdapter(Context context, OnListItemSelectedInterface listener, ArrayList<SchedulePlace> result) {
         this.mContext = context;
         this.mListener = listener;
         this.mSearchResult = result;
     }
     @NonNull
     @Override
-    public SearchRecyclerAdapter.SearchResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlaceSearchAdapter.SearchResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.nsd_place_item, parent, false);
 //        Log.e("onCreateViewHolder", String.valueOf(true));
-        return new SearchRecyclerAdapter.SearchResultViewHolder(convertView);
+        return new PlaceSearchAdapter.SearchResultViewHolder(convertView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchRecyclerAdapter.SearchResultViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaceSearchAdapter.SearchResultViewHolder holder, int position) {
         holder.tv_place_name.setText(mSearchResult.get(position).getPlaceName());
         holder.tv_place_address.setText(mSearchResult.get(position).getPlaceAddress());
     }
