@@ -2,6 +2,8 @@ package com.example.cs496_week4.Retrofit;
 
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
+import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
+import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
@@ -93,6 +95,9 @@ public interface RetrofitAPI {
 
     @GET("user/appts-date")
     Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token);
+
+    @POST("map/set-alarm")
+    Call<Output__setAlarm> postSetAlarm(@Header("jwt") String token, @Body Input__setAlarm input);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
