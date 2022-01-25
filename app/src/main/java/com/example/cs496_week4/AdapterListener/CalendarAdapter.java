@@ -23,14 +23,14 @@ import java.util.Locale;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
     private Context mContext;
     private ArrayList<CalendarItem> mList;
-    private SearchRecyclerAdapter.OnListItemSelectedInterface mListener;
+    private PlaceSearchAdapter.OnListItemSelectedInterface mListener;
     private int mSelected;
 
     public interface OnListItemSelectedInterface {
         void onItemSelected(View view, int position);
     }
 
-    public CalendarAdapter(Context context, SearchRecyclerAdapter.OnListItemSelectedInterface listener, ArrayList<CalendarItem> list, int selected_day) {
+    public CalendarAdapter(Context context, PlaceSearchAdapter.OnListItemSelectedInterface listener, ArrayList<CalendarItem> list, int selected_day) {
         super();
 
         this.mContext = context;

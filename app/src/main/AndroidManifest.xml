@@ -30,6 +30,7 @@
         <activity android:name=".NewItems.NewTimeTableActivity" />
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />
+        <activity android:name=".NewItems.NewMemberActivity" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="efuk59ps4r"/>

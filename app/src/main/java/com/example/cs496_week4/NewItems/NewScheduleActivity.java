@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cs496_week4.AdapterListener.SearchRecyclerAdapter;
+import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.R;
@@ -47,14 +47,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements SearchRecyclerAdapter.OnListItemSelectedInterface {
+public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
     private TextView sdStartTime;
     private EditText sdPlace;
     private RecyclerView sdPlaceList;
-    private static SearchRecyclerAdapter searchAdapter;
+    private static PlaceSearchAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
 
@@ -106,7 +106,7 @@ public class NewScheduleActivity extends AppCompatActivity implements SearchRecy
                 return handled;
             }
         });
-        searchAdapter = new SearchRecyclerAdapter(this, this, placeList);
+        searchAdapter = new PlaceSearchAdapter(this, this, placeList);
         sdPlaceList.setAdapter(searchAdapter);
     }
 

@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,10 +23,10 @@ public class TimeTableBlockAdapter extends RecyclerView.Adapter<TimeTableBlockAd
     // fields
     private Context mContext;
     private ArrayList<Integer> mAvailable;
-    private SearchRecyclerAdapter.OnListItemSelectedInterface mListener;
+    private PlaceSearchAdapter.OnListItemSelectedInterface mListener;
     private int mSize;
 
-    public TimeTableBlockAdapter(Context context, SearchRecyclerAdapter.OnListItemSelectedInterface listener, int size, ArrayList<Integer> list) {
+    public TimeTableBlockAdapter(Context context, PlaceSearchAdapter.OnListItemSelectedInterface listener, int size, ArrayList<Integer> list) {
         super();
 
         // 생성자에서 데이터 리스트 객체를 전달받음.
