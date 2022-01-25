@@ -22,7 +22,6 @@ import java.util.Arrays;
 import com.example.cs496_week4.AdapterListener.DragSelectionItemTouchListener;
 import com.example.cs496_week4.AdapterListener.LongPressItemTouchListener;
 import com.example.cs496_week4.AdapterListener.TimeTableBlockAdapter;
-import com.google.android.gms.common.util.ArrayUtils;
 
 public class Fragment3TempTimeTable extends Fragment implements TimeTableBlockAdapter.OnListItemSelectedInterface{
     // fields
@@ -99,7 +98,7 @@ public class Fragment3TempTimeTable extends Fragment implements TimeTableBlockAd
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_3, container, false);
+        View view = inflater.inflate(R.layout.fragment_tt, container, false);
         time_table_block = view.findViewById(R.id.recycler_view_table);
         time_table_time = view.findViewById(R.id.recycler_view_time);
 //        scroll_left = view.findViewById(R.id.scroll_left);

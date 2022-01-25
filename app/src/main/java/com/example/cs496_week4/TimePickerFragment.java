@@ -1,12 +1,19 @@
 package com.example.cs496_week4;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -16,7 +23,11 @@ import androidx.fragment.app.DialogFragment;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+public class TimePickerFragment extends DialogFragment {
+    public interface OnTimeSetInterface {
+        void onTimeSet(int selectedHour, int selectedMinute, int mode);
+    }
+
     // constants
     public static final String FRAGMENT_TAG = "TimePicker";
     public static final int START_TIME = 2;
@@ -25,14 +36,17 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private final int DEFAULT_INTERVAL = 30;
     private final int MINUTES_MIN = 0;
     private final int MINUTES_MAX = 60;
+    private final OnTimeSetInterface mListener;
     private int timeCode;
+    private int mMode;
 
     // fields
-    private final int hour;
-    private final int min;
+    private int hour;
+    private int min;
 
-    public TimePickerFragment(int time) {
+    public TimePickerFragment(int time, TimePickerFragment.OnTimeSetInterface listener) {
         this.timeCode = time;
+        this.mListener = listener;
         if (timeCode > 5) {
             // current time
             Calendar mCalendar = Calendar.getInstance();
@@ -56,34 +70,67 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        android.app.AlertDialog.Builder adb = new AlertDialog.Builder(getContext());
 
-        TimePickerDialog mTimePickerDialog = new TimePickerDialog(
-                getContext(), android.R.style.Theme_Holo_Light_Dialog_NoActionBar, this, hour, min, false
-        );
+        View view2 = LayoutInflater.from(getContext())
+                .inflate(R.layout.time_picker_dialog, null);
+        adb.setView(view2);
+
+        AlertDialog mTimePickerDialog = adb.create();
+
         mTimePickerDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                int tpLayoutId = getResources().getIdentifier("timePickerLayout", "id", "android");
+                TimePicker tp = mTimePickerDialog.findViewById(R.id.timePicker);
+                tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                    @Override
+                    public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+                        hour = i;
+                        min = i1;
+                    }
+                });
+                ViewGroup tpLayout = (ViewGroup) tp;
 
-                ViewGroup tpLayout = (ViewGroup) mTimePickerDialog.findViewById(tpLayoutId);
                 ViewGroup layout = (ViewGroup) tpLayout.getChildAt(0);
+                LinearLayout llayout = (LinearLayout) layout.getChildAt(1);
+                Log.e("ChildCount", String.valueOf(layout.getChildCount()));
 
                 // Customize minute NumberPicker
-                NumberPicker minutePicker = (NumberPicker) layout.getChildAt(2);
+                NumberPicker minutePicker = (NumberPicker) llayout.getChildAt(2);
                 if (timeCode < 5) {
                     minutePicker.setMinValue(0);
                     minutePicker.setMaxValue(1);
                     minutePicker.setDisplayedValues(new String[]{"00", "30"});
+                    minutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                        @Override
+                        public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                            min = i1;
+                        }
+                    });
                 }
-                minutePicker.setOnValueChangedListener(null);
+
             }
         });
+        final TextView buttonConfirm = (TextView) view2.findViewById(R.id.timePicker_confirm);
+        final TextView buttonCancel = (TextView) view2.findViewById(R.id.timePicker_cancel);
+
+        mTimePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        mTimePickerDialog.setView(view2, 0, 0, 0, 0);
         mTimePickerDialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTimeSet(hour, min, timeCode);
+                Log.e("Clicked", hour + "시" + min + "분");
+                mTimePickerDialog.dismiss();
+            }
+        });
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTimePickerDialog.dismiss();
+            }
+        });
         return mTimePickerDialog;
-    }
-
-    @Override
-    public void onTimeSet(TimePicker timePicker, int hourDay, int minute) {
-
     }
 }

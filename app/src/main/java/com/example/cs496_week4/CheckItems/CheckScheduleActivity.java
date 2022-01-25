@@ -15,12 +15,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.cs496_week4.Data.Member;
 import com.example.cs496_week4.Data.SchedulePlace;
-import com.example.cs496_week4.Main.CodeActivity;
 import com.example.cs496_week4.Main.MainActivity;
+import com.example.cs496_week4.NewItems.NewMemberActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
+
+import java.util.ArrayList;
 
 public class CheckScheduleActivity extends AppCompatActivity {
     // fields
@@ -28,6 +31,15 @@ public class CheckScheduleActivity extends AppCompatActivity {
     private String scheduleDate;
     private String scheduleTime;
     private SchedulePlace schedulePlace;
+    private ArrayList<Member> scheduleMember;
+    // _layout
+    private TextView tv_name;
+    private TextView tv_date;
+    private TextView tv_time;
+    private TextView tv_place_name;
+    private TextView tv_place_addr;
+    private TextView tv_member_btn;
+    private TextView tv_member_num;
     private int apptId;
 
     @Override
@@ -37,6 +49,10 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        scheduleName = intent.getStringExtra("scheduleName");
+        scheduleMember = new ArrayList<>();
+
+
         apptId = intent.getIntExtra("apptId", -1);
         Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
         String date = apptInfo.getStartTime();
@@ -53,6 +69,24 @@ public class CheckScheduleActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        // connect layout elements;
+        tv_name = findViewById(R.id.tv_csd_name);
+        tv_date = findViewById(R.id.tv_csd_date);
+        tv_member_btn = findViewById(R.id.tv_csd_member_btn);
+        tv_member_num = findViewById(R.id.tv_csd_member_num);
+
+        tv_name.setText(scheduleName);
+        tv_member_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addMemberIntent = new Intent(CheckScheduleActivity.this, NewMemberActivity.class);
+                startActivity(addMemberIntent);
+            }
+        });
+        tv_member_num.setText(String.valueOf(scheduleMember.size()));
+
+
         TextView csd_name = findViewById(R.id.tv_csd_name);
         csd_name.setText(apptInfo.getName()+" ");
         TextView csd_date = findViewById(R.id.tv_csd_date);
