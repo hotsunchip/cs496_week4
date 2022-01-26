@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
@@ -59,6 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+
+        // set login toolbar
+        Toolbar tb = findViewById(R.id.toolbar);
+        setSupportActionBar(tb);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         // connect with items
         callRetrofit = new CallRetrofit();

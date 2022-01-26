@@ -1,4 +1,4 @@
-package com.example.cs496_week4.Main;
+package com.example.cs496_week4.NewItems;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import com.example.cs496_week4.AdapterListener.DragSelectionItemTouchListener;
 import com.example.cs496_week4.AdapterListener.LongPressItemTouchListener;
 import com.example.cs496_week4.AdapterListener.TimeTableBlockAdapter;
 
-public class Fragment3TempTimeTable extends Fragment implements TimeTableBlockAdapter.OnListItemSelectedInterface{
+public class FragmentTimeTable extends Fragment implements TimeTableBlockAdapter.OnListItemSelectedInterface{
     // fields
     private int num_day;
     private int num_block; // if (time_end < time_start) time_end += 24 * 2
@@ -50,15 +50,15 @@ public class Fragment3TempTimeTable extends Fragment implements TimeTableBlockAd
     private String time_end_string;
 
     // Required empty public constructor
-    public Fragment3TempTimeTable(int days, String start, String end) {
+    public FragmentTimeTable(int days, String start, String end) {
         num_day = days;
         time_start_string = start;
         time_end_string = end;
 
     }
 
-    public static Fragment3TempTimeTable newInstance(int days, String start, String end) {
-        Fragment3TempTimeTable fragment = new Fragment3TempTimeTable(days, start, end);
+    public static FragmentTimeTable newInstance(int days, String start, String end) {
+        FragmentTimeTable fragment = new FragmentTimeTable(days, start, end);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
