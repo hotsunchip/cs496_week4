@@ -22,12 +22,17 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Gildong Hong"
+        android:textSize="@dimen/textBigSize"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="helloworld@naver.com" />
+        android:gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="helloworld@naver.com"
+        android:drawableLeft="@drawable/ic_mail_outline_24"
+        android:drawablePadding="2dp"/>
 
 </LinearLayout>

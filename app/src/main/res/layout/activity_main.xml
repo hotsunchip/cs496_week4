@@ -49,7 +49,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="16dp"
-                android:src="@drawable/ic_person_24"
+                android:src="@drawable/ic_menu_24"
                 android:title="profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

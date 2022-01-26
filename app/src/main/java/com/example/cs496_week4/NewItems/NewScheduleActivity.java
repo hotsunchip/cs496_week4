@@ -257,11 +257,16 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
     private void checkValidity() {
         String name = sdName.getText().toString();
+        String place = sdPlace.getText().toString();
 
         sdName.clearFocus();
+        sdPlace.clearFocus();
         if (name.length() < 1) {
             sdName.setError("1자 이상의 이름을 입력해주세요");
             sdName.requestFocus();
+        } else if (place.length() < 1) {
+            sdPlace.setError("약속 장소를 선택해주세요");
+            sdPlace.requestFocus();
         } else {
             CallRetrofit callRetrofit = new CallRetrofit();
             String token = MainActivity.userToken;
@@ -317,7 +322,6 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
     @Override
     public void onItemSelected(View view, int position) {
-        Log.e("hello", "");
         placeList.clear();
         refreshAdapter();
         TextView tv_name = view.findViewById(R.id.tv_place_name);

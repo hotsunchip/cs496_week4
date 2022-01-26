@@ -77,7 +77,7 @@ public class FragmentWeekCalendar extends Fragment implements CalendarAdapter.On
             String yyyymmdd = yearNMonth + calendarList.get(i).getCd_date();
             Log.d("TESTTTTTTYYMMDD", yyyymmdd);
             Output__userApptsDate result = callRetrofit.userApptsDate(MainActivity.userToken, yyyymmdd);
-            Log.d("TESTTTTT", String.valueOf(result.getOwned().size()));
+            Log.d("TESTTTTT", String.valueOf(result.getOwned().length));
 
             for(userApptsDate_owned owned:result.getOwned()) {
                 Log.d("TESTTTTT0", owned.toString());
