@@ -18,6 +18,7 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__allUsers;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userWTMs;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.user.Model__resetPassword;
@@ -35,6 +36,8 @@ import com.example.cs496_week4.Retrofit.Data.wtm.Output__wtmRespond;
 import java.io.IOException;
 
 import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 
 public class CallRetrofit {
 
@@ -462,6 +465,56 @@ public class CallRetrofit {
 
         return output[0];
     }
+
+
+    public Output__userWTMs allUserWTMs(String token){
+        //Retrofit 호출
+        Output__userWTMs[] output = new Output__userWTMs[1];
+        Call<Output__userWTMs> call = RetrofitClient.getApiService().getUserWTMs(token);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__userApptsDate allUserAppts(String token){
+        //Retrofit 호출
+        Output__userApptsDate[] output = new Output__userApptsDate[1];
+        Call<Output__userApptsDate> call = RetrofitClient.getApiService().getUserAppts(token);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                } catch(IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
 
     public Output__setAlarm setAlarm(String token, Input__setAlarm input){
 

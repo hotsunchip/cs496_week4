@@ -35,7 +35,6 @@
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />
         <activity android:name=".NewItems.NewMemberActivity" />
-        <activity android:name=".CheckItems.CheckDestPosition" />
         <activity android:name=".EditScheduleActivity" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
