@@ -12,6 +12,7 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__allUsers;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userWTMs;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
@@ -96,6 +97,12 @@ public interface RetrofitAPI {
 
     @GET("user/departure")
     Call<GET__userDeparture> getUserDeparture(@Header("jwt") String token, @Query("username") String username);
+
+    @GET("user/appts")
+    Call<Output__userApptsDate> getUserAppts(@Header("jwt") String token);
+
+    @GET("user/wtms")
+    Call<Output__userWTMs> getUserWTMs(@Header("jwt") String token);
 
     @GET("user/appts-date")
     Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token, @Query("date") String date);
