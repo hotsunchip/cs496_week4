@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
+import com.example.cs496_week4.DatePickerFragment;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
@@ -52,7 +53,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface {
+public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface, DatePickerFragment.OnDateSetInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
@@ -97,6 +98,13 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
+        sdStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment mDatePickerFragment = new DatePickerFragment(NewScheduleActivity.this);
+                mDatePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
+            }
+        });
         sdStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -369,5 +377,10 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
         timeStartString = hour + minute;
         sdStartTime.setText(hour + ":" + minute + " " + state);
         return;
+    }
+
+    @Override
+    public void onDateSet(int selectedYear, int selectedMonth, int selectedDate) {
+        sdStartDate.setText(selectedYear + "년 " + selectedMonth + "월 " + selectedDate + "일");
     }
 }
