@@ -15,6 +15,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,7 +35,7 @@ public class RetrofitClient {
                 .registerTypeAdapter(wtmRespond_times.class, new wtmRespond_times_Deserializer())
                 .registerTypeAdapter(wtmRespond_wtm.class, new wtmRespond_wtm_Deserializer())
                 .registerTypeAdapter(wtmRespond_wtm_times.class, new wtmRespond_wtm_times_Deserializer())
-                .registerTypeAdapter(userApptsDate_owned.class, new userApptsDate_owned_Deserializer())
+                //.registerTypeAdapter(userApptsDate_owned.class, new userApptsDate_owned_Deserializer())
                 .create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)

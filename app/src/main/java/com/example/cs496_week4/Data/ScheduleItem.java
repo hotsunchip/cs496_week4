@@ -2,7 +2,7 @@ package com.example.cs496_week4.Data;
 
 public class ScheduleItem {
     String scheduleName;
-    SchedulePlace schedulePlace; // Name
+    String schedulePlace; // Name
     String scheduleDate;
     String ScheduleTime;
 
@@ -25,11 +25,11 @@ public class ScheduleItem {
         this.scheduleName = scheduleName;
     }
 
-    public SchedulePlace getSchedulePlace() {
+    public String getSchedulePlace() {
         return schedulePlace;
     }
 
-    public void setSchedulePlace(SchedulePlace schedulePlace) {
+    public void setSchedulePlace(String schedulePlace) {
         this.schedulePlace = schedulePlace;
     }
 
@@ -47,5 +47,15 @@ public class ScheduleItem {
 
     public void setScheduleTime(String scheduleTime) {
         ScheduleTime = scheduleTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleItem{" +
+                "scheduleName='" + scheduleName + '\'' +
+                ", schedulePlace='" + schedulePlace + '\'' +
+                ", scheduleDate='" + scheduleDate + '\'' +
+                ", ScheduleTime='" + ScheduleTime + '\'' +
+                '}';
     }
 }

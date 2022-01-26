@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import com.example.cs496_week4.AdapterListener.CalendarAdapter;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.userApptsDate_owned;
 
 public class FragmentWeekCalendar extends Fragment implements CalendarAdapter.OnListItemSelectedInterface, ScheduleAdapter.OnListItemSelectedInterface {
     // fields
@@ -64,12 +67,42 @@ public class FragmentWeekCalendar extends Fragment implements CalendarAdapter.On
         LocalDateTime preSunday = LocalDateTime.now().with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
         calendarList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            Log.d("날짜", week_day[i]);
-
             calendarList.add(new CalendarItem(preSunday.plusDays((long) i).format(dateFormat), week_day[i]));
         }
 
-        scheduleList = new ArrayList<>();
+        CallRetrofit callRetrofit = new CallRetrofit();
+        scheduleList = new ArrayList<ScheduleItem>();
+        String yearNMonth = MainActivity.localDate.replace("년 ", "-").replace("월", "-");
+        for(int i=0; i<7; i++) {
+            String yyyymmdd = yearNMonth + calendarList.get(i).getCd_date();
+            Log.d("TESTTTTTTYYMMDD", yyyymmdd);
+            Output__userApptsDate result = callRetrofit.userApptsDate(MainActivity.userToken, yyyymmdd);
+            Log.d("TESTTTTT", String.valueOf(result.getOwned().size()));
+
+            for(userApptsDate_owned owned:result.getOwned()) {
+                Log.d("TESTTTTT0", owned.toString());
+                ScheduleItem item = new ScheduleItem();
+                item.setScheduleDate(yyyymmdd);
+                item.setScheduleName(owned.getName());
+                item.setSchedulePlace(owned.getPlace());
+                item.setScheduleTime(owned.getTime().substring(11, 15));
+                scheduleList.add(item);
+                Log.d("TESTTTTT", item.toString());
+            }
+
+            for(userApptsDate_owned accepted:result.getAccepted()) {
+                Log.d("TESTTTTT0", accepted.toString());
+                ScheduleItem item = new ScheduleItem();
+                item.setScheduleDate(yyyymmdd);
+                item.setScheduleName(accepted.getName());
+                item.setSchedulePlace(accepted.getPlace());
+                item.setScheduleTime(accepted.getTime().substring(11, 15));
+                scheduleList.add(item);
+                Log.d("TESTTTTT", item.toString());
+            }
+        }
+
+
     }
 
     @Override

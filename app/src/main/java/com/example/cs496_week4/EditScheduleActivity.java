@@ -1,4 +1,4 @@
-package com.example.cs496_week4.NewItems;
+package com.example.cs496_week4;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +26,11 @@ import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.Main.MainActivity;
+import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Output__apptCreate;
 import com.example.cs496_week4.TimePickerFragment;
 
@@ -52,7 +54,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface {
+public class EditScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
@@ -62,6 +64,7 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
     private static PlaceSearchAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
+    private int apptId;
     private String timeStartString;
 
     @Override
@@ -71,11 +74,24 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
 
         Intent intent = getIntent();
+        apptId = intent.getIntExtra("apptId", -1);
+        Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
+        String date = apptInfo.getStartTime();
+        int hour = Integer.parseInt(date.substring(11, 13));
+        String strHour;
+        String state = "AM";
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0 && state.equals("PM")) hour = 12;
+        strHour = String.format("%02d", hour);
+
         placeList = new ArrayList<>();
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("새 약속 만들기");
+        title.setText("약속 수정하기");
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -93,14 +109,16 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
         sdPlace = findViewById(R.id.et_nsd_place);
         sdPlaceList = findViewById(R.id.recycler_view_place);
 
+        sdName.setText(apptInfo.getName());
+        sdPlace.setText(apptInfo.getDestination());
+        sdStartTime.setText(strHour + ":" + date.substring(14, 16) + state);
+
         // add additional works
         Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
         sdStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME, NewScheduleActivity.this);
+                TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME, EditScheduleActivity.this);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
             }
         });
@@ -304,12 +322,11 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
             Input__apptCreate apptInfo = new Input__apptCreate(apptName, apptStartTime, apptDest);
 
-            Output__apptCreate createdAppt = callRetrofit.apptCreate(token, apptInfo);
+            callRetrofit.updateAppt(MainActivity.userToken, apptId, apptInfo);
 
-            Toast.makeText(this, "내 일정에 추가되었습니다", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(NewScheduleActivity.this, CheckScheduleActivity.class);
-            Log.d("apptId", createdAppt.getApptIdentifier()+"");
-            intent.putExtra("apptId", createdAppt.getApptIdentifier());
+            Toast.makeText(this, "일정이 수정되었습니다", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EditScheduleActivity.this, CheckScheduleActivity.class);
+            intent.putExtra("apptId", apptId);
             startActivity(intent);
             this.finish();
         }

@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.cs496_week4.Data.Member;
 import com.example.cs496_week4.Data.SchedulePlace;
+import com.example.cs496_week4.EditScheduleActivity;
+import com.example.cs496_week4.Main.CodeActivity;
 import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.NewItems.NewMemberActivity;
 import com.example.cs496_week4.R;
@@ -50,13 +52,21 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         scheduleName = intent.getStringExtra("scheduleName");
+        apptId = intent.getIntExtra("apptId", -1);
         scheduleMember = new ArrayList<>();
 
 
-        apptId = intent.getIntExtra("apptId", -1);
         Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
         String date = apptInfo.getStartTime();
-        String time = Integer.toString(Integer.parseInt(date.substring(11, 13)));
+        int hour = Integer.parseInt(date.substring(11, 13));
+        String strHour;
+        String state = "AM";
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0 && state.equals("PM")) hour = 12;
+        strHour = Integer.toString(hour);
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
@@ -81,6 +91,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent addMemberIntent = new Intent(CheckScheduleActivity.this, NewMemberActivity.class);
+                addMemberIntent.putExtra("apptId", apptId);
                 startActivity(addMemberIntent);
             }
         });
@@ -88,15 +99,25 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
 
         TextView csd_name = findViewById(R.id.tv_csd_name);
-        csd_name.setText(apptInfo.getName()+" ");
+        csd_name.setText(apptInfo.getName() + " ");
         TextView csd_date = findViewById(R.id.tv_csd_date);
-        csd_date.setText(date.substring(0, 4)+"년 "+date.substring(5, 7)+"월 "+date.substring(8, 10)+"일 ");
+        csd_date.setText(date.substring(0, 4) + "년 " + date.substring(5, 7) + "월 " + date.substring(8, 10) + "일 ");
         TextView schedule_time = findViewById(R.id.tv_schedule_time);
-        schedule_time.setText(time+":"+date.substring(14, 16));
+        schedule_time.setText(strHour + ":" + date.substring(14, 16) + state);
         TextView schedule_place_name = findViewById(R.id.tv_schedule_place_name);
         schedule_place_name.setText(apptInfo.getDestination());
         TextView schedule_place_addr = findViewById(R.id.tv_schedule_place_addr);
         schedule_place_addr.setText("");
+
+        Button edit_info = findViewById(R.id.edit_appt_info);
+        edit_info.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CheckScheduleActivity.this, EditScheduleActivity.class);
+                intent.putExtra("apptId", apptId);
+                startActivity(intent);
+            }
+        });
 
         Button check_dest = findViewById(R.id.check_dest_position);
         check_dest.setOnClickListener(new Button.OnClickListener() {
@@ -124,8 +145,8 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu) ;
+        getMenuInflater().inflate(R.menu.menu, menu);
 
-        return true ;
+        return true;
     }
 }
