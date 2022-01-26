@@ -3,6 +3,7 @@ package com.example.cs496_week4.Retrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__editApptInfo;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__invitedAppts;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
@@ -12,6 +13,7 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
 import com.example.cs496_week4.Retrofit.Data.user.Output__allUsers;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userWTMs;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptAccept;
@@ -97,6 +99,12 @@ public interface RetrofitAPI {
     @GET("user/departure")
     Call<GET__userDeparture> getUserDeparture(@Header("jwt") String token, @Query("username") String username);
 
+    @GET("user/appts")
+    Call<Output__userApptsDate> getUserAppts(@Header("jwt") String token);
+
+    @GET("user/wtms")
+    Call<Output__userWTMs> getUserWTMs(@Header("jwt") String token);
+
     @GET("user/appts-date")
     Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token, @Query("date") String date);
 
@@ -111,6 +119,9 @@ public interface RetrofitAPI {
 
     @GET("user/allusers")
     Call<Output__allUsers> getAllUsers(@Header("jwt") String token);
+
+    @GET("user/invited-appts")
+    Call<Output__invitedAppts> getInvitedAppts(@Header("jwt") String token);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")

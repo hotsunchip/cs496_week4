@@ -2,6 +2,7 @@ package com.example.cs496_week4.CheckItems;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -20,7 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs496_week4.AdapterListener.ScheduleAdapter;
 import com.example.cs496_week4.Data.ScheduleItem;
 import com.example.cs496_week4.Main.FragmentWeekCalendar;
+import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.userApptsDate_owned;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -59,6 +64,36 @@ public class CheckAllSchedulesActivity extends AppCompatActivity implements Frag
         invitedList = new ArrayList<>();
         acceptedList = new ArrayList<>();
         ownedList = new ArrayList<>();
+
+        CallRetrofit callRetrofit = new CallRetrofit();
+        Output__userApptsDate result = callRetrofit.allUserAppts(MainActivity.userToken);
+        for(userApptsDate_owned invited: result.getInvited()) {
+            ScheduleItem elem = new ScheduleItem();
+            elem.setScheduleName(invited.getName());
+            elem.setSchedulePlace(invited.getPlace());
+            elem.setScheduleDate(invited.getTime().substring(0, 10));
+            elem.setScheduleTime(invited.getTime().substring(11, 16));
+            //elem.setScheduleOwner();
+            invitedList.add(elem);
+        }
+        for(userApptsDate_owned accepted: result.getAccepted()) {
+            ScheduleItem elem = new ScheduleItem();
+            elem.setScheduleName(accepted.getName());
+            elem.setSchedulePlace(accepted.getPlace());
+            elem.setScheduleDate(accepted.getTime().substring(0, 10));
+            elem.setScheduleTime(accepted.getTime().substring(11, 16));
+            //elem.setScheduleOwner();
+            acceptedList.add(elem);
+        }
+        for(userApptsDate_owned owned: result.getOwned()) {
+            ScheduleItem elem = new ScheduleItem();
+            elem.setScheduleName(owned.getName());
+            elem.setSchedulePlace(owned.getPlace());
+            elem.setScheduleDate(owned.getTime().substring(0, 10));
+            elem.setScheduleTime(owned.getTime().substring(11, 16));
+            //elem.invited();
+            ownedList.add(elem);
+        }
 
         // tab
         FragmentCheckAll frag1 = new FragmentCheckAll(this, this, FragmentCheckAll.SCHEDULE_INVITED);

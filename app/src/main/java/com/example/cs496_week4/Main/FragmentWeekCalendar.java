@@ -70,14 +70,13 @@ public class FragmentWeekCalendar extends Fragment implements CalendarAdapter.On
             calendarList.add(new CalendarItem(preSunday.plusDays((long) i).format(dateFormat), week_day[i]));
         }
 
-        CallRetrofit callRetrofit = new CallRetrofit();
+        /*CallRetrofit callRetrofit = new CallRetrofit();
         scheduleList = new ArrayList<ScheduleItem>();
         String yearNMonth = MainActivity.localDate.replace("년 ", "-").replace("월", "-");
         for(int i=0; i<7; i++) {
             String yyyymmdd = yearNMonth + calendarList.get(i).getCd_date();
             Log.d("TESTTTTTTYYMMDD", yyyymmdd);
             Output__userApptsDate result = callRetrofit.userApptsDate(MainActivity.userToken, yyyymmdd);
-            Log.d("TESTTTTT", String.valueOf(result.getOwned().length));
 
             for(userApptsDate_owned owned:result.getOwned()) {
                 Log.d("TESTTTTT0", owned.toString());
@@ -100,7 +99,7 @@ public class FragmentWeekCalendar extends Fragment implements CalendarAdapter.On
                 scheduleList.add(item);
                 Log.d("TESTTTTT", item.toString());
             }
-        }
+        }*/
 
 
     }

@@ -5,6 +5,14 @@ public class ScheduleItem {
     String schedulePlace; // Name
     String scheduleDate;
     String ScheduleTime;
+    int apptId;
+
+    public ScheduleItem(String scheduleName, String schedulePlace, String scheduleDate, int apptId) {
+        this.scheduleName = scheduleName;
+        this.schedulePlace = schedulePlace;
+        this.scheduleDate = scheduleDate;
+        this.apptId = apptId;
+    }
 
     public String getScheduleOwner() {
         return ScheduleOwner;
@@ -47,6 +55,14 @@ public class ScheduleItem {
 
     public void setScheduleTime(String scheduleTime) {
         ScheduleTime = scheduleTime;
+    }
+
+    public int getApptId() {
+        return apptId;
+    }
+
+    public void setApptId(int apptId) {
+        this.apptId = apptId;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.cs496_week4.CheckItems;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,8 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs496_week4.AdapterListener.ScheduleAdapter;
 import com.example.cs496_week4.AdapterListener.TimeTableAdapter;
+import com.example.cs496_week4.Data.ScheduleItem;
 import com.example.cs496_week4.Data.TimeTableItem;
+import com.example.cs496_week4.Main.MainActivity;
 import com.example.cs496_week4.R;
+import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__userWTMs;
+import com.example.cs496_week4.Retrofit.Data.user.userApptsDate_owned;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -59,6 +66,41 @@ public class CheckAllTimeTablesActivity extends AppCompatActivity implements Fra
         invitedList = new ArrayList<>();
         acceptedList = new ArrayList<>();
         ownedList = new ArrayList<>();
+
+        CallRetrofit callRetrofit = new CallRetrofit();
+        Output__userWTMs result = callRetrofit.allUserWTMs(MainActivity.userToken);
+        for(TimeTableItem invited: result.getInvited()) {
+            TimeTableItem elem = new TimeTableItem();
+            elem.setName(invited.getName());
+            elem.setDates(invited.getDates());
+            elem.setStarTime(invited.getStarTime());
+            elem.setEndTime(invited.getEndTime());
+            invitedList.add(invited);
+        }
+        for(TimeTableItem accepted: result.getAccepted()) {
+            TimeTableItem elem = new TimeTableItem();
+            elem.setName(accepted.getName());
+            elem.setDates(accepted.getDates());
+            elem.setStarTime(accepted.getStarTime());
+            elem.setEndTime(accepted.getEndTime());
+            acceptedList.add(accepted);
+        }
+        for(TimeTableItem owned: result.getOwned()) {
+            TimeTableItem elem = new TimeTableItem();
+            elem.setName(owned.getName());
+            String dates = owned.getDates();
+            String truncatedDates = dates.substring(0, dates.length() - 2);
+            elem.setDates(truncatedDates);
+            String startTime = owned.getStarTime().substring(0, 2) + ":" + owned.getStarTime().substring(2);
+            elem.setStarTime(startTime);
+            String endTime = owned.getEndTime().substring(0, 2) + ":" + owned.getEndTime().substring(2);
+            elem.setStarTime(endTime);
+            ownedList.add(owned);
+        }
+
+        for(int i=0; i<ownedList.size(); ++i) {
+            Log.e("TESTTTT", ownedList.get(i).toString());
+        }
 
         // tab
         FragmentCheckAll frag1 = new FragmentCheckAll(this, this, FragmentCheckAll.TIMETABLE_INVITED);
