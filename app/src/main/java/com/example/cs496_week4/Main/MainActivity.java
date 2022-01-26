@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Build;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,23 +27,17 @@ import android.widget.TextView;
 import com.example.cs496_week4.CheckItems.CheckAllSchedulesActivity;
 import com.example.cs496_week4.CheckItems.CheckAllTimeTablesActivity;
 import com.example.cs496_week4.CheckItems.CheckUserInfo;
+import com.example.cs496_week4.Data.ScheduleItem;
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
-import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
-import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
-import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
-import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
-import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
-import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmRespond;
-import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
+import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -94,6 +91,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         calendarMonthYear = findViewById(R.id.tv_cd_YearMonth);
         calendarMonthYear.setText(localDate);
+
+        CallRetrofit callRetrofit = new CallRetrofit();
+        ArrayList<ScheduleItem> list = new ArrayList<ScheduleItem>();
+        int[] appts = new CallRetrofit().invitedAppts(userToken).getAppts();
+        for(int i = 0; i < appts.length; ++i) {
+            Model__apptInfo apptInfo = callRetrofit.apptInfo(userToken, appts[i]);
+            list.add(new ScheduleItem(apptInfo.getName(), apptInfo.getDestination(), apptInfo.getStartTime(), appts[i]));
+        }
+
+        RecyclerView recyclerView = findViewById(R.id.new_invitations) ;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)) ;
+
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
+        recyclerView.setAdapter(adapter) ;
+
+        Button close = findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                close.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+            }
+        });
 
         // drawer
         drawer = (DrawerLayout) findViewById(R.id.main_drawer) ;

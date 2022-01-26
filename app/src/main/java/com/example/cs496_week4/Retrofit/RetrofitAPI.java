@@ -3,6 +3,7 @@ package com.example.cs496_week4.Retrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptInvite;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__editApptInfo;
+import com.example.cs496_week4.Retrofit.Data.appt.Output__invitedAppts;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.map.Output__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.GET__userDeparture;
@@ -111,6 +112,9 @@ public interface RetrofitAPI {
 
     @GET("user/allusers")
     Call<Output__allUsers> getAllUsers(@Header("jwt") String token);
+
+    @GET("user/invited-appts")
+    Call<Output__invitedAppts> getInvitedAppts(@Header("jwt") String token);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")
