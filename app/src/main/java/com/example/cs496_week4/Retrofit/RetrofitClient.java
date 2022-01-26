@@ -35,7 +35,6 @@ public class RetrofitClient {
                 .registerTypeAdapter(wtmRespond_times.class, new wtmRespond_times_Deserializer())
                 .registerTypeAdapter(wtmRespond_wtm.class, new wtmRespond_wtm_Deserializer())
                 .registerTypeAdapter(wtmRespond_wtm_times.class, new wtmRespond_wtm_times_Deserializer())
-                //.registerTypeAdapter(userApptsDate_owned.class, new userApptsDate_owned_Deserializer())
                 .create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -135,22 +134,6 @@ public class RetrofitClient {
             // Deserialize it. You use a new instance of Gson to avoid infinite recursion
             // to this deserializer
             return new Gson().fromJson(content, wtmRespond_wtm_times.class);
-
-        }
-    }
-
-    private static class userApptsDate_owned_Deserializer implements JsonDeserializer<userApptsDate_owned>
-    {
-        @Override
-        public userApptsDate_owned deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
-                throws JsonParseException
-        {
-            // Get the "content" element from the parsed JSON
-            JsonElement content = je.getAsJsonObject().get("owned");
-
-            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
-            // to this deserializer
-            return new Gson().fromJson(content, userApptsDate_owned.class);
 
         }
     }
