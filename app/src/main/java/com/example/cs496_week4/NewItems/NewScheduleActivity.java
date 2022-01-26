@@ -1,14 +1,11 @@
 package com.example.cs496_week4.NewItems;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,12 +13,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -57,7 +52,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface{
+public class NewScheduleActivity extends AppCompatActivity implements PlaceSearchAdapter.OnListItemSelectedInterface, TimePickerFragment.OnTimeSetInterface {
     // fields
     private EditText sdName;
     private TextView sdStartDate;
@@ -287,11 +282,15 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
             }
             apptDate = year + "-" + month + "-" + day + "T";
 
-            String apptTime = sdStartTime.getText().toString()
-                    .replace(" PM", "");
+            String apptTime = sdStartTime.getText().toString();
             String[] timeSplitted = apptTime.split(":");
             String hour = timeSplitted[0];
             String minute = timeSplitted[1];
+            if(minute.substring(minute.length()-2, minute.length()).equals("PM") && Integer.parseInt(hour) != 12)
+                hour = Integer.toString(Integer.parseInt(hour)+12);
+            minute = minute
+                    .replace(" AM", "")
+                    .replace(" PM", "");
             if (hour.length() < 2) {
                 hour = "0" + hour;
             }
@@ -358,9 +357,10 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
             selectedHour -= 12;
             state = "PM";
         }
-        if (selectedHour == 0) selectedHour = 12;
+        if (selectedHour == 0 && state.equals("PM")) selectedHour = 12;
         hour = String.format("%02d", selectedHour);
         minute = String.format("%02d", selectedMinute);
+        hour = Integer.toString(Integer.parseInt(hour));
         timeStartString = hour + minute;
         sdStartTime.setText(hour + ":" + minute + " " + state);
         return;

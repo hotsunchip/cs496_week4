@@ -58,7 +58,15 @@ public class CheckScheduleActivity extends AppCompatActivity {
         apptId = intent.getIntExtra("apptId", -1);
         Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
         String date = apptInfo.getStartTime();
-        String time = Integer.toString(Integer.parseInt(date.substring(11, 13)));
+        int hour = Integer.parseInt(date.substring(11, 13));
+        String strHour;
+        String state = "AM";
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0 && state.equals("PM")) hour = 12;
+        strHour = Integer.toString(hour);
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
@@ -94,7 +102,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
         TextView csd_date = findViewById(R.id.tv_csd_date);
         csd_date.setText(date.substring(0, 4) + "년 " + date.substring(5, 7) + "월 " + date.substring(8, 10) + "일 ");
         TextView schedule_time = findViewById(R.id.tv_schedule_time);
-        schedule_time.setText(time + ":" + date.substring(14, 16));
+        schedule_time.setText(strHour + ":" + date.substring(14, 16) + state);
         TextView schedule_place_name = findViewById(R.id.tv_schedule_place_name);
         schedule_place_name.setText(apptInfo.getDestination());
         TextView schedule_place_addr = findViewById(R.id.tv_schedule_place_addr);
