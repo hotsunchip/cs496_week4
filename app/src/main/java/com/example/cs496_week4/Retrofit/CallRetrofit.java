@@ -15,6 +15,7 @@ import com.example.cs496_week4.Retrofit.Data.appt.Model__apptDelete;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptReject;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__allUsers;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
@@ -515,6 +516,31 @@ public class CallRetrofit {
 
         Model__editApptInfo[] output = new Model__editApptInfo[1];
         Call<Model__editApptInfo> call = RetrofitClient.getApiService().putAppUpdate(token, apptId, apptInfo);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    output[0] = call.execute().body();
+                }
+                catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(1000);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return output[0];
+    }
+
+    public Output__allUsers allUsers(String token) {
+
+        Output__allUsers[] output = new Output__allUsers[1];
+        Call<Output__allUsers> call = RetrofitClient.getApiService().getAllUsers(token);
         new Thread(new Runnable() {
             @Override
             public void run() {

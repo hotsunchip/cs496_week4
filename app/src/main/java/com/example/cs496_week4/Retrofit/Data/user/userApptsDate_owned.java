@@ -7,22 +7,6 @@ public class userApptsDate_owned {
     private String place;
     private String time;
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
     public int getIdentifier() {
         return identifier;
     }
@@ -39,13 +23,19 @@ public class userApptsDate_owned {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "userApptsDate_owned{" +
-                "identifier=" + identifier +
-                ", name='" + name + '\'' +
-                ", place='" + place + '\'' +
-                ", time='" + time + '\'' +
-                '}';
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

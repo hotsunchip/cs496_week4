@@ -2,35 +2,37 @@ package com.example.cs496_week4.Retrofit.Data.user;
 
 import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
 
-import java.util.List;
-
 public class Output__userApptsDate {
 
-    public void setOwned(List<userApptsDate_owned> owned) {
-        this.owned = owned;
+    private userApptsDate_owned[] owned;
+    private userApptsDate_owned[] invited;
+    private userApptsDate_owned[] accepted;
+
+    public userApptsDate_owned[] getOwned() {
+        return owned.clone();
     }
 
-    public void setInvited(List<userApptsDate_owned> invited) {
-        this.invited = invited;
+    public void setOwned(userApptsDate_owned[] owned) {
+        this.owned = owned.clone();
     }
 
-    public void setAccepted(List<userApptsDate_owned> accepted) {
-        this.accepted = accepted;
+    public userApptsDate_owned[] getInvited() {
+        return invited.clone();
     }
 
-    private List<userApptsDate_owned> owned;
-    private List<userApptsDate_owned> invited;
-    private List<userApptsDate_owned> accepted;
-
-    public List<userApptsDate_owned> getOwned() {
-        return owned;
+    public void setInvited(userApptsDate_owned[] invited) {
+        if(invited != null)
+            this.invited = invited.clone();
+        else this.invited = new userApptsDate_owned[]{};
     }
 
-    public List<userApptsDate_owned> getInvited() {
-        return invited;
+    public userApptsDate_owned[] getAccepted() {
+        return accepted.clone();
     }
 
-    public List<userApptsDate_owned> getAccepted() {
-        return accepted;
+    public void setAccepted(userApptsDate_owned[] accepted) {
+        if(accepted != null)
+            this.accepted = accepted.clone();
+        else this.accepted = new userApptsDate_owned[]{};
     }
 }
