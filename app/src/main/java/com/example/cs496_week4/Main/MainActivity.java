@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static String userName;
     public static String userEmail;
     public static String userToken;
+    public static String userPlace;
+    private static boolean isNewComer;
     private static FloatingActionButton mainFab;
     private static FloatingActionButton newScheduleFab;
     private static FloatingActionButton newGroupScheduleFab;
@@ -85,6 +87,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userName = intent.getStringExtra("userName");
         userEmail = intent.getStringExtra("userEmail");
         userToken = intent.getStringExtra("userToken");
+        isNewComer = intent.getBooleanExtra("isNewComer", false);
+        if (isNewComer) {
+            Intent setPlaceIntent = new Intent(MainActivity.this, CheckUserInfo.class);
+            setPlaceIntent.putExtra("isNewComer", isNewComer);
+            startActivity(setPlaceIntent);
+        }
 
         monthFormat = DateTimeFormatter.ofPattern("yyyy년 MM월").withLocale(Locale.forLanguageTag("ko"));
         localDate = LocalDateTime.now().format(monthFormat);

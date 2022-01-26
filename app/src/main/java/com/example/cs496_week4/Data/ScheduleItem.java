@@ -7,6 +7,9 @@ public class ScheduleItem {
     String ScheduleTime;
     int apptId;
 
+    public ScheduleItem() {
+
+    }
     public ScheduleItem(String scheduleName, String schedulePlace, String scheduleDate, int apptId) {
         this.scheduleName = scheduleName;
         this.schedulePlace = schedulePlace;
