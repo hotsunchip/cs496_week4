@@ -26,6 +26,7 @@ import com.example.cs496_week4.AdapterListener.PlaceSearchAdapter;
 import com.example.cs496_week4.CheckItems.CheckScheduleActivity;
 import com.example.cs496_week4.Data.SchedulePlace;
 import com.example.cs496_week4.Main.MainActivity;
+import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
 import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
@@ -48,6 +49,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -63,6 +65,7 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
     private ArrayList<SchedulePlace> placeList;
     public String responseBody;
     private int apptId;
+    private String timeStartString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +76,16 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
         Intent intent = getIntent();
         apptId = intent.getIntExtra("apptId", -1);
         Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
+        String date = apptInfo.getStartTime();
+        int hour = Integer.parseInt(date.substring(11, 13));
+        String strHour;
+        String state = "AM";
+        if (hour > 11) {
+            hour -= 12;
+            state = "PM";
+        }
+        if (hour == 0 && state.equals("PM")) hour = 12;
+        strHour = String.format("%02d", hour);
 
         placeList = new ArrayList<>();
 
@@ -98,8 +111,10 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
 
         sdName.setText(apptInfo.getName());
         sdPlace.setText(apptInfo.getDestination());
+        sdStartTime.setText(strHour + ":" + date.substring(14, 16) + state);
 
         // add additional works
+        Calendar mcurrentTime = Calendar.getInstance();
         sdStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -285,11 +300,15 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
             }
             apptDate = year + "-" + month + "-" + day + "T";
 
-            String apptTime = sdStartTime.getText().toString()
-                    .replace(" PM", "");
+            String apptTime = sdStartTime.getText().toString();
             String[] timeSplitted = apptTime.split(":");
             String hour = timeSplitted[0];
             String minute = timeSplitted[1];
+            if(minute.substring(minute.length()-2, minute.length()).equals("PM") && Integer.parseInt(hour) != 12)
+                hour = Integer.toString(Integer.parseInt(hour)+12);
+            minute = minute
+                    .replace(" AM", "")
+                    .replace(" PM", "");
             if (hour.length() < 2) {
                 hour = "0" + hour;
             }
@@ -309,7 +328,7 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
             Intent intent = new Intent(EditScheduleActivity.this, CheckScheduleActivity.class);
             intent.putExtra("apptId", apptId);
             startActivity(intent);
-            //this.finish();
+            this.finish();
         }
     }
 
@@ -349,6 +368,19 @@ public class EditScheduleActivity extends AppCompatActivity implements PlaceSear
 
     @Override
     public void onTimeSet(int selectedHour, int selectedMinute, int mode) {
-
+        String state = "AM";
+        String hour;
+        String minute;
+        if (selectedHour > 11) {
+            selectedHour -= 12;
+            state = "PM";
+        }
+        if (selectedHour == 0 && state.equals("PM")) selectedHour = 12;
+        hour = String.format("%02d", selectedHour);
+        minute = String.format("%02d", selectedMinute);
+        hour = Integer.toString(Integer.parseInt(hour));
+        timeStartString = hour + minute;
+        sdStartTime.setText(hour + ":" + minute + " " + state);
+        return;
     }
 }
