@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/myInfo"
-        android:icon="@mipmap/ic_launcher_round"
-        android:title="내 정보"
-        />
-
-    <item
         android:id="@+id/mySchedules"
         android:icon="@mipmap/ic_launcher_round"
         android:title="내 약속 모아보기"
@@ -20,9 +14,15 @@
         />
 
     <item
+        android:id="@+id/myInfo"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="내 위치 수정하기"
+        />
+
+    <item
     android:id="@+id/myLogOut"
    android:icon="@mipmap/ic_launcher_round"
-    android:title="로그아웃"
+    android:title="로그아웃하기"
     />
 
 </menu>

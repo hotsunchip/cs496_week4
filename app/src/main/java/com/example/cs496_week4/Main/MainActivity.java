@@ -310,11 +310,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.myInfo:
-                Log.e("DrawerClicked", "myInfo");
-                Intent userInfoIntent = new Intent(MainActivity.this, CheckUserInfo.class);
-                startActivity(userInfoIntent);
-                break;
             case R.id.mySchedules:
                 Log.e("DrawerClicked", "mySchedules");
                 Intent allScheduleIntent = new Intent(MainActivity.this, CheckAllSchedulesActivity.class);
@@ -324,6 +319,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.e("DrawerClicked", "myTimeTables");
                 Intent allTimeTableIntent = new Intent(MainActivity.this, CheckAllTimeTablesActivity.class);
                 startActivity(allTimeTableIntent);
+                break;
+            case R.id.myInfo:
+                Log.e("DrawerClicked", "myInfo");
+                Intent userInfoIntent = new Intent(MainActivity.this, CheckUserInfo.class);
+                startActivity(userInfoIntent);
                 break;
             case R.id.myLogOut:
                 Intent logOutIntent = new Intent(MainActivity.this, LoginActivity.class);
