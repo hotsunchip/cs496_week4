@@ -6,6 +6,16 @@ public class ScheduleItem {
     String scheduleDate;
     String ScheduleTime;
 
+    public String getScheduleOwner() {
+        return ScheduleOwner;
+    }
+
+    public void setScheduleOwner(String scheduleOwner) {
+        ScheduleOwner = scheduleOwner;
+    }
+
+    String ScheduleOwner;
+
 
     public String getScheduleName() {
         return scheduleName;

@@ -53,11 +53,14 @@ public class LoginActivity extends AppCompatActivity {
     private String mPassWord;
     private CallRetrofit callRetrofit;
 
+    private static String userName="";
+    private static String userEmail="";
+    private static String userToken="";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         Intent intent = getIntent();
 
@@ -137,7 +140,9 @@ public class LoginActivity extends AppCompatActivity {
     private void startLogin(Input__signIn data) {
         Output__signIn call_login = callRetrofit.signIn(data);
         String message = call_login.getMessage();
-        MainActivity.userToken = call_login.getToken();
+        userToken = call_login.getToken();
+        userName = mName;
+        userEmail = mEmail;
         Log.e("startLogin", call_login.toString());
         moveMain();
     }
@@ -190,7 +195,9 @@ public class LoginActivity extends AppCompatActivity {
     private void startJoin(Input__signUp data) {
         Output__signUp call_join = callRetrofit.signUp(data);
         String message = call_join.getMessage();
-        MainActivity.userToken = call_join.getToken();
+        userToken = call_join.getToken();
+        userName = mName;
+        userEmail = mEmail;
         Log.e("startJoin", call_join.toString());
         moveMain();
     }
@@ -209,6 +216,9 @@ public class LoginActivity extends AppCompatActivity {
     private void moveMain() {
         mProgressView.setVisibility(View.GONE);
         Intent startApp = new Intent(this, MainActivity.class);
+        startApp.putExtra("userName", userName);
+        startApp.putExtra("userEmail", userEmail);
+        startApp.putExtra("userToken", userToken);
         startActivity(startApp);
         finish();
     }

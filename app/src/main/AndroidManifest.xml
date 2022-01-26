@@ -8,9 +8,9 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cs496_week4"
         android:usesCleartextTraffic="true">
@@ -25,8 +25,12 @@
         </activity>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Main.CodeActivity" />
+        <activity android:name=".CheckItems.CheckDestPosition" />
         <activity android:name=".CheckItems.CheckScheduleActivity" />
         <activity android:name=".CheckItems.CheckTimeTableActivity" />
+        <activity android:name=".CheckItems.CheckAllSchedulesActivity" />
+        <activity android:name=".CheckItems.CheckAllTimeTablesActivity" />
+        <activity android:name=".CheckItems.CheckUserInfo" />
         <activity android:name=".NewItems.NewTimeTableActivity" />
         <activity android:name=".NewItems.NewMeetingPlaceActivity" />
         <activity android:name=".NewItems.NewScheduleActivity" />
