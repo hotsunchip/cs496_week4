@@ -3,25 +3,21 @@
 
     <item
         android:id="@+id/mySchedules"
-        android:icon="@mipmap/ic_launcher_round"
         android:title="내 약속 모아보기"
         />
 
     <item
         android:id="@+id/myTimeTables"
-        android:icon="@mipmap/ic_launcher_round"
         android:title="내 티티 모아보기"
         />
 
     <item
         android:id="@+id/myInfo"
-        android:icon="@mipmap/ic_launcher_round"
         android:title="내 위치 수정하기"
         />
 
     <item
     android:id="@+id/myLogOut"
-   android:icon="@mipmap/ic_launcher_round"
     android:title="로그아웃하기"
     />
 

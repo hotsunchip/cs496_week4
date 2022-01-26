@@ -56,6 +56,7 @@ public class CheckUserInfo extends AppCompatActivity implements PlaceSearchAdapt
     private RecyclerView recyclerView_placeSearch;
     private static PlaceSearchAdapter searchAdapter;
     private ArrayList<SchedulePlace> placeList;
+    private boolean isNewComer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,20 +65,32 @@ public class CheckUserInfo extends AppCompatActivity implements PlaceSearchAdapt
 
 
         Intent intent = getIntent();
+        isNewComer = intent.getBooleanExtra("isNewComer", false);
         placeList = new ArrayList<>();
 
         // set toolbar
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("내 위치 수정하기");
+
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if (isNewComer) {
+            title.setText("내 위치 등록하기");
+            if (actionBar != null) {
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(false);
+            }
+        } else {
+            title.setText("내 위치 수정하기");
+            if (actionBar != null) {
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
+
         et_userPlace = findViewById(R.id.et_user_place);
         recyclerView_placeSearch = findViewById(R.id.recycler_view_place);
+        if (!isNewComer) et_userPlace.setText(MainActivity.userPlace);
         et_userPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -125,7 +138,12 @@ public class CheckUserInfo extends AppCompatActivity implements PlaceSearchAdapt
             CallRetrofit callRetrofit = new CallRetrofit();
             String token = MainActivity.userToken;
 
-            Toast.makeText(this, "내 위치가 수정되었습니다", Toast.LENGTH_LONG).show();
+            if (isNewComer) {
+                Toast.makeText(this, "내 위치가 등록되었습니다", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "내 위치가 수정되었습니다", Toast.LENGTH_LONG).show();
+            }
+            MainActivity.userPlace = place;
             this.finish();
         }
     }
@@ -248,7 +266,8 @@ public class CheckUserInfo extends AppCompatActivity implements PlaceSearchAdapt
                 placeList.clear();
                 for (Map item : items) {
                     SchedulePlace place = new SchedulePlace();
-                    place.setPlaceName((String) item.get("title"));
+                    String name = (String) item.get("title");
+                    place.setPlaceName( name.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
                     place.setPlaceAddress((String) item.get("roadAddress"));
                     placeList.add(place);
                 }

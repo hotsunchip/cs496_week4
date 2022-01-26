@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private static String userName="";
     private static String userEmail="";
     private static String userToken="";
+    private static boolean isNewComer=false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -199,6 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         userName = mName;
         userEmail = mEmail;
         Log.e("startJoin", call_join.toString());
+        isNewComer = true;
         moveMain();
     }
 
@@ -219,6 +221,7 @@ public class LoginActivity extends AppCompatActivity {
         startApp.putExtra("userName", userName);
         startApp.putExtra("userEmail", userEmail);
         startApp.putExtra("userToken", userToken);
+        startApp.putExtra("isNewComer", isNewComer);
         startActivity(startApp);
         finish();
     }
