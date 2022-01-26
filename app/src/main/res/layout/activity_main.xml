@@ -11,14 +11,13 @@
         android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="right"
         android:clickable="false"
-        app:layout_constraintTop_toTopOf="parent"
+        android:fitsSystemWindows="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:openDrawer="right">
 
         <!-- main content -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,16 +25,17 @@
             android:layout_height="match_parent"
             android:clickable="false"
             app:layout_constraintBottom_toBottomOf="parent">
+
             <TextView
                 android:id="@+id/tv_cd_YearMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:text="2021 - 12"
                 android:textAlignment="center"
-                android:textSize="@dimen/textHugeSize"
                 android:textColor="@color/off_white"
+                android:textSize="@dimen/textHugeSize"
                 android:textStyle="bold"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 app:layout_constraintBottom_toBottomOf="@+id/main_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -58,8 +58,8 @@
                 android:id="@+id/frame_layout_main"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:focusable="true"
                 android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,35 +81,36 @@
                 android:id="@+id/newScheduleFabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginEnd="@dimen/fab_margin"
+                android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/mainFab"
-                app:layout_constraintEnd_toStartOf="@id/mainFab"
-                >
+                app:layout_constraintEnd_toStartOf="@id/mainFab">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="개인 일정 추가"
-                    android:textSize="@dimen/textSmallTinySize"
-                    android:textColor="@color/off_white"
                     android:layout_marginBottom="@dimen/fragment_vertical_margin"
+                    android:text="개인 일정 추가"
+                    android:textColor="@color/off_white"
+                    android:textSize="@dimen/textSmallTinySize"
                     app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
-                    app:layout_constraintStart_toStartOf="@id/newScheduleFab"
-                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"
+                    app:layout_constraintStart_toStartOf="@id/newScheduleFab" />
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/newScheduleFab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:clickable="true"
+                    android:contentDescription="newSchedule"
                     android:focusable="true"
                     android:src="@android:drawable/ic_menu_my_calendar"
-                    app:elevation="0dp"
                     app:backgroundTint="@color/green_200"
-                    app:tint="@color/off_white"
-                    android:contentDescription="newSchedule" />
+                    app:elevation="0dp"
+                    app:tint="@color/off_white" />
 
             </LinearLayout>
 
@@ -117,36 +118,37 @@
                 android:id="@+id/newGroupScheduleFabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="28dp"
+                android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/mainFab"
                 app:layout_constraintEnd_toEndOf="@+id/mainFab"
-                app:layout_constraintStart_toStartOf="@+id/mainFab"
-                >
+                app:layout_constraintStart_toStartOf="@+id/mainFab">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/fragment_vertical_margin"
                     android:text="그룹 일정 추가"
                     android:textColor="@color/off_white"
                     android:textSize="@dimen/textSmallTinySize"
-                    android:layout_marginBottom="@dimen/fragment_vertical_margin"
                     app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
-                    app:layout_constraintStart_toStartOf="@id/newScheduleFab"
-                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"
+                    app:layout_constraintStart_toStartOf="@id/newScheduleFab" />
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/newGroupScheduleFab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:clickable="true"
+                    android:contentDescription="newSchedule"
                     android:focusable="true"
                     android:src="@android:drawable/ic_menu_today"
-                    app:elevation="0dp"
                     app:backgroundTint="@color/green_200"
-                    app:tint="@color/off_white"
-                    android:contentDescription="newSchedule" />
+                    app:elevation="0dp"
+                    app:tint="@color/off_white" />
 
             </LinearLayout>
 
@@ -154,35 +156,36 @@
                 android:id="@+id/newTimeTableFabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="@dimen/fab_margin"
+                android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/mainFab"
-                app:layout_constraintStart_toEndOf="@id/mainFab"
-                >
+                app:layout_constraintStart_toEndOf="@id/mainFab">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="새 웬투밋 생성"
-                    android:textSize="@dimen/textSmallTinySize"
-                    android:textColor="@color/off_white"
                     android:layout_marginBottom="@dimen/fragment_vertical_margin"
+                    android:text="새 웬투밋 생성"
+                    android:textColor="@color/off_white"
+                    android:textSize="@dimen/textSmallTinySize"
                     app:layout_constraintBottom_toTopOf="@id/newScheduleFab"
-                    app:layout_constraintStart_toStartOf="@id/newScheduleFab"
-                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"/>
+                    app:layout_constraintEnd_toEndOf="@id/newScheduleFab"
+                    app:layout_constraintStart_toStartOf="@id/newScheduleFab" />
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/newTimeTableFab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:clickable="true"
+                    android:contentDescription="newSchedule"
                     android:focusable="true"
                     android:src="@android:drawable/ic_menu_my_calendar"
-                    app:elevation="0dp"
                     app:backgroundTint="@color/green_200"
-                    app:tint="@color/off_white"
-                    android:contentDescription="newSchedule" />
+                    app:elevation="0dp"
+                    app:tint="@color/off_white" />
 
             </LinearLayout>
 
@@ -193,14 +196,14 @@
                 android:layout_gravity="bottom|center"
                 android:layout_marginBottom="@dimen/fab_margin"
                 android:clickable="true"
+                android:contentDescription="menu"
                 android:focusable="true"
                 android:src="@android:drawable/ic_input_add"
                 app:backgroundTint="@color/off_white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@color/blue_300"
-                android:contentDescription="menu" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/blue_300" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -218,31 +221,46 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_invitations"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닫기"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/new_invitations"/>
+
     <!--socket server connection test-->
-<!--    <LinearLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
+    <!--    <LinearLayout-->
+    <!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical">-->
 
-<!--        <EditText-->
-<!--            android:id="@+id/dataInput"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="보낼 데이터"-->
-<!--            android:textSize="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_gravity="center_horizontal"/>-->
+    <!--        <EditText-->
+    <!--            android:id="@+id/dataInput"-->
+    <!--            android:layout_width="200dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="보낼 데이터"-->
+    <!--            android:textSize="20dp"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:layout_gravity="center_horizontal"/>-->
 
-<!--        <Button-->
-<!--            android:id="@+id/socketConnectBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="서버 전송"-->
-<!--            android:textSize="24dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_gravity="center_horizontal"/>-->
+    <!--        <Button-->
+    <!--            android:id="@+id/socketConnectBtn"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="서버 전송"-->
+    <!--            android:textSize="24dp"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:layout_gravity="center_horizontal"/>-->
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
