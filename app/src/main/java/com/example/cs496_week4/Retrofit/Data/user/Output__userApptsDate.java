@@ -4,16 +4,16 @@ import com.example.cs496_week4.Retrofit.Data.wtm.wtmRespond_times;
 
 public class Output__userApptsDate {
 
-    private userApptsDate_owned owned;
+    private userApptsDate_owned[] owned;
     private userApptsDate_owned[] invited;
     private userApptsDate_owned[] accepted;
 
-    public userApptsDate_owned getOwned() {
-        return owned;
+    public userApptsDate_owned[] getOwned() {
+        return owned.clone();
     }
 
-    public void setOwned(userApptsDate_owned owned) {
-        this.owned = owned;
+    public void setOwned(userApptsDate_owned[] owned) {
+        this.owned = owned.clone();
     }
 
     public userApptsDate_owned[] getInvited() {

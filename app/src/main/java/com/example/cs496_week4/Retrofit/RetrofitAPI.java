@@ -10,6 +10,7 @@ import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
 import com.example.cs496_week4.Retrofit.Data.appt.Model__apptInfo;
 import com.example.cs496_week4.Retrofit.Data.user.Output__Coordinate;
+import com.example.cs496_week4.Retrofit.Data.user.Output__allUsers;
 import com.example.cs496_week4.Retrofit.Data.user.Output__userApptsDate;
 import com.example.cs496_week4.Retrofit.Data.user.POST__userDeparture;
 import com.example.cs496_week4.Retrofit.Data.wtm.Input__wtmCreate;
@@ -97,7 +98,7 @@ public interface RetrofitAPI {
     Call<GET__userDeparture> getUserDeparture(@Header("jwt") String token, @Query("username") String username);
 
     @GET("user/appts-date")
-    Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token);
+    Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token, @Query("date") String date);
 
     @POST("map/set-alarm")
     Call<Output__setAlarm> postSetAlarm(@Header("jwt") String token, @Body Input__setAlarm input);
@@ -107,6 +108,9 @@ public interface RetrofitAPI {
 
     @PUT("appt/edit")
     Call<Model__editApptInfo> putAppUpdate(@Header("jwt") String token, @Query("apptId") int apptId, @Body Input__apptCreate input);
+
+    @GET("user/allusers")
+    Call<Output__allUsers> getAllUsers(@Header("jwt") String token);
 
     //@FormUrlEncoded
     //@POST("/auth/overlapChecker")

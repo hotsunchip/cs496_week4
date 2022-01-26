@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import com.example.cs496_week4.NewItems.NewScheduleActivity;
 import com.example.cs496_week4.R;
 import com.example.cs496_week4.Retrofit.CallRetrofit;
+import com.example.cs496_week4.Retrofit.Data.appt.Input__apptCreate;
 import com.example.cs496_week4.Retrofit.Data.map.Input__setAlarm;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signIn;
 import com.example.cs496_week4.Retrofit.Data.user.Input__signUp;
@@ -176,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
         //Log.d("token", token);
         //Log.d("resetpwd", Boolean.toString(callRetrofit.resetPassword(token, "666")));
         //Log.d("wtmCreate", callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", null)).toString());
-        /*int apptId = callRetrofit.apptCreate(token, new Input__apptCreate("appt1", "2022-01-02T08:00", new float[]{-79.3968307f, 43.6656976f})).getApptIdentifier();
-        Log.d("accept", callRetrofit.apptAccept(token, apptId).getError());
+        //int apptId = callRetrofit.apptCreate(userToken, new Input__apptCreate("appt1", "2022-01-02T08:00", "카이스트 본원")).getApptIdentifier();
+        /*Log.d("accept", callRetrofit.apptAccept(token, apptId).getError());
         Log.d("reject", callRetrofit.apptReject(token, apptId).getError());
         Log.d("apptInfo", callRetrofit.apptInfo(token, apptId).getOwner());
         Log.d("delete", callRetrofit.apptDelete(token, apptId).getResult());*/
@@ -185,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         //int wtmId = callRetrofit.wtmCreate(token, new Input__wtmCreate("test000", new String[]{"2022-01-01", "2022-01-02", "2022-01-03"}, "0600", "1300", new String[]{})).getWtmId();
         //Log.d("wtmRespond", callRetrofit.wtmRespond(token, new Input__wtmRespond(933, new wtmRespond_times[]{new wtmRespond_times("2022-01-02", new String[]{"0800", "0900", "1000"})})).getWtm()[0].get_id());
         //Log.d("setAlarm", "setAlarm: " + callRetrofit.setAlarm(token, new Input__setAlarm(new double[]{42.448139, -71.260108, 42.3793386, -71.0676069}, "dJwXjQv8S62Il2g-hBUT67:APA91bGI521s_mxPO0ZVzUwh4nPYqOQ10B77Viw6jnpA-2pAo8fvauXPCI8D3ejPWrnlgIiDOM44diubrQIfJkEMs8rxBlJrIbfAoXCCzy6WVxXxupxt0lGDn8uld_M9j8twZE52SVbV", "2022-01-25T17:00")).getTime());
+        //Log.d("apptsDate", callRetrofit.userApptsDate(userToken, "2022-01-02").getOwned()[0].getName());
 
         // Get Firebase Device Token
         /*FirebaseMessaging.getInstance().getToken()

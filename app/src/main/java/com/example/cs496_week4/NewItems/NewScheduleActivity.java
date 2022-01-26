@@ -308,6 +308,7 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
 
             Toast.makeText(this, "내 일정에 추가되었습니다", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(NewScheduleActivity.this, CheckScheduleActivity.class);
+            Log.d("apptId", createdAppt.getApptIdentifier()+"");
             intent.putExtra("apptId", createdAppt.getApptIdentifier());
             startActivity(intent);
             this.finish();

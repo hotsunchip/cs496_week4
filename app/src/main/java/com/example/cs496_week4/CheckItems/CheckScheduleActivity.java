@@ -52,10 +52,10 @@ public class CheckScheduleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         scheduleName = intent.getStringExtra("scheduleName");
+        apptId = intent.getIntExtra("apptId", -1);
         scheduleMember = new ArrayList<>();
 
 
-        apptId = intent.getIntExtra("apptId", -1);
         Model__apptInfo apptInfo = new CallRetrofit().apptInfo(MainActivity.userToken, apptId);
         String date = apptInfo.getStartTime();
         int hour = Integer.parseInt(date.substring(11, 13));
@@ -91,6 +91,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent addMemberIntent = new Intent(CheckScheduleActivity.this, NewMemberActivity.class);
+                addMemberIntent.putExtra("apptId", apptId);
                 startActivity(addMemberIntent);
             }
         });
