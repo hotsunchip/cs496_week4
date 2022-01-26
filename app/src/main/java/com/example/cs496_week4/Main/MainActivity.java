@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView calendarMonthYear;
     private DateTimeFormatter monthFormat;
-    private String localDate;
+    public static String localDate;
 
     private static boolean mClicked = false;
 

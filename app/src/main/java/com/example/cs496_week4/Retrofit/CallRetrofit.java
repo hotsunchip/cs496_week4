@@ -436,11 +436,11 @@ public class CallRetrofit {
         return output[0];
     }
 
-    public Output__userApptsDate userApptsDate(String token){
+    public Output__userApptsDate userApptsDate(String token, String date){
 
         //Retrofit 호출
         Output__userApptsDate[] output = new Output__userApptsDate[1];
-        Call<Output__userApptsDate> call = RetrofitClient.getApiService().getUserApptsDate(token);
+        Call<Output__userApptsDate> call = RetrofitClient.getApiService().getUserApptsDate(token, date);
         new Thread(new Runnable() {
             @Override
             public void run() {

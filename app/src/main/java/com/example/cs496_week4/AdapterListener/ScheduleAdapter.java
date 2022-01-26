@@ -41,7 +41,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         holder.tvName.setText(mList.get(position).getScheduleName());
         holder.tvDate.setText(mList.get(position).getScheduleDate());
         holder.tvTime.setText(mList.get(position).getScheduleTime());
-        holder.tvPlace.setText(mList.get(position).getSchedulePlace().getPlaceName());
+        holder.tvPlace.setText(mList.get(position).getSchedulePlace());
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.

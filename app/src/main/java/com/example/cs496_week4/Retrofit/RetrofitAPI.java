@@ -97,7 +97,7 @@ public interface RetrofitAPI {
     Call<GET__userDeparture> getUserDeparture(@Header("jwt") String token, @Query("username") String username);
 
     @GET("user/appts-date")
-    Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token);
+    Call<Output__userApptsDate> getUserApptsDate(@Header("jwt") String token, @Query("date") String date);
 
     @POST("map/set-alarm")
     Call<Output__setAlarm> postSetAlarm(@Header("jwt") String token, @Body Input__setAlarm input);
