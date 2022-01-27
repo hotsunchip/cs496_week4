@@ -13,17 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cs496_week4.AdapterListener.DragSelectionItemTouchListener;
+import com.example.cs496_week4.AdapterListener.LongPressItemTouchListener;
+import com.example.cs496_week4.AdapterListener.TimeTableBlockAdapter;
 import com.example.cs496_week4.AdapterListener.TimeTableTimeAdapter;
 import com.example.cs496_week4.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.example.cs496_week4.AdapterListener.DragSelectionItemTouchListener;
-import com.example.cs496_week4.AdapterListener.LongPressItemTouchListener;
-import com.example.cs496_week4.AdapterListener.TimeTableBlockAdapter;
-
-public class FragmentTimeTable extends Fragment implements TimeTableBlockAdapter.OnListItemSelectedInterface{
+public class FragmentTimeTableAll extends Fragment implements TimeTableBlockAdapter.OnListItemSelectedInterface{
     // fields
     private int num_day;
     private int num_block; // if (time_end < time_start) time_end += 24 * 2
@@ -43,21 +42,22 @@ public class FragmentTimeTable extends Fragment implements TimeTableBlockAdapter
     private LinearLayout.LayoutParams layout_params;
     // _data
     ArrayList<Integer> mTimesAvailable;
+    ArrayList<Integer> mTimesSample;
     private String[] time_list;
     private String[] timeRange_day;
     private String time_start_string;
     private String time_end_string;
 
     // Required empty public constructor
-    public FragmentTimeTable(int days, String start, String end) {
+    public FragmentTimeTableAll(int days, String start, String end) {
         num_day = days;
         time_start_string = start;
         time_end_string = end;
 
     }
 
-    public static FragmentTimeTable newInstance(int days, String start, String end) {
-        FragmentTimeTable fragment = new FragmentTimeTable(days, start, end);
+    public static FragmentTimeTableAll newInstance(int days, String start, String end) {
+        FragmentTimeTableAll fragment = new FragmentTimeTableAll(days, start, end);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -67,6 +67,13 @@ public class FragmentTimeTable extends Fragment implements TimeTableBlockAdapter
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 변수 초기화
+        mTimesSample = new ArrayList<Integer>();
+        mTimesSample.add(5);
+        mTimesSample.add(15);
+        mTimesSample.add(35);
+        mTimesSample.add(75);
+        mTimesSample.add(95);
+        mTimesSample.add(115);
 
         timeRange_day = getResources().getStringArray(R.array.timeRange_day);
         time_start = Arrays.binarySearch(timeRange_day, time_start_string);
@@ -125,7 +132,7 @@ public class FragmentTimeTable extends Fragment implements TimeTableBlockAdapter
         time_table_block.setLayoutManager(new GridLayoutManager(getActivity(), num_day, GridLayoutManager.VERTICAL, false));
 
         // 리사이클러Fragment1WeekCalender뷰에 SimpleTextAdapter 객체 지정.
-        TimeTableBlockAdapter blockAdapter = new TimeTableBlockAdapter(getContext(), this::onItemSelected, num_block * num_day, new ArrayList<>());
+        TimeTableBlockAdapter blockAdapter = new TimeTableBlockAdapter(getContext(), this::onItemSelected, num_block * num_day, mTimesSample);
         time_table_block.setAdapter(blockAdapter);
 
         time_table_block.addOnItemTouchListener(new DragSelectionItemTouchListener(getContext(), new LongPressItemTouchListener.OnItemInteractionListener() {

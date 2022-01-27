@@ -41,7 +41,7 @@ public class TimeTableBlockAdapter extends RecyclerView.Adapter<TimeTableBlockAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (mAvailable.contains(position)) {
             holder.selected = true;
-            holder.btn.setBackgroundColor(Color.RED);
+            holder.btn.setBackgroundColor(Color.parseColor("#FF51AF7E"));
         }
     }
 

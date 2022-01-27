@@ -3,6 +3,7 @@ package com.example.cs496_week4.Main;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             list.add(new ScheduleItem(apptInfo.getName(), apptInfo.getDestination(), apptInfo.getStartTime(), appts[i]));
         }
 
+        CardView invitationsCard = findViewById(R.id.new_invitations_card);
         RecyclerView recyclerView = findViewById(R.id.new_invitations) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(this)) ;
 
@@ -115,12 +117,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
         recyclerView.setAdapter(adapter) ;
 
-        Button close = findViewById(R.id.close);
+        ImageButton close = findViewById(R.id.close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 close.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
+                invitationsCard.setVisibility(View.GONE);
             }
         });
 

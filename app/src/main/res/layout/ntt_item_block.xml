@@ -9,7 +9,7 @@
         android:id="@+id/layout_ntt_item"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        android:background="@color/beige_500"
+        android:background="@color/gray_100"
         android:layout_marginHorizontal="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

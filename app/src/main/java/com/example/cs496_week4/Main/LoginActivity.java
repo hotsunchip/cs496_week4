@@ -68,7 +68,10 @@ public class LoginActivity extends AppCompatActivity {
         // set login toolbar
         Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
 
         // connect with items
         callRetrofit = new CallRetrofit();

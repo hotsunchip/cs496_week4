@@ -91,6 +91,7 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
         sdName = findViewById(R.id.et_nsd_name);
         sdStartDate = findViewById(R.id.tv_nsd_start_date);
         sdStartTime = findViewById(R.id.tv_nsd_start_time);
+        TextView sdPlaceBring = findViewById(R.id.bringMyPlace);
         sdPlace = findViewById(R.id.et_nsd_place);
         sdPlaceList = findViewById(R.id.recycler_view_place);
 
@@ -110,6 +111,12 @@ public class NewScheduleActivity extends AppCompatActivity implements PlaceSearc
             public void onClick(View view) {
                 TimePickerFragment mTimePickerFragment = new TimePickerFragment(TimePickerFragment.CURRENT_TIME, NewScheduleActivity.this);
                 mTimePickerFragment.show(getSupportFragmentManager(), TimePickerFragment.FRAGMENT_TAG);
+            }
+        });
+        sdPlaceBring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sdPlace.setText(MainActivity.userPlace);
             }
         });
         sdPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {

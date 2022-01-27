@@ -92,8 +92,8 @@ public class TimePickerFragment extends DialogFragment {
                 ViewGroup tpLayout = (ViewGroup) tp;
 
                 ViewGroup layout = (ViewGroup) tpLayout.getChildAt(0);
-                LinearLayout llayout = (LinearLayout) layout.getChildAt(1);
-                Log.e("ChildCount", String.valueOf(layout.getChildCount()));
+                LinearLayout llayout = (LinearLayout) layout.getChildAt(0);
+                Log.e("ChildCount", String.valueOf(llayout.getChildCount()));
 
                 // Customize minute NumberPicker
                 NumberPicker minutePicker = (NumberPicker) llayout.getChildAt(2);

@@ -62,12 +62,12 @@ public class DatePickerFragment extends DialogFragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                DatePicker tp = mDatePickerDialog.findViewById(R.id.timePicker);
+                DatePicker tp = mDatePickerDialog.findViewById(R.id.datePicker);
                 tp.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                         year = i;
-                        month = i1;
+                        month = i1 + 1;
                         day = i2;
                     }
                 });
