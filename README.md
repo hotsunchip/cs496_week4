@@ -6,7 +6,7 @@
 
 ## 1. 회원가입
 
-https://user-images.githubusercontent.com/93712189/151423398-d5e36b5b-c53c-4abd-90c3-07ac7264685f.gif
+![회원가입 및 내 위치 수정하기](https://user-images.githubusercontent.com/93712189/151428395-d18b3b24-8b5f-41f0-b53f-7ce31fe1d89d.gif)
 
 - 로그인 및 회원가입은 서버에 아이디와 비밀번호를 POST하고 토큰을 받아오는 방식으로 구현하였다.
 - 내 위치 수정하기 기능은 추후 구현할 예정인 정시에 약속장소에 도착하기 위한 출발시간을 계산할 때 사용할 예정이다.
