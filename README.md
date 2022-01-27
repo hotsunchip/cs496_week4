@@ -8,6 +8,14 @@
 
 ![회원가입 및 내 위치 수정하기](https://user-images.githubusercontent.com/93712189/151428395-d18b3b24-8b5f-41f0-b53f-7ce31fe1d89d.gif)
 
+![FAB](https://user-images.githubusercontent.com/93712189/151428696-4ec36ccf-a0f2-4c40-9a7a-de45b4dc6b1b.gif)
+
+![새 약속 만들기](https://user-images.githubusercontent.com/93712189/151428705-dbd5c509-7f4d-4939-a880-519d75b5c555.gif)
+
+![약속 수정하기](https://user-images.githubusercontent.com/93712189/151428716-7d6d43a9-0ec3-4b8c-ae5c-5bee18bc8305.gif)
+
+![멤버 추가하기](https://user-images.githubusercontent.com/93712189/151428728-a4eb441f-b3ea-465e-bb12-24225ba51202.gif)
+
 - 로그인 및 회원가입은 서버에 아이디와 비밀번호를 POST하고 토큰을 받아오는 방식으로 구현하였다.
 - 내 위치 수정하기 기능은 추후 구현할 예정인 정시에 약속장소에 도착하기 위한 출발시간을 계산할 때 사용할 예정이다.
 - 내 위치에 해당하는 주소를 회원정보에 저장한다.
