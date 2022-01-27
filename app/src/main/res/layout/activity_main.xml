@@ -65,6 +65,51 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/main_profile" />
 
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/new_invitations_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="80dp"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="새로운 초대가 없습니다!"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/new_invitations"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scrollbars="vertical"
+                        android:layout_margin="@dimen/fragment_vertical_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageButton
+                        android:id="@+id/close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_close_gray"
+                        android:background="@color/transparent"
+                        app:layout_constraintRight_toRightOf="@id/new_invitations"
+                        app:layout_constraintTop_toTopOf="@id/new_invitations"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
             <!-- tab -->
             <!--    <com.google.android.material.tabs.TabLayout-->
             <!--        android:id="@+id/tab_layout"-->
@@ -220,21 +265,6 @@
         </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/new_invitations"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="닫기"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/new_invitations"/>
 
     <!--socket server connection test-->
     <!--    <LinearLayout-->
