@@ -65,5 +65,5 @@
 2022.01.27.
 시간에 쫓겨 마무리하지 못했던 일부 기능과 UI를 수정하였다.
 | <img src="https://user-images.githubusercontent.com/82590037/152349525-d5be0aca-1747-4567-8227-d4a9ce71466e.jpg" width="360"> | <img src="https://user-images.githubusercontent.com/82590037/152349529-b46670ac-9e2f-4bcb-8d09-3005dba9921f.jpg" width="360"> | <img src="https://user-images.githubusercontent.com/82590037/152349538-245b9959-1112-4a48-a29f-b57f3c649c7a.jpg" width="360"> | <img src="https://user-images.githubusercontent.com/82590037/152349530-9d4ab2d1-0c1e-471e-a28c-bfdbd2442ee4.gif" width="360"> | <img src="https://user-images.githubusercontent.com/82590037/152349535-26cb797b-3c86-4b37-882b-8718bd4d3a39.gif" width="360"> |
-|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|
 |로그인 화면|메인 화면|우측 드로어|위치 수정하기|티티 UI 수정|
